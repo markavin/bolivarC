@@ -17,7 +17,7 @@ class PembelianSeeder extends Seeder
         Pembelian::factory()->create([
             'id_pembelian' => '83cf11b3-5ae8-4076-a50c-06236a8ffbf6',
             'tanggalpembelian' => Carbon::now(),
-            'totalHarga' => 500.000 ,
+            'totalHarga' => 500000 ,
             'id_pengguna'=> 2,
         ]);
         Pembelian::factory()->create([
