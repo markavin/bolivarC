@@ -1,91 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bolívar Coffee - Login</title>
+
     <style>
-        /* Styling halaman */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: #e0e0e0; /* Ubah warna latar belakang */
+            background-image: url("{{ asset('/img/bglogin.jpg') }}");
+            background-size: cover;
+            background-position: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color:  rgba(255, 255, 255, 0.1); /* 70% opacity */
+            z-index: -1; /* Keeps the overlay behind the content */
         }
 
         .login-container {
             background-color: #4b5b4e;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 30px;
+            /* border-inline-color: #ffffff; */
+            box-shadow: 0 0 20px rgba(255, 219, 120, 0.2);
             width: 400px;
             text-align: center;
-            color: #f7f5ee;
+            color: #ffffff;
+            font-size: 15px;
         }
 
         .login-container img {
-            width: 80px;
-            margin-bottom: 10px;
+            width: 120px;
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
 
         .login-container h2 {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #f5e0c3;
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0;
+            color: #FFD9B4;
         }
 
-        .tabs {
+        /* .tabs {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
-        }
+            margin-bottom: 15px;
+        } */
 
-        .tabs button {
-            background-color: #c2b59b;
+        /* .tabs button {
+            background-color: #FFD9B4 (255, 217, 180, 0.6);
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 25px;
             cursor: pointer;
             color: #4b5b4e;
             font-weight: bold;
-            transition: background-color 0.3s;
-        }
+            transition: background-color 0.5s;
+            flex: 1;
+            margin: 0 5px;
+        } */
 
-        .tabs button.active {
-            background-color: #f5e0c3;
-        }
+        /* .tabs button.active {
+            background-color: #FFD9B4;
+        } */
 
         .input-group {
-            margin: 15px 0;
+            margin: 10px 0;
             text-align: left;
         }
 
         .input-group label {
             display: block;
             margin-bottom: 5px;
+            color: #FFD9B4;
+            font-size: 13px;
         }
 
         .input-group input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            width: 95%;
+            padding: 12px;
+            border-radius: 10px;
+            /* border-inline-color: #FFD9B4; */
+            border: 1px solid #ffffff;
             margin-top: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            font-size: 10px;
         }
-
+       
         .forgot-password {
             text-align: right;
             margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .forgot-password a {
-            color: #f5e0c3;
+            color: #FFD9B4;
             text-decoration: none;
+            font-size: 12px;
         }
 
         .forgot-password a:hover {
@@ -94,33 +124,33 @@
 
         button.login-button {
             width: 100%;
-            padding: 15px;
-            background-color: #f5e0c3;
+            padding: 12px;
+            background-color: #FFD9B4;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             color: #4b5b4e;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.5s;
         }
 
         button.login-button:hover {
-            background-color: #e0c7a2;
+            background-color: #ffffff;
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
-        <!-- Menggunakan fungsi asset untuk mengambil gambar dari public/img/logo.jpg -->
-        <img src="{{ asset('img/logo.jpg') }}" alt="Logo">
+        <img src="{{ asset('/img/logoobaru.png') }}" alt="Logo">
         <h2>Bolívar Coffee</h2>
         <p>The Bolívar Coffee For Work</p>
-
+        {{-- 
         <div class="tabs">
             <button class="active" id="owner-tab">Owner</button>
             <button id="employee-tab">Employee</button>
-        </div>
+        </div> --}}
 
         <form action="#" method="POST">
             <div class="input-group">
@@ -155,4 +185,5 @@
         });
     </script>
 </body>
+
 </html>
