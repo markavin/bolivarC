@@ -11,81 +11,78 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: #e0e0e0; /* Ubah warna latar belakang */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: url('img/bg3.jpg') no-repeat center;
+            background-size: 120%; /* Zoom out background image */
+            background-color: #e0e0e0; /* Backup color */
+            transition: background-position 0.3s; /* Animasi halus */
+        }
+
+        /* Turunkan posisi background hanya pada layar lebar (desktop) */
+        @media (min-width: 1200px) {
+            body {
+                background-position: center 30%; /* Background turun sedikit ke bawah */
+            }
         }
 
         .login-container {
-            background-color: #4b5b4e;
+            background-color: #445D48; 
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: 400px;
             text-align: center;
-            color: #f7f5ee;
+            color: #FFF8E8;
         }
 
         .login-container img {
-            width: 80px;
-            margin-bottom: 10px;
+            width: 100px; /* Adjust image size */
+            margin-bottom: 10px; /* Space between logo and title */
         }
 
         .login-container h2 {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #f5e0c3;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .tabs button {
-            background-color: #c2b59b;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            color: #4b5b4e;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .tabs button.active {
-            background-color: #f5e0c3;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 24px; /* Adjust font size */
+            margin: 0; /* Remove default margin */
+            color: #FFD9B4;
         }
 
         .input-group {
-            margin: 15px 0;
+            margin: 10px 0;
             text-align: left;
+            width: 100%;
         }
 
         .input-group label {
             display: block;
             margin-bottom: 5px;
+            color: #FFD9B4;
+            font-size: 13px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-top: 5px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ffffff;
+            font-size: 14px;
+            box-sizing: border-box;
         }
-
+       
         .forgot-password {
             text-align: right;
             margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .forgot-password a {
-            color: #f5e0c3;
+            color: #FFD9B4;
             text-decoration: none;
+            font-size: 12px;
         }
 
         .forgot-password a:hover {
@@ -94,33 +91,28 @@
 
         button.login-button {
             width: 100%;
-            padding: 15px;
-            background-color: #f5e0c3;
+            padding: 12px;
+            border-radius: 12px;
+            background-color: #FFD9B4;
             border: none;
-            border-radius: 5px;
             color: #4b5b4e;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.5s;
+            box-sizing: border-box;
         }
 
         button.login-button:hover {
-            background-color: #e0c7a2;
+            background-color: #CEAD8E;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <!-- Menggunakan fungsi asset untuk mengambil gambar dari public/img/logo.jpg -->
-        <img src="{{ asset('img/logo.jpg') }}" alt="Logo">
+        <img src="{{ asset('img/IMG_7413-removebg-preview[1].png') }}" alt="Logo">
         <h2>Bolívar Coffee</h2>
         <p>The Bolívar Coffee For Work</p>
-
-        <div class="tabs">
-            <button class="active" id="owner-tab">Owner</button>
-            <button id="employee-tab">Employee</button>
-        </div>
 
         <form action="#" method="POST">
             <div class="input-group">
@@ -139,20 +131,5 @@
             <button type="submit" class="login-button">Log In</button>
         </form>
     </div>
-
-    <script>
-        const ownerTab = document.getElementById('owner-tab');
-        const employeeTab = document.getElementById('employee-tab');
-
-        ownerTab.addEventListener('click', () => {
-            ownerTab.classList.add('active');
-            employeeTab.classList.remove('active');
-        });
-
-        employeeTab.addEventListener('click', () => {
-            employeeTab.classList.add('active');
-            ownerTab.classList.remove('active');
-        });
-    </script>
 </body>
 </html>
