@@ -31,7 +31,7 @@
             right: 0;
             bottom: 0;
             background-color:  rgba(255, 255, 255, 0.1); /* 70% opacity */
-            z-index: -1; /* Keeps the overlay behind the content */
+            z-index: -1; Keeps the overlay behind the content
         }
 
         .login-container {
@@ -45,6 +45,7 @@
             color: #ffffff;
             font-size: 15px;
         }
+        
 
         .login-container img {
             width: 120px;
