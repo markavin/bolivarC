@@ -128,7 +128,7 @@
                 <a href="#">Reset Password?</a>
             </div>
 
-            <button type="submit" class="login-button">Log In</button>
+            <button <a href="{{ url('/dashboard/home') }}" type="submit" class="login-button">Log In</a></button>
         </form>
     </div>
 </body>

@@ -10,6 +10,6 @@
 <body>
     <a href="/">laravel</a>
     <a href="/login">LOGIN</a>
-    <a href="/dashboard">dashboard</a>
+    <a href="dashboard/home">dashboard</a>
 </body>
 </html>

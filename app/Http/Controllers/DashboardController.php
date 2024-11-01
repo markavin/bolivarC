@@ -8,7 +8,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Example data that can later be replaced with actual database data
+        // Mengatur nilai activeMenu untuk menu home
+        $activeMenu = 'overview';
+        
+        // Data dashboard
         $data = [
             'totalRevenue' => 'Rp 1,000,000,000.00',
             'totalSalesTransactions' => '108,000',
@@ -27,6 +30,7 @@ class DashboardController extends Controller
             ]
         ];
 
-        return view('dashboard.index', compact('data'));
+        return view('overview.index', compact('data', 'activeMenu'));
     }
+
 }
