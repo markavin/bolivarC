@@ -106,6 +106,13 @@
         button.login-button:hover {
             background-color: #CEAD8E;
         }
+
+        /* Styling untuk pesan kesalahan */
+        .error-message {
+            color: #ff4d4d; /* Merah untuk kesalahan */
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -114,21 +121,28 @@
         <h2>Bolívar Coffee</h2>
         <p>The Bolívar Coffee For Work</p>
 
-        <form action="#" method="POST">
+        @if ($errors->any())
+            <div class="error-message">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form action="{{ route('login.submit') }}" method="POST">
+            @csrf
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="text" id="username" name="namaPengguna" placeholder="Username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" name="kataSandi" placeholder="Password" required>
             </div>
-
+        
             <div class="forgot-password">
                 <a href="#">Reset Password?</a>
             </div>
-
-            <button <a href="{{ url('/dashboard/home') }}" type="submit" class="login-button">Log In</a></button>
+        
+            <button type="submit" class="login-button">Log In</button>
         </form>
     </div>
 </body>

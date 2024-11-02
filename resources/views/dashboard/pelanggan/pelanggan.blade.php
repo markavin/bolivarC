@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolívar Coffee Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -15,27 +16,29 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee - Customers List <span class="status-dot"></span></h1>
-            <button class="payment-btn">Create Customer</button>
             <div class="notification"></div>
         </header>
 
         <div class="customers-view">
             <div class="search-bar">
+                <span class="material-symbols-outlined search-icon">Search</span>
                 <input type="text" placeholder="Search Customers..." class="search-input">
-                <button class="create-btn">Create Customer</button>
+                <button class="create-btn">
+                    <span class="create-text">Create Customer</span>
+                    <span class="material-symbols-outlined">Add</span> 
+                </button>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Customer ID</th>
-                        <th>Customer Name</th>
+                        <th style>Customer ID</th>
+                        <th style>Customer Name</th>
                         <th>Phone Number</th>
                         <th>Points</th>
                         <th>Transaction Total</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                
                 <tbody>
                     @foreach ($pelanggan as $Pelanggan)
                         <tr>
@@ -45,9 +48,16 @@
                             <td>{{ $Pelanggan->totalPoin }}</td>
                             <td>{{ $Pelanggan->penjualan_count }}</td>
                             <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
+                                <div class="action-buttons">
+                                    <button class="edit-btn">
+                                        <span class="material-symbols-outlined">edit</span> 
+                                    </button>
+                                    <button class="delete-btn">
+                                        <span class="material-symbols-outlined">delete</span> 
+                                    </button>
+                                </div>
                             </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

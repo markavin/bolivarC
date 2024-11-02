@@ -15,7 +15,7 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee - Point List <span class="status-dot"></span></h1>
-            <button class="payment-btn">Create Points Exchange</button>
+            {{-- <button class="payment-btn">Create Points Exchange</button> --}}
             <div class="notification"></div>
         </header>
         <div class="point-view">

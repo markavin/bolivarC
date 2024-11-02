@@ -15,14 +15,16 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee - purchase List <span class="status-dot"></span></h1>
-            <button class="payment-btn">Create purchase</button>
+            {{-- <button class="payment-btn">Create purchase</button> --}}
             <div class="notification"></div>
         </header>
-
         <div class="purchase-view">
             <div class="search-bar">
-                <input type="text" placeholder="Search sales..." class="search-input">
-                <button class="create-btn">Create purchase</button>
+                <span class="material-symbols-outlined search-icon">Search</span>
+                <input type="text" placeholder="Search Purchase..." class="search-input">
+                <button class="create-btn">
+                    <span class="create-text">Create Purchase</span>
+                    <span class="material-symbols-outlined">Add</span> 
             </div>
             <table>
                 <thead>
@@ -45,8 +47,11 @@
                             <td>{{ $Purchase->totalQuantity }}</td>
                             <td>{{ $Purchase->totalHarga }}</td>
                             <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
+                                <div class="action-buttons">
+                                    <button class="visibility-btn">
+                                        <span class="material-symbols-outlined">Visibility</span> 
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

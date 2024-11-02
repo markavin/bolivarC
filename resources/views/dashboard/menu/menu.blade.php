@@ -15,14 +15,17 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee - Menu List <span class="status-dot"></span></h1>
-            <button class="payment-btn">Create menu</button>
+            {{-- <button class="payment-btn">Create menu</button> --}}
             <div class="notification"></div>
         </header>
 
         <div class="menu-view">
             <div class="search-bar">
-                <input type="text" placeholder="Search Customers..." class="search-input">
-                <button class="create-btn">Create menu</button>
+                <span class="material-symbols-outlined search-icon">Search</span>
+                <input type="text" placeholder="Search Menu..." class="search-input">
+                <button class="create-btn">
+                    <span class="create-text">Create Menu</span>
+                    <span class="material-symbols-outlined">Add</span> 
             </div>
             <table>
                 <thead>
@@ -43,8 +46,14 @@
                             <td>{{ $Menu->namaMenu }}</td>
                             <td>{{ $Menu->hargaMenu }}</td>
                             <td>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
+                                <div class="action-buttons">
+                                    <button class="edit-btn">
+                                        <span class="material-symbols-outlined">edit</span> 
+                                    </button>
+                                    <button class="delete-btn">
+                                        <span class="material-symbols-outlined">delete</span> 
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
