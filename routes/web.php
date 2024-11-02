@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dashboard/stock', [CBahanbakuController::class, 'show'])->name('bahanBaku.show');
         Route::get('dashboard/sales', [CPenjualanController::class, 'show'])->name('penjualan.show');
         Route::get('dashboard/purchase', [CPembelianController::class, 'show'])->name('pembelian.show');
-    //     Route::get('dashboard/points', [CPenukaranController::class, 'show'])->name('poin.show');
+        Route::get('dashboard/points', [CPenukaranController::class, 'show'])->name('poin.show');
     // });
 });
 
