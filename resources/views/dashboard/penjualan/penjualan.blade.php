@@ -14,35 +14,35 @@
 
     <div class="main-content">
         <header>
-            <h1>Bolívar Coffee - Customers List <span class="status-dot"></span></h1>
+            <h1>Bolívar Coffee - sales List <span class="status-dot"></span></h1>
             <button class="payment-btn">Create Customer</button>
             <div class="notification"></div>
         </header>
-
-        <div class="customers-view">
+        <div class="sales-view">
             <div class="search-bar">
-                <input type="text" placeholder="Search Customers..." class="search-input">
-                <button class="create-btn">Create Customer</button>
+                <input type="text" placeholder="Search sales..." class="search-input">
+                <button class="create-btn">Create sales</button>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Customer ID</th>
+                        <th>sales ID</th>
                         <th>Customer Name</th>
-                        <th>Phone Number</th>
-                        <th>Points</th>
-                        <th>Transaction Total</th>
+                        <th>Sales Date</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
-                    @foreach ($pelanggan as $Pelanggan)
+                    @foreach ($penjualan as $Sales)
                         <tr>
-                            <td>{{ $Pelanggan->id }}</td>
-                            <td>{{ $Pelanggan->NamaPelanggan }}</td>
-                            <td>{{ $Pelanggan->NoHP }}</td>
-                            <td>{{ $Pelanggan->totalPoin }}</td>
-                            <td>{{ $Pelanggan->transactionTotal }}</td>
+                            <td>{{ $Sales->id_penjualan }}</td>
+                            <td>{{ $Sales->NamaPelanggan }}</td>
+                            <td>{{ $Sales->tanggalPenjualan }}</td>
+                            <td>{{ $Sales->totalQuantity }}</td>
+                            <td>{{ $Sales->totalHarga }}</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
                                 <button class="delete-btn">Delete</button>
@@ -57,4 +57,5 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
+
 </html>

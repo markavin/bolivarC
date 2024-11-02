@@ -1,51 +1,37 @@
 <?php
 
+use App\Http\Controllers\CBahanbakuController;
+use App\Http\Controllers\CMenuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CPelangganController;
+use App\Http\Controllers\CPembelianController;
+use App\Http\Controllers\CPenjualanController;
+use App\Http\Controllers\CPenukaranController;
+use App\Http\Controllers\DashboardController;
 
+// Default route to welcome view
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Route to home view
 Route::get('/home', function () {
     return view('home');
 });
-// use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Auth\LoginController;
 
-// Route::get('/login', [::class, 'showLoginForm'])->name('login');
-// Route::post('/login', [LoginController::class, 'login']);
-// Route::get('/password/reset', [LoginController::class, 'showResetForm'])->name('password.request');
-
-
-// Route::get('/about', function () {
-//     return view('about');
-// });
-
+// Login view
 Route::get('/login', function () {
     return view('login');
 });
 
+// Dashboard routes
+Route::get('dashboard/home', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData'])->name('dashboard.data');
 
-Route::get('/dashboard/home', function () {
-    return view('dashboard/overview');
-});
-
-Route::get('dashboard/menu', function () {
-    return view('dashboard/menu');
-});
-
-Route::get('dashboard/customers', [CPelangganController::class, 'index'])->name('pelanggan.index');
-
-Route::get('dashboard/stock', function () {
-    return view('dashboard/bahanbaku');
-});
-Route::get('dashboard/sales', function () {
-    return view('dashboard/penjualan');
-});
-Route::get('dashboard/purchase', function () {
-    return view('dashboard/pembelian');
-});
-Route::get('dashboard/pointexchange', function () {
-    return view('dashboard/penukaranpoin');
-});
+// Additional dashboard-related routes
+Route::get('dashboard/menu', [CMenuController::class, 'show'])->name('menu.show');
+Route::get('dashboard/customers', [CPelangganController::class, 'show'])->name('pelanggan.show');
+Route::get('dashboard/stock', [CBahanbakuController::class, 'show'])->name('bahanBaku.show');
+Route::get('dashboard/sales', [CPenjualanController::class, 'show'])->name('penjualan.show');
+Route::get('dashboard/purchase', [CPembelianController::class, 'show'])->name('pembelian.show');
+Route::get('dashboard/points', [CPenukaranController::class, 'show'])->name('poin.show');

@@ -7,9 +7,10 @@ use App\Models\Pelanggan;
 
 class CPelangganController extends Controller
 {
-    public function index()
+    public function show()
     {
-        $pelanggan = Pelanggan::all();
-        return view("dashboard/pelanggan", compact('pelanggan'));
+        $pelanggan = Pelanggan::withCount('penjualan')->orderBy('id', 'desc')->get();
+        
+        return view("dashboard/pelanggan/pelanggan", compact('pelanggan'));
     }
 }

@@ -36,9 +36,9 @@
                 <span class="material-symbols-outlined">sell</span> Purchase
             </a>
         </li>
-        <li class="{{ Request::is('dashboard/pointexchange') ? 'active' : '' }}">
-            <a href="{{ url('/dashboard/pointexchange') }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-                <span class="material-symbols-outlined">currency_exchange</span> Point Exchange
+        <li class="{{ Request::is('dashboard/points') ? 'active' : '' }}">
+            <a href="{{ url('/dashboard/points') }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <span class="material-symbols-outlined">currency_exchange</span> Point
             </a>
         </li>
     </ul>
