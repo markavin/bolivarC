@@ -22,7 +22,6 @@ body {
     height: 100%;
 }
 
-
 .sidebar img {
     display: block;
     margin: 0 auto;
@@ -32,11 +31,13 @@ body {
 }
 
 .sidebar h2 {
-    font-weight: 700;
+    font-weight: 200;
     font-size: 18px;
     color: #FFD9B4;
     text-align: center;
     font-family: 'Playfair Display', serif;
+    margin-top: -20px; /* Menaikkan posisi teks Bolívar Coffee */
+    margin-bottom: 30px; /* Menambah jarak antara Bolívar Coffee dan menu pertama */
 }
 
 /* Menu list styling */
@@ -54,12 +55,11 @@ body {
 .sidebar .menu li {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
-    margin: 10px 0;
+    padding: 15px 15px; /* Sesuaikan padding vertikal agar lebih besar */
+    margin: 10px 5px; /* Jarak antara item menu */
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 5px; /* Rounding corners untuk hover area */
     text-align: left;
-    margin-bottom: 10px;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
@@ -78,8 +78,7 @@ body {
     text-decoration: none;
     color: inherit;
     width: 100%;
-    padding-left: 10px;
-    /* Mengatur jarak dari ikon ke teks */
+    padding-left: 10px; /* Mengatur jarak dari ikon ke teks */
 }
 
 .sidebar .menu li.active a {
@@ -117,9 +116,10 @@ body {
 
 .main-content {
     flex: 1;
-    margin-left: 250px;
+    margin-left: 250px; /* Pastikan ada jarak dari sidebar */
     padding: 20px;
     background-color: rgba(255, 217, 180, 0.5);
+    transition: margin-left 0.3s ease; /* Transisi halus saat layar berubah ukuran */
 }
 
 /* Header styling */
@@ -360,194 +360,7 @@ header h1 {
     margin-top: 30px;
 }
 
-/* Customer Section */
-.header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-/* Search Bar */
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-.search-bar .search-icon {
-    position: absolute;
-    left: 15px;
-    font-size: 20px;
-    color: #445D48;
-    pointer-events: none;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.search-bar input[type="text"] {
-    padding: 10px 12px;
-    padding-left: 52px;
-    border: 1px solid #c9d6cf;
-    border-radius: 8px;
-    width: 80%;
-    font-size: 16px;
-    height: 40px;
-    flex-grow: 1;
-}
-
-/* Create Button */
-.create-btn {
-    display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-    color: #000000;
-    gap: 10px;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    height: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: auto;
-    text-align: center;
-}
-
-.create-btn:hover {
-    background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
-}
-
-.create-btn .material-symbols-outlined {
-    font-size: 20px;
-    color: #000000;
-}
-
-.create-text {
-    font-size: 15px;
-    margin-left: 0px;
-}
-
-/* Table styling for Customers */
-.customers-view table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.customers-view th,
-.customers-view td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #c9d6cf;
-    border-right: 1px solid #c9d6cf;
-}
-
-.customers-view th {
-    background-color: #445D48;
-    color: #ffffff;
-    padding: 20px 12px;
-    text-align: center;
-    border-bottom: 1px solid #c9d6cf;
-}
-
-.customers-view td {
-    padding: 6px 8px;
-    text-align: center;
-    border-bottom: 1px solid #c9d6cf;
-}
-
-.action-buttons span {
-    color: #ffffff;
-}
-
-.customers-view tr:hover {
-    background-color: #CBE2B5;
-}
-
-/* Action buttons styling */
-.action-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.edit-btn,
-.delete-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-    color: #ffffff;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    gap: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.edit-btn:hover {
-    background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
-}
-
-.delete-btn:hover {
-    background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
-}
-
 /* menu sections */
-.header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-/* Search Bar */
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-.search-bar .search-icon {
-    position: absolute;
-    left: 15px;
-    font-size: 20px;
-    color: #445D48;
-    pointer-events: none;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.search-bar input[type="text"] {
-    padding: 10px 12px;
-    padding-left: 52px;
-    border: 1px solid #c9d6cf;
-    border-radius: 8px;
-    width: 80%;
-    font-size: 16px;
-    height: 40px;
-    flex-grow: 1;
-}
-
 /* Menu Cards */
 .menu-view {
     display: flex;
@@ -660,8 +473,6 @@ header h1 {
 .menudelete-btn:hover .material-symbols-outlined {
     color: #FFD9B4;
 }
-
-
 /* bahanbaku sections */
 .header-actions {
     display: flex;
