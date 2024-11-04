@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bolívar Coffee Dashboard - Stock</title>
+    <title>Bolívar Coffee Dashboard - Employees</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -14,35 +15,36 @@
 
     <div class="main-content">
         <header>
-            <h1>Bolívar Coffee - Stock List <span class="status-dot"></span></h1>
-            {{-- <button class="payment-btn">Create Stock</button> --}}
+            <h1>Bolívar Coffee - Employee List <span class="status-dot"></span></h1>
             <div class="notification"></div>
         </header>
 
-        <div class="stock-view">
+        <div class="Employee-view">
             <div class="search-bar">
                 <span class="material-symbols-outlined search-icon">Search</span>
-                <input type="text" placeholder="Search Stock..." class="search-input">
+                <input type="text" placeholder="Search Employee..." class="search-input">
                 <button class="create-btn">
-                <span class="create-text">Create Stock</span>
-                <span class="material-symbols-outlined">Add</span> 
+                    <span class="create-text">Create Employee</span>
+                    <span class="material-symbols-outlined">Add</span> 
+                </button>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>stock ID</th>
-                        <th>stock Name</th>
-                        <th>Stock Quantity</th>
+                        <th style>Employee ID</th>
+                        <th style>Employee Name</th>
+                        <th>Phone Number</th>
+                        {{-- <th>Password</th> --}}
                         <th>Actions</th>
                     </tr>
                 </thead>
-                
                 <tbody>
-                    @foreach ($bahanBaku as $BahanBaku)
+                    @foreach ($pengguna as $pegawai)
                         <tr>
-                            <td>{{ $BahanBaku->id }}</td>
-                            <td>{{ $BahanBaku->namaBahanBaku }}</td>
-                            <td>{{ $BahanBaku->jumlahBahanBaku }}</td>
+                            <td>{{ $pegawai->id }}</td>
+                            <td>{{ $pegawai->namaPengguna }}</td>
+                            <td>{{ $pegawai->noHP }}</td>
+                            {{-- <td>{{ $pegawai->KataSandi }}</td> --}}
                             <td>
                                 <div class="action-buttons">
                                     <button class="edit-btn">
@@ -53,6 +55,7 @@
                                     </button>
                                 </div>
                             </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

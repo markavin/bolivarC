@@ -12,6 +12,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // Logging untuk memeriksa apakah metode dipanggil
+
+        // Mengambil data untuk overview
         $totalRevenue = Penjualan::sum('totalHarga');
         $totalSalesTransactions = Penjualan::count();
         $totalCustomers = Pelanggan::count();
@@ -37,6 +40,7 @@ class DashboardController extends Controller
             'availableYears'
         ));
     }
+
 
     private function getAvailableYears()
     {
@@ -81,17 +85,17 @@ class DashboardController extends Controller
                     DB::raw("DATE(tanggalPenjualan) as label"),
                     DB::raw("SUM(totalHarga) as total_sales")
                 )
-                ->whereBetween('tanggalPenjualan', [Carbon::now()->subMonth(), Carbon::now()])
-                ->groupBy('label')
-                ->orderBy('label', 'asc')
-                ->get();
+                    ->whereBetween('tanggalPenjualan', [Carbon::now()->subMonth(), Carbon::now()])
+                    ->groupBy('label')
+                    ->orderBy('label', 'asc')
+                    ->get();
         }
     }
 
     public function getDashboardData(Request $request)
     {
         $period = $request->input('period', 'month');
-        $year = $request->input('year', null); 
+        $year = $request->input('year', null);
         $overviewData = $this->getOverviewData($period, $year);
 
         $labels = $overviewData->pluck('label');
@@ -102,4 +106,4 @@ class DashboardController extends Controller
             'sales' => $sales,
         ]);
     }
-}
+};

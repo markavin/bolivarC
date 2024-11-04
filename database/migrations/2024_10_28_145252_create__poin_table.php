@@ -8,9 +8,6 @@ use function Laravel\Prompts\table;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('poin', function (Blueprint $table) {

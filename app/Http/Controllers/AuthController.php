@@ -38,7 +38,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->withErrors(['loginError' => 'Invalid credentials.']);
+        return back()->withErrors(['loginError' => 'Username/Password incorrect']);
     }
 
     // Method to handle logout

@@ -11,15 +11,16 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 
 // Default route to welcome view
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-// Route to home view
-Route::get('/home', function () {
-    return view('home');
-});
+// // Route to home view
+// Route::get('/home', function () {
+//     return view('home');
+// });
 
+Route::redirect('/', '/login');
 // Login view
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');

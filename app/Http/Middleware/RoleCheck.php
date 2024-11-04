@@ -9,14 +9,12 @@ class RoleCheck
 {
     public function handle($request, Closure $next, ...$role)
     {
-        // Cek apakah pengguna terautentikasi
         if (!Auth::check()) {
-            return redirect()->route('login'); // Atau ganti dengan rute yang sesuai
+            return redirect()->route('login'); 
         }
 
-        // Cek apakah pengguna memiliki salah satu dari peran yang diperbolehkan
         if (!in_array(Auth::user()->role->namaRole, $role)) {
-            return redirect()->route('unauthorized'); // Ganti dengan route atau tampilan yang sesuai
+            return redirect()->route('unauthorized'); 
         }
 
         return $next($request);

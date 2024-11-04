@@ -15,56 +15,63 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
-            <button class="payment-btn">Payment</button>
             <div class="notification"></div>
         </header>
 
         <div class="summary">
             <div class="summary-card">
                 <h5>Total Revenue</h5>
-                <h3>Rp {{ number_format($totalRevenue, 2, ',', '.') }}</h3>
+                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                    <h3>Rp {{ number_format($totalRevenue, 2, ',', '.') }}</h3>
+                </li>
             </div>
             <div class="summary-card">
                 <h5>Total Sales Transactions</h5>
-                <h3>{{ $totalSalesTransactions }}</h3>
+                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                    <h3>{{ $totalSalesTransactions }}</h3>
+                </li>
             </div>
             <div class="summary-card">
                 <h5>Total Customers</h5>
-                <h3>{{ $totalCustomers }}</h3>
+                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                    <h3>{{ $totalCustomers }}</h3>
+                </li>
             </div>
         </div>
 
-        <div class="chart-section">
-            <h5>Overview</h5>
-            <label for="periodSelect">Select Period:</label>
-            <select id="periodSelect" class="form-control" onchange="updateChart();">
-                <option value="week">Week</option>
-                <option value="month">Month</option>
-                <option value="year">Year</option>
-            </select>
-
-            <div id="yearSelectContainer" style="display:none;">
-                <label for="yearSelect">Select Year:</label>
-                <select id="yearSelect" onchange="updateChart();">
-                    @foreach (range(2020, date('Y')) as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endforeach
+        <div class="content-row">
+            <div class="chart-section">
+                <h5>Overview</h5>
+                <label for="periodSelect">Select Period:</label>
+                <select id="periodSelect" class="form-control" onchange="updateChart();">
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
                 </select>
+
+                <div id="yearSelectContainer" style="display:none;">
+                    <label for="yearSelect">Select Year:</label>
+                    <select id="yearSelect" onchange="updateChart();">
+                        @foreach (range(2020, date('Y')) as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <canvas id="overviewChart"></canvas>
             </div>
 
-            <canvas id="overviewChart"></canvas>
-        </div>
-        
-        <div class="top-selling">
-            <h5>Top Selling Products</h5>
-            <ul class="list-group">
-                @foreach ($topSelling as $menu)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ $menu->namaMenu }}
-                        <span class="badge bg-primary rounded-pill">{{ $menu->total_quantity }}</span>
-                    </li>
-                @endforeach
-            </ul>
+            <div class="top-selling">
+                <h5>Top Selling Products</h5>
+                <ul class="list-group">
+                    @foreach ($topSelling as $menu)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ $menu->namaMenu }}
+                            <span class="badge bg-primary rounded-pill">{{ $menu->total_quantity }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
 
         <div class="latest-section">
@@ -82,13 +89,11 @@
 
             <div class="latest-customers">
                 <h5>Latest Customers</h5>
-                <ul class="list-group">
-                    @foreach ($latestCustomers as $customer)
-                        <li class="list-group-item">
-                            {{ $customer->name }} - Joined {{ $customer->created_at->format('d M Y') }}
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach ($latestCustomers as $customer)
+                    <li class="list-group-item">
+                        {{ $customer->name }} - Joined {{ $customer->created_at->format('d M Y') }}
+                    </li>
+                @endforeach
             </div>
         </div>
     </div>
@@ -123,7 +128,9 @@
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: { display: false },
+                        legend: {
+                            display: false
+                        },
                         tooltip: {
                             backgroundColor: '#2d3e32',
                             titleColor: '#ffffff',
@@ -137,15 +144,26 @@
                     },
                     scales: {
                         x: {
-                            grid: { display: false },
-                            ticks: { color: '#333', font: { size: 12 } }
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#333',
+                                font: {
+                                    size: 12
+                                }
+                            }
                         },
                         y: {
                             beginAtZero: true,
                             ticks: {
                                 color: '#333',
-                                font: { size: 12 },
-                                callback: function(value) { return formatCurrency(value); }
+                                font: {
+                                    size: 12
+                                },
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
                             }
                         }
                     }
@@ -163,9 +181,14 @@
             }
 
             fetch(fetchUrl)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log('Received data:', data); 
+                    console.log('Received data:', data);
                     createChart(data.labels, data.sales);
                 })
                 .catch(error => console.error('Error fetching chart data:', error));
@@ -179,13 +202,13 @@
         document.getElementById('periodSelect').addEventListener('change', function() {
             const period = this.value;
             populateLabels(period);
-            updateChart(); 
+            updateChart();
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             const periodSelect = document.getElementById('periodSelect');
             populateLabels(periodSelect.value);
-            updateChart(); 
+            updateChart();
         });
     </script>
 </body>
