@@ -7,16 +7,510 @@
     <title>Bolívar Coffee Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .navbar {
+            display: flex;
+            padding: 0.05rem 0.1rem;
+            /* Mengurangi padding */
+            font-size: 0.9rem;
+            /* Mengurangi ukuran font */
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 0.5rem 0.5rem;
+            background: linear-gradient(135deg, #445D48 0%, #38B568 100%);
+            color: #FFDAB9;
+            margin-bottom: 20px;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 0.1rem 0.1rem;
+            /* Padding untuk link navbar */
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            /* Menempatkan navbar dan judul di sisi yang berbeda */
+            align-items: center;
+            /* Menyelaraskan secara vertikal */
+            margin-bottom: 20px;
+            /* Jarak di bawah header */
+        }
+
+        .user-info {
+            color: #fffffF;
+            font-size: 12px;
+        }
+
+        header {
+            text-align: left;
+            /* Menyelaraskan judul ke kiri */
+            margin-left: 20px;
+            /* Memberikan jarak dari tepi kiri */
+        }
+
+        #navbar {
+            margin-right: 20px;
+            /* Jarak dari tepi kanan */
+        }
+
+        .main-content {
+            position: relative;
+            /* Menjadikan konten utama sebagai referensi untuk posisi anak */
+            padding: 20px;
+            /* Jarak di dalam konten utama */
+        }
+
+        .navbar .nav-link {
+            text-decoration: none;
+            /* Menghilangkan underline */
+        }
+
+        .dropdown-toggle {
+            border-radius: 15px;
+            /* Membuat kotak lebih bulat */
+            padding: 0.25rem 0.2rem;
+            /* Mengurangi padding */
+            font-size: 0.9rem;
+            /* Mengubah ukuran font jika perlu */
+            border-radius: 10px;
+        }
+
+        /* CSS untuk Responsif */
+
+        .overview-view {
+            margin-top: 20px;
+        }
+
+        .summary {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            flex: 1;
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+            /* Ubah warna latar belakang menjadi gradien */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-card h5 {
+            /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
+            font-size: 16px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .summary-card h3 {
+            font-size: 24px;
+            color: #3b4a3e;
+        }
+
+        /* Chart Section */
+        .chart-section {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-section h5 {
+            font-size: 18px;
+            color: #3b4a3e;
+            margin-bottom: 10px;
+        }
+
+        /* Top Selling Products */
+        .top-selling {
+            display: flex;
+            flex: 2;
+            /* Melebarkan top-selling agar mengisi lebih banyak ruang */
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+            /* Ubah warna latar belakang menjadi gradien */
+            border-radius: 10px;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 35%;
+            /* Sesuaikan agar tabel terlihat lebih rapi */
+            flex-direction: column;
+            justify-content: space-between;
+            /* Ratakan konten */
+        }
+
+        .top-selling h5 {
+            font-size: 18px;
+            color: #3b4a3e;
+            margin-bottom: 10px;
+        }
+
+        .list-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* Mengatur jarak antar item */
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            /* Mendorong badge ke kanan */
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #333;
+            font-size: 16px;
+        }
+
+        .list-group-item+.list-group-item {
+            margin-top: 10px;
+        }
+
+        .badge {
+            background-color: #FFDAB9;
+            color: #3F4246;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
+        }
+
+        /* Latest Sections */
+        .latest-section {
+            display: flex;
+            gap: 20px;
+        }
+
+        .latest-transactions,
+        .latest-customers {
+            flex: 1;
+            background-color: #FFDAB9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+            /* Ubah warna latar belakang menjadi gradien */
+
+        }
+
+        .latest-transactions h5,
+        .latest-customers h5 {
+            font-size: 18px;
+            color: #3b4a3e;
+            margin-bottom: 10px;
+            /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+        }
+
+        /* Chart Styling */
+        /* Chart Section Styling */
+        .content-row {
+            display: flex;
+            justify-content: space-between;
+            /* Membuat jarak di antara Overview dan Top Selling */
+            gap: 20px;
+            margin-top: 20px;
+            /* max-width: 100%; */
+        }
+
+        .chart-section {
+            flex: 3;
+            /* Menambah ruang untuk chart agar lebih ke kiri */
+            max-width: 65%;
+            /* Sesuaikan lebar jika diperlukan */
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .chart-section h5 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #overviewChart {
+            max-height: 350px;
+        }
+
+        /* Dropdown Button Styling */
+        #periodSelect {
+            background-color: #2d3e32;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Tooltip Styling */
+        .custom-tooltip {
+            background-color: #2d3e32;
+            color: #fff;
+            border-radius: 5px;
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+
+
+        /* Media Queries untuk tampilan mobile */
+        @media (max-width: 768px) {
+            .search-bar {
+                display: flex;
+                /* Pastikan display adalah flex */
+                flex-direction: row;
+                /* Ubah dari column ke row */
+                align-items: center;
+                /* Center align items vertically */
+                gap: 10px;
+                /* Tambahkan jarak antar elemen */
+                margin-top: 30px;
+                margin-bottom: 30px;
+                width: 100%;
+                /* Pastikan lebar 100% */
+            }
+
+
+
+            /* Summary Section Styling */
+            .summary {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+            .summary-card {
+                flex: 1;
+                background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+                /* Ubah warna latar belakang menjadi gradien */
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .summary-card h5 {
+                /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
+                font-size: 16px;
+                color: #000000;
+                margin-bottom: 10px;
+            }
+
+            .summary-card h3 {
+                font-size: 24px;
+                color: #3b4a3e;
+            }
+
+            /* Chart Section */
+            .chart-section {
+                background-color: #f4f4f4;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .chart-section h5 {
+                font-size: 18px;
+                color: #3b4a3e;
+                margin-bottom: 10px;
+            }
+
+            /* Top Selling Products */
+            .top-selling {
+                display: flex;
+                flex: 2;
+                /* Melebarkan top-selling agar mengisi lebih banyak ruang */
+                background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+                /* Ubah warna latar belakang menjadi gradien */
+                border-radius: 10px;
+                padding: 30px 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                max-width: 35%;
+                /* Sesuaikan agar tabel terlihat lebih rapi */
+                flex-direction: column;
+                justify-content: space-between;
+                /* Ratakan konten */
+            }
+
+            .top-selling h5 {
+                font-size: 18px;
+                color: #3b4a3e;
+                margin-bottom: 10px;
+            }
+
+            .list-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                /* Mengatur jarak antar item */
+                padding: 0;
+                margin: 0;
+            }
+
+            .list-group-item {
+                display: flex;
+                justify-content: space-between;
+                /* Mendorong badge ke kanan */
+                border-radius: 10px;
+                padding: 15px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                color: #333;
+                font-size: 16px;
+            }
+
+            .list-group-item+.list-group-item {
+                margin-top: 10px;
+            }
+
+            .badge {
+                background-color: #FFDAB9;
+                color: #3F4246;
+                font-size: 14px;
+                padding: 5px 10px;
+                border-radius: 12px;
+                /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
+            }
+
+            /* Latest Sections */
+            .latest-section {
+                display: flex;
+                gap: 20px;
+            }
+
+            .latest-transactions,
+            .latest-customers {
+                flex: 1;
+                background-color: #FFDAB9;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+                /* Ubah warna latar belakang menjadi gradien */
+
+            }
+
+            .latest-transactions h5,
+            .latest-customers h5 {
+                font-size: 18px;
+                color: #3b4a3e;
+                margin-bottom: 10px;
+                /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
+                /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+            }
+
+            /* Chart Styling */
+            /* Chart Section Styling */
+            .content-row {
+                display: flex;
+                justify-content: space-between;
+                /* Membuat jarak di antara Overview dan Top Selling */
+                gap: 20px;
+                margin-top: 20px;
+                /* max-width: 100%; */
+            }
+
+            .chart-section {
+                flex: 3;
+                /* Menambah ruang untuk chart agar lebih ke kiri */
+                max-width: 65%;
+                /* Sesuaikan lebar jika diperlukan */
+                background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+                border-radius: 15px;
+                padding: 20px;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                position: relative;
+            }
+
+            .chart-section h5 {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            #overviewChart {
+                max-height: 350px;
+            }
+
+            /* Dropdown Button Styling */
+            #periodSelect {
+                background-color: #2d3e32;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 14px;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Custom Tooltip Styling */
+            .custom-tooltip {
+                background-color: #2d3e32;
+                color: #fff;
+                border-radius: 5px;
+                padding: 8px;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            /* Responsive Design
+@media (max-width: 768px) {
+    .summary {
+        flex-direction: column;
+    }
+
+    .latest-section {
+        flex-direction: column;
+    }
+} */
+
+            /* Chart and Top Selling Section */
+            .chart-section,
+            .top-selling {
+                margin-top: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     @include('layout.sidebar')
 
     <div class="main-content">
-        <header>
-            <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
-            <div class="notification"></div>
-        </header>
+        <div class="header-container">
+            <header>
+                <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
+                <div class="notification"></div>
+            </header>
+
+            <div id="navbar">
+                @include('layout.navbar')
+            </div>
+        </div>
 
         <div class="summary">
             <div class="summary-card">
@@ -60,7 +554,6 @@
 
                 <canvas id="overviewChart"></canvas>
             </div>
-
             <div class="top-selling">
                 <h5>Top Selling Products</h5>
                 <ul class="list-group">
@@ -96,121 +589,121 @@
                 @endforeach
             </div>
         </div>
-    </div>
 
-    <script>
-        let overviewChart;
+        <script>
+            let overviewChart;
 
-        function formatCurrency(value) {
-            return `Rp ${value.toLocaleString('id-ID')}`;
-        }
-
-        function createChart(labels, data) {
-            const ctx = document.getElementById('overviewChart').getContext('2d');
-
-            if (overviewChart) {
-                overviewChart.destroy();
+            function formatCurrency(value) {
+                return `Rp ${value.toLocaleString('id-ID')}`;
             }
 
-            overviewChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Total Sales',
-                        data: data,
-                        backgroundColor: '#f7d1ba',
-                        borderRadius: 10,
-                        barPercentage: 0.5,
-                        categoryPercentage: 0.6,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#2d3e32',
-                            titleColor: '#ffffff',
-                            bodyColor: '#ffffff',
-                            callbacks: {
-                                label: function(context) {
-                                    return formatCurrency(context.raw);
-                                }
-                            }
-                        }
+            function createChart(labels, data) {
+                const ctx = document.getElementById('overviewChart').getContext('2d');
+
+                if (overviewChart) {
+                    overviewChart.destroy();
+                }
+
+                overviewChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Total Sales',
+                            data: data,
+                            backgroundColor: '#f7d1ba',
+                            borderRadius: 10,
+                            barPercentage: 0.5,
+                            categoryPercentage: 0.6,
+                        }]
                     },
-                    scales: {
-                        x: {
-                            grid: {
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
                                 display: false
                             },
-                            ticks: {
-                                color: '#333',
-                                font: {
-                                    size: 12
+                            tooltip: {
+                                backgroundColor: '#2d3e32',
+                                titleColor: '#ffffff',
+                                bodyColor: '#ffffff',
+                                callbacks: {
+                                    label: function(context) {
+                                        return formatCurrency(context.raw);
+                                    }
                                 }
                             }
                         },
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#333',
-                                font: {
-                                    size: 12
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
                                 },
-                                callback: function(value) {
-                                    return formatCurrency(value);
+                                ticks: {
+                                    color: '#333',
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: '#333',
+                                    font: {
+                                        size: 12
+                                    },
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            });
-        }
-
-        function updateChart() {
-            const period = document.getElementById('periodSelect').value;
-            let fetchUrl = `/dashboard-data?period=${period}`;
-
-            if (period === 'year') {
-                const selectedYear = document.getElementById('yearSelect').value;
-                fetchUrl += `&year=${selectedYear}`;
+                });
             }
 
-            fetch(fetchUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Received data:', data);
-                    createChart(data.labels, data.sales);
-                })
-                .catch(error => console.error('Error fetching chart data:', error));
-        }
+            function updateChart() {
+                const period = document.getElementById('periodSelect').value;
+                let fetchUrl = `/dashboard-data?period=${period}`;
 
-        function populateLabels(period) {
-            const yearSelectContainer = document.getElementById('yearSelectContainer');
-            yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
-        }
+                if (period === 'year') {
+                    const selectedYear = document.getElementById('yearSelect').value;
+                    fetchUrl += `&year=${selectedYear}`;
+                }
 
-        document.getElementById('periodSelect').addEventListener('change', function() {
-            const period = this.value;
-            populateLabels(period);
-            updateChart();
-        });
+                fetch(fetchUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Received data:', data);
+                        createChart(data.labels, data.sales);
+                    })
+                    .catch(error => console.error('Error fetching chart data:', error));
+            }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const periodSelect = document.getElementById('periodSelect');
-            populateLabels(periodSelect.value);
-            updateChart();
-        });
-    </script>
+            function populateLabels(period) {
+                const yearSelectContainer = document.getElementById('yearSelectContainer');
+                yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
+            }
+
+            document.getElementById('periodSelect').addEventListener('change', function() {
+                const period = this.value;
+                populateLabels(period);
+                updateChart();
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const periodSelect = document.getElementById('periodSelect');
+                populateLabels(periodSelect.value);
+                updateChart();
+            });
+        </script>
+    </div>
 </body>
 
 </html>
