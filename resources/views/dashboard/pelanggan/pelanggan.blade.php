@@ -15,38 +15,68 @@
         }
 
         .search-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* margin-top: 30px; */
+        margin-bottom: 20px;
+        width: 100%;
 
-        .search-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 10px;
-        }
+    }
 
-        .create-btn {
-            padding: 10px 15px;
-            background-color: #5b9bd5;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
+    .search-bar .search-icon {
+        position: absolute;
+        left: 15px;
+        font-size: 20px;
+        color: #445D48;
+        pointer-events: none;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
-        .create-text {
-            margin-right: 5px;
-            color: #000000
-        }
+    .search-bar input[type="text"] {
+        flex: 1;
+        /* Fill the remaining space */
+        padding: 10px 12px;
+        /* Adjust padding for better spacing */
+        padding-left: 40px;
+        /* Add padding to the left to accommodate the icon */
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        height: 40px;
+        /* Ensure consistent height */
+        font-size: 16px;
+        /* Set font size */
+    }
 
-        .create-btn .material-symbols-outlined {
-            color: #000000
-        }
+    .create-btn {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+        color: #000000;
+        gap: 10px;
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: auto;
+        text-align: center;
+
+    }
+
+
+    .create-text {
+        font-size: 15px;
+        margin-left: 0px;
+    }
+
+    .create-btn .material-symbols-outlined {
+        font-size: 20px;
+        color: #000000;
+    }
 
         /* Styling tabel */
         table {
