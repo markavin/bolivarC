@@ -249,6 +249,36 @@
             margin-left: 0px;
         }
 
+        .export-buttons button {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+            color: #000000;
+            gap: 10px;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            height: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: auto;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .export-buttons button:hover {
+            background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
+        }
+
+        .export-buttons .material-symbols-outlined {
+            font-size: 20px;
+            color: #000000;
+        }
+
+        .export-container {
+            text-align: center;
+        }
+
         /* Media Queries untuk tampilan mobile */
         @media (max-width: 768px) {
             .search-bar {
@@ -340,6 +370,36 @@
                 font-weight: bold;
             }
 
+            .export-buttons button {
+                display: inline-flex;
+                align-items: center;
+                background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+                color: #000000;
+                gap: 10px;
+                border: none;
+                padding: 10px;
+                border-radius: 8px;
+                cursor: pointer;
+                height: 40px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                width: auto;
+                text-align: center;
+                margin-top: 30px;
+            }
+
+            .export-buttons button:hover {
+                background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
+            }
+
+            .export-buttons .material-symbols-outlined {
+                font-size: 20px;
+                color: #000000;
+            }
+
+            .export-container {
+                text-align: center;
+            }
+
         }
     </style>
 </head>
@@ -365,11 +425,11 @@
                 </div>
             @endif
             <div class="alert-container">
-                <div class="alert">
+                <div class="alert"> 
                     @if ($tipeLaporan == 'penjualan')
-                        <strong>Total Income : </strong> Rp {{ number_format($totalTransaksi, 0, ',', '.') }}
+                        <strong>Total Income :  Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
                     @else
-                        <strong>Total Expenses : </strong> Rp {{ number_format($totalTransaksi, 0, ',', '.') }}
+                        <strong>Total Expenses :  Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
                     @endif
                 </div>
                 <button class="toggle-filter-btn" onclick="toggleFilterPanel()">

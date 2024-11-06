@@ -6,24 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolívar Coffee Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .navbar {
+        /* .navbar {
             display: flex;
             padding: 0.05rem 0.1rem;
-            /* Mengurangi padding */
             font-size: 0.9rem;
-            /* Mengurangi ukuran font */
             box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
             border-radius: 0 0 0.5rem 0.5rem;
             background: linear-gradient(135deg, #445D48 0%, #38B568 100%);
             color: #FFDAB9;
             margin-bottom: 20px;
+            justify-content: center;
+        } */
+
+        .btn {
+            display: inline-block;
+            padding: 0.05rem 0.1rem;
+            font-size: 0.9rem;
+            /* box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 0.5rem 0.5rem; */
+            background: linear-gradient(135deg, #445D48 0%, #38B568 100%);
+            color: #FFDAB9;
+            margin-bottom: 20px;
+            margin-left: 150px;
+            justify-content: center;
+            width: 100px;
         }
 
         .navbar-nav .nav-link {
             padding: 0.1rem 0.1rem;
-            /* Padding untuk link navbar */
         }
 
         .header-container {
@@ -39,6 +52,7 @@
         .user-info {
             color: #fffffF;
             font-size: 12px;
+            text-align: center;
         }
 
         header {
@@ -66,7 +80,7 @@
         }
 
         .dropdown-toggle {
-            border-radius: 15px;
+            border-radius: 20px;
             /* Membuat kotak lebih bulat */
             padding: 0.25rem 0.2rem;
             /* Mengurangi padding */
@@ -248,7 +262,7 @@
         /* Dropdown Button Styling */
         #periodSelect {
             background-color: #2d3e32;
-            color: #fff;
+            color: #fffffF;
             border: none;
             border-radius: 8px;
             padding: 8px 16px;

@@ -67,7 +67,6 @@
 
     }
 
-
     .create-text {
         font-size: 15px;
         margin-left: 0px;
