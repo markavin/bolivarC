@@ -86,13 +86,14 @@
         /* Styling kartu menu */
         .menu-cards {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
             gap: 20px;
             margin-top: 10px;
+            padding: 0 40px;
         }
 
         .menu-card {
-            background: linear-gradient(to bottom, #D1FDE8 0%, #445D48 46%, #445D48 100%);
+            background: linear-gradient(to bottom, #FFD9B4 0%, #445D48 50%, #445D48 100%);
             border-radius: 8px;
             padding: 70px;
             width: 250px;
@@ -185,6 +186,93 @@
         .menudelete-btn:hover .material-symbols-outlined {
             color: #FFD9B4;
         }
+        .customers-view {
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #c90000
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            color: #445D48
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .confirm-button {
+            background-color: #445D48;
+            color: rgb(240, 240, 240);
+        }
+
+        .cancel-button {
+            background-color: #c7c7c7;
+            color: rgb(255, 255, 255);
+        }
+
+        .modal-button:hover {
+            opacity: 0.9;
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
 
         /* Media Queries untuk tampilan mobile */
         @media (max-width: 768px) {
@@ -249,9 +337,12 @@
 
         <div class="menu-view">
             <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search Menu..." class="search-input">
-                <button class="create-btn">
+                <form action="{{ route('menu.search') }}" method="GET" style="display: flex; width: 82%">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input type="text" placeholder="Search menu..." class="search-input" name="search"
+                        value="{{ request('search') }}">
+                </form>
+                <button class="create-btn" onclick="window.location.href='{{ route('menu.create') }}'">
                     <span class="create-text">Create Menu</span>
                     <span class="material-symbols-outlined">add</span>
                 </button>
@@ -263,16 +354,25 @@
                     <div class="menu-card">
                         <div class="menu-id">#{{ $Menu->id }}</div>
                         <div class="menu-awal">
-                            <img src="{{ asset('img/menu/' . $Menu->fotoMenu) }}" alt="Menu Image" class="menu-image">
+                           <img src="{{ asset($Menu->fotoMenu) }}" alt="Menu Image" class="menu-image">
                         </div>
                         <div class="menu-info">
                             <h2>{{ $Menu->namaMenu }}</h2>
                             <p>Rp {{ number_format($Menu->hargaMenu, 0, ',', '.') }}</p>
                         </div>
                         <div class="menu-buttons">
-                            <button class="menuedit-btn"><span class="material-symbols-outlined">edit</span></button>
-                            <button class="menudelete-btn"><span
-                                    class="material-symbols-outlined">delete</span></button>
+                            <button class="menuedit-btn" 
+                            onclick="window.location.href='{{ route('menu.edit', ['id' => $Menu->id]) }}'">
+                                <span class="material-symbols-outlined">edit</span>
+                            <button class="menudelete-btn"onclick="openDeleteModal('{{ $Menu->id }}', '{{ $Menu->namaMenu }}')">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                            <form id="delete-form-{{ $Menu->id }}"
+                                action="{{ route('menu.delete', ['id' => $Menu->id]) }}"
+                                method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </div>
                     </div>
                 @endforeach
@@ -280,7 +380,56 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            < <div class="modal-header">WARNING!!!
+        </div>
+        <p id="deleteMessage"></p>
+        <div class="modal-buttons">
+            <button type="button" class="modal-button cancel-button" onclick="closeModal()">Cancel</button>
+            <button id="confirmDeleteButton" class="modal-button confirm-button">Delete</button>
+        </div>
+    </div>
+    </div>
+    <div id="successModal" class="success-modal">
+        <div class="success-content">
+            <p>Delete successful!</p>
+            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let currentDeleteId = null;
+
+        function openDeleteModal(id, name) {
+            currentDeleteId = id;
+            document.getElementById('deleteMessage').innerText =
+                `Are you sure you want to delete the customers with the name ${name}?`;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            currentDeleteId = null;
+        }
+
+        function openSuccessModal() {
+            document.getElementById('successModal').style.display = 'flex';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            if (currentDeleteId) {
+                document.getElementById(`delete-form-${currentDeleteId}`).submit();
+                closeModal();
+                openSuccessModal(); // Open success modal after deletion confirmation
+            }
+        });
+    </script>
+
 </body>
 
 </html>

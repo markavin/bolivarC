@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('NoHP', 13);
             $table->integer('totalPoin');
             $table->timestamps();
-            $table->softDeletesDatetime('deleted_at');
+            $table->softDeletes();
         });
     }
 

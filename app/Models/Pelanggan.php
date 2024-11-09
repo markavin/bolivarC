@@ -9,13 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pelanggan extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    protected $table = 'pelanggan';
-    protected $guarded = ['id_pelanggan', 'created_at', 'updated_at', 'deleted_at'];
-    protected $dates = ['deleted_at'];
+    protected $table = 'pelanggan'; // Nama tabel
+    protected $guarded = ['id']; // Hanya menjaga kolom 'id' agar tidak diisi massal
+    // protected $dates = ['deleted_at']; // Menggunakan SoftDeletes untuk 'deleted_at'
 
     public function penjualan()
     {
-        return $this->hasMany(Penjualan::class, 'id_pelanggan', 'id');
+        return $this->hasMany(Penjualan::class, 'id_pelanggan', 'id'); // Hubungan hasMany
     }
 }

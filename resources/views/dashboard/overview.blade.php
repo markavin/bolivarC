@@ -540,9 +540,9 @@
                 </li>
             </div>
             <div class="summary-card">
-                <h5>Total Customers</h5>
+                <h5>Total Expenses</h5>
                 <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
-                    <h3>{{ $totalCustomers }}</h3>
+                    <h3>Rp {{ number_format($totalExpenses, 2, ',', '.') }}</h3>
                 </li>
             </div>
         </div>
@@ -574,7 +574,7 @@
                     @foreach ($topSelling as $menu)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ $menu->namaMenu }}
-                            <span class="badge bg-primary rounded-pill">{{ $menu->total_quantity }}</span>
+                            <span class="badge bg-primary rounded-pill">{{ $loop->iteration }}</span>
                         </li>
                     @endforeach
                 </ul>

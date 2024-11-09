@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'pengguna'), // Ubah ini jika broker reset password menggunakan tabel pengguna
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'pengguna'),
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'pengguna', // Ubah ke 'pengguna'
+            'provider' => 'pengguna', // Harus sesuai dengan provider yang digunakan
         ],
     ],
 
@@ -60,10 +60,10 @@ return [
     */
 
     'providers' => [
-        'pengguna' => [ // Ubah 'users' menjadi 'pengguna'
+        'pengguna' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Pengguna::class, // Ganti model ke Pengguna
-        ],
+            'model' => App\Models\Pengguna::class,
+        ]
     ],
 
     /*
@@ -86,8 +86,8 @@ return [
     */
 
     'passwords' => [
-        'pengguna' => [ // Ubah 'users' menjadi 'pengguna'
-            'provider' => 'pengguna', // Ubah ke provider 'pengguna'
+        'pengguna' => [
+            'provider' => 'pengguna',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

@@ -7,49 +7,67 @@
 
     <ul class="menu">
         <li class="{{ Request::is('Bolivar/dashboard/home') ? 'active' : '' }}">
-            <a href="{{ url('Bolivar/dashboard/home') }}">
+            <a href="{{ url('Bolivar/dashboard/home') }}"
+                style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                onclick="setActive(this)">
                 <span class="material-symbols-outlined">home</span> Home
             </a>
         </li>
-        @if (Auth::check() && Auth::user()->role->namaRole === 'pegawai')
-            <li class="{{ Request::is('Bolivar/dashboard/customers') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/customers') }}">
+        @if (optional(session('user'))->id_role == 2)
+            <li class="{{ Request::is('dashboard/customers') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/customers') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">groups</span> Customers
                 </a>
             </li>
-            <li class="{{ Request::is('Bolivar/dashboard/menu') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/menu') }}">
+            <li class="{{ Request::is('dashboard/menu') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/menu') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">local_dining</span> Menu
                 </a>
             </li>
-            <li class="{{ Request::is('Bolivar/dashboard/stock') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/stock') }}">
+            <li class="{{ Request::is('dashboard/stock') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/stock') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">inventory</span> Stock
                 </a>
             </li>
-            <li class="{{ Request::is('Bolivar/dashboard/sales') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/sales') }}">
+            <li class="{{ Request::is('dashboard/sales') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/sales') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">paid</span> Sales
                 </a>
             </li>
-            <li class="{{ Request::is('Bolivar/dashboard/purchase') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/purchase') }}">
+            <li class="{{ Request::is('dashboard/purchase') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/purchase') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">sell</span> Purchase
                 </a>
             </li>
-            <li class="{{ Request::is('Bolivar/dashboard/points') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/points') }}">
+            <li class="{{ Request::is('dashboard/points') ? 'active' : '' }}">
+                <a href="{{ url('Bolivar/dashboard/points') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">currency_exchange</span> Point
                 </a>
             </li>
-        @elseif(Auth::check() && Auth::user()->role->namaRole === 'pemilik')
+        @elseif (optional(session('user'))->id_role == 1)
             <li class="{{ Request::is('Bolivar/dashboard/employee') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/employee') }}">
+                <a href="{{ url('Bolivar/dashboard/employee') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">people</span> Employee
                 </a>
             </li>
             <li class="{{ Request::is('Bolivar/dashboard/reports') ? 'active' : '' }}">
-                <a href="{{ url('Bolivar/dashboard/reports') }}">
+                <a href="{{ url('Bolivar/dashboard/reports') }}"
+                    style="display: flex; align-items: center; text-decoration: none; color: inherit;"
+                    onclick="setActive(this)">
                     <span class="material-symbols-outlined">book</span> Reports
                 </a>
             </li>
@@ -57,12 +75,27 @@
     </ul>
     <ul class="logout">
         <li>
-            <form action="{{ route('logout') }}" method="POST">
+            <form action="{{ route('logout') }}" method="POST"
+                style="display: flex; align-items: center; text-decoration: none; color: inherit;">
                 @csrf
-                <button type="submit" style="background: none; border: none; color: inherit;">
+                <button type="submit"
+                    style="background: none; border: none; color: inherit; display: flex; align-items: center;">
                     <span class="material-symbols-outlined">logout</span>
                 </button>
             </form>
         </li>
     </ul>
 </div>
+
+<script>
+    function setActive(element) {
+        // Hapus kelas 'active' dari semua elemen menu
+        const menuItems = document.querySelectorAll('.menu li');
+        menuItems.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Tambahkan kelas 'active' ke elemen yang diklik
+        element.parentElement.classList.add('active');
+    }
+</script>

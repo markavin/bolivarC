@@ -10,13 +10,15 @@ return new class extends Migration
     {
         Schema::create('pengguna', function (Blueprint $table) {
             $table->id();
-            $table->string('namaPengguna', 50)->unique();
+            $table->string('namaPengguna', 50);
             $table->string('noHP', 15);
-            $table->string('kataSandi');
-            $table->unsignedBigInteger('role_id');
+            $table->string('username', 50)->unique();
+            $table->string('password');
+            $table->unsignedBigInteger('id_role');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes('deleted_at');
-            $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
+            $table->foreign('id_role')->references('id')->on('role')->onDelete('cascade');
         });
     }
 

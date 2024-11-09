@@ -1,4 +1,3 @@
-<!-- resources/views/dashboard.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +19,8 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        /* margin-top: 30px; */
         margin-bottom: 20px;
         width: 100%;
-
     }
 
     .search-bar .search-icon {
@@ -38,17 +35,12 @@
 
     .search-bar input[type="text"] {
         flex: 1;
-        /* Fill the remaining space */
         padding: 10px 12px;
-        /* Adjust padding for better spacing */
         padding-left: 40px;
-        /* Add padding to the left to accommodate the icon */
         border: 1px solid #ccc;
         border-radius: 8px;
         height: 40px;
-        /* Ensure consistent height */
         font-size: 16px;
-        /* Set font size */
     }
 
     .create-btn {
@@ -65,9 +57,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: auto;
         text-align: center;
-
     }
-
 
     .create-text {
         font-size: 15px;
@@ -78,7 +68,6 @@
         font-size: 20px;
         color: #000000;
     }
-
 
     /* Styling tabel */
     table {
@@ -118,29 +107,24 @@
     .edit-btn,
     .delete-btn {
         display: flex;
-        /* Pastikan menggunakan flexbox */
         align-items: center;
-        /* Center align items vertically */
         justify-content: center;
-        /* Center align items horizontally */
         background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
         color: #ffffff;
         border: none;
         padding: 10px 12px;
-        /* Padding yang seimbang */
         border-radius: 8px;
         cursor: pointer;
         gap: 4px;
-        /* Jarak antara ikon dan teks */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
     }
 
     .edit-btn .material-symbols-outlined,
     .delete-btn .material-symbols-outlined {
         font-size: 20px;
-        /* Ukuran ikon */
         margin: 0;
-        /* Menghapus margin jika ada */
+        text-decoration: none;
     }
 
     .edit-btn:hover {
@@ -151,63 +135,46 @@
         background: linear-gradient(135deg, #C3F3DB 0%, #556D58 100%);
     }
 
-    /* Media Queries untuk tampilan mobile */
     @media (max-width: 768px) {
         .search-bar {
             display: flex;
-            /* Pastikan display adalah flex */
             flex-direction: row;
-            /* Ubah dari column ke row */
             align-items: center;
-            /* Center align items vertically */
             gap: 10px;
-            /* Tambahkan jarak antar elemen */
             margin-top: 30px;
             margin-bottom: 30px;
             width: 100%;
-            /* Pastikan lebar 100% */
         }
 
         .search-input {
             padding: 10px;
-            /* Padding yang seimbang */
             border: 1px solid #c9d6cf;
             border-radius: 8px;
             width: 100%;
-            /* Pastikan input mengambil ruang yang tersedia */
             font-size: 16px;
             height: 40px;
-            /* Tinggi kotak input */
             box-sizing: border-box;
-            /* Pastikan padding tidak mempengaruhi lebar total */
             text-align: left;
-            /* Atur teks untuk rata kiri */
         }
 
         .create-btn {
             width: auto;
-            /* Ubah lebar menjadi auto */
             flex-shrink: 0;
-            /* Mencegah tombol untuk menyusut */
         }
-
 
         table {
             font-size: 14px;
-            /* Mengurangi ukuran font pada tabel */
         }
 
         th,
         td {
             display: block;
             width: 100%;
-            /* Membuat setiap sel menempati lebar penuh */
         }
 
         th {
             position: absolute;
             top: -9999px;
-            /* Menghilangkan th dari tampilan */
             left: -9999px;
         }
 
@@ -215,7 +182,6 @@
             display: flex;
             gap: 8px;
             justify-content: flex-end;
-            /* Mengatur tombol ke sebelah kanan */
             align-items: center;
             width: 100%;
         }
@@ -224,32 +190,25 @@
         .delete-btn {
             display: flex;
             align-items: center;
-            /* Center align items vertically */
             justify-content: center;
-            /* Center align items horizontally */
             background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
             color: #ffffff;
             border: none;
             padding: 10px 12px;
-            /* Padding yang seimbang */
             border-radius: 8px;
             cursor: pointer;
             gap: 4px;
-            /* Jarak antara ikon dan teks */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
         }
 
         td {
             text-align: right;
-            /* Rata kanan untuk td */
             padding-left: 50%;
-            /* Memberi ruang untuk label */
             position: relative;
             padding: 10px;
-            /* Pastikan ada padding agar tampak rapi */
         }
 
-        /* Menjaga agar label tetap berfungsi dalam tampilan mobile */
         td::before {
             content: attr(data-label);
             position: absolute;
@@ -259,7 +218,6 @@
             text-align: left;
             font-weight: bold;
         }
-
     }
 </style>
 
@@ -268,24 +226,25 @@
 
     <div class="main-content">
         <header>
-            <h1>Bolívar Coffee - Stock List <span class="status-dot"></span></h1>
-            {{-- <button class="payment-btn">Create Stock</button> --}}
+            <h1>Bolívar Coffee - Stock List</h1>
             <div class="notification"></div>
         </header>
 
         <div class="stock-view">
             <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">Search</span>
+                <span class="material-symbols-outlined search-icon">search</span>
                 <input type="text" placeholder="Search Stock..." class="search-input">
-                <button class="create-btn">
+                <button class="create-btn" onclick="window.location='{{ route('stocks.create') }}'">
                     <span class="create-text">Create Stock</span>
-                    <span class="material-symbols-outlined">Add</span>
+                    <span class="material-symbols-outlined">add</span>
+                </button>
             </div>
+
             <table>
                 <thead>
                     <tr>
-                        <th>stock ID</th>
-                        <th>stock Name</th>
+                        <th>Stock ID</th>
+                        <th>Stock Name</th>
                         <th>Stock Quantity</th>
                         <th>Actions</th>
                     </tr>
@@ -298,24 +257,26 @@
                             <td data-label="Stock Quantity">{{ $BahanBaku->jumlahBahanBaku }}</td>
                             <td data-label="Actions">
                                 <div class="action-buttons">
-                                    <button class="edit-btn">
+
+                                    <a href="{{ route('stocks.edit', $BahanBaku->id) }}" class="edit-btn">
                                         <span class="material-symbols-outlined">edit</span>
-                                    </button>
-                                    <button class="delete-btn">
-                                        <span class="material-symbols-outlined">delete</span>
-                                    </button>
+                                    </a>
+
+                                    <form action="{{ route('stocks.delete', $BahanBaku->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-btn">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-
             </table>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </body>
 
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
 use App\Models\Pelanggan;
+use App\Models\Pembelian;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -17,7 +18,7 @@ class DashboardController extends Controller
         // Mengambil data untuk overview
         $totalRevenue = Penjualan::sum('totalHarga');
         $totalSalesTransactions = Penjualan::count();
-        $totalCustomers = Pelanggan::count();
+        $totalExpenses = Pembelian::sum('totalHarga');
         $topSelling = DB::table('detail_penjualan')
             ->join('menu', 'detail_penjualan.id_menu', '=', 'menu.id')
             ->select('menu.namaMenu', DB::raw('SUM(detail_penjualan.quantity) as total_quantity'))
@@ -33,7 +34,7 @@ class DashboardController extends Controller
         return view('dashboard.overview', compact(
             'totalRevenue',
             'totalSalesTransactions',
-            'totalCustomers',
+            'totalExpenses',
             'topSelling',
             'latestSalesTransactions',
             'latestCustomers',

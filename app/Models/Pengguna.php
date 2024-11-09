@@ -10,27 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Pengguna extends Authenticatable 
 {
-    use HasFactory, Notifiable, SoftDeletes;
-
+    use HasFactory, Notifiable;
     protected $table = 'pengguna';
+    protected $primaryKey = 'id';
+    // protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+    // protected $dates = ['deleted_at'];
+    protected $fillable = ['namaPengguna', 'noHP', 'username', 'password', 'id_role'];
 
-    protected $guarded = ['id_pengguna', 'created_at', 'updated_at', 'deleted_at'];
-
-    protected $dates = ['deleted_at'];
-
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class);
-    }
-
-    public function getAuthPassword()
-    {
-        return $this->kataSandi;
-    }
-
-    public function setKataSandiAttribute($value)
-    {
-        $this->attributes['kataSandi'] = bcrypt($value);
-    }
+    protected $hidden = [
+        'password',
+    ];
 }

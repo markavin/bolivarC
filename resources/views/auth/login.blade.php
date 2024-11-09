@@ -18,18 +18,18 @@
             background: url('img/bg3.jpg') no-repeat center;
             background-size: 120%; /* Zoom out background image */
             background-color: #e0e0e0; /* Backup color */
-            transition: background-position 0.3s; /* Animasi halus */
+            transition: background-position 0.3s; /* Smooth animation */
         }
 
-        /* Turunkan posisi background hanya pada layar lebar (desktop) */
+        /* Background position for larger screens */
         @media (min-width: 1200px) {
             body {
-                background-position: center 30%; /* Background turun sedikit ke bawah */
+                background-position: center 30%;
             }
         }
 
         .login-container {
-            background-color: #445D48; 
+            background-color: #445D48;
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -39,15 +39,15 @@
         }
 
         .login-container img {
-            width: 100px; /* Adjust image size */
-            margin-bottom: 10px; /* Space between logo and title */
+            width: 100px;
+            margin-bottom: 10px;
         }
 
         .login-container h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 24px; /* Adjust font size */
-            margin: 0; /* Remove default margin */
+            font-size: 24px;
+            margin: 0;
             color: #FFD9B4;
         }
 
@@ -72,7 +72,7 @@
             font-size: 14px;
             box-sizing: border-box;
         }
-       
+
         .forgot-password {
             text-align: right;
             margin-top: 10px;
@@ -107,9 +107,8 @@
             background-color: #CEAD8E;
         }
 
-        /* Styling untuk pesan kesalahan */
         .error-message {
-            color: #ff4d4d; /* Merah untuk kesalahan */
+            color: #ff4d4d;
             margin-bottom: 15px;
             font-weight: bold;
         }
@@ -131,17 +130,17 @@
             @csrf
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="namaPengguna" placeholder="Username" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="kataSandi" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
-        
+
             <div class="forgot-password">
                 <a href="#">Reset Password?</a>
             </div>
-        
+
             <button type="submit" class="login-button">Log In</button>
         </form>
     </div>
