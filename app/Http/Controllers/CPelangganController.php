@@ -11,10 +11,10 @@ class CPelangganController extends Controller
 {
     public function show()
     {
-        $pelanggan = Pelanggan::withCount('penjualan')->orderBy('id', 'desc')->get();
-
-        return view("dashboard/pelanggan/pelanggan", compact('pelanggan'));
+        $pelanggan = Pelanggan::withCount('penjualan')->orderBy('id', 'desc')->paginate(5); 
+        return view('dashboard.pelanggan.pelanggan', compact('pelanggan'));
     }
+
     public function create()
     {
         // $role = Role::all(); // 
@@ -86,7 +86,7 @@ class CPelangganController extends Controller
         $pelanggan = Pelanggan::where('NamaPelanggan', 'LIKE', "%$keyword%")
             ->orWhere('NoHP', 'LIKE', "%$keyword%")
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate(5);
 
         return view("dashboard/pelanggan/pelanggan", compact('pelanggan'));
     }

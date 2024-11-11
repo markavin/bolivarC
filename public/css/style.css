@@ -36,8 +36,10 @@ body {
     color: #FFD9B4;
     text-align: center;
     font-family: 'Playfair Display', serif;
-    margin-top: -20px; /* Menaikkan posisi teks Bolívar Coffee */
-    margin-bottom: 30px; /* Menambah jarak antara Bolívar Coffee dan menu pertama */
+    margin-top: -20px;
+    /* Menaikkan posisi teks Bolívar Coffee */
+    margin-bottom: 30px;
+    /* Menambah jarak antara Bolívar Coffee dan menu pertama */
 }
 
 /* Menu list styling */
@@ -55,10 +57,13 @@ body {
 .sidebar .menu li {
     display: flex;
     align-items: center;
-    padding: 15px 15px; /* Sesuaikan padding vertikal agar lebih besar */
-    margin: 5px 5px; /* Jarak antara item menu */
+    padding: 15px 15px;
+    /* Sesuaikan padding vertikal agar lebih besar */
+    margin: 5px 5px;
+    /* Jarak antara item menu */
     cursor: pointer;
-    border-radius: 5px; /* Rounding corners untuk hover area */
+    border-radius: 5px;
+    /* Rounding corners untuk hover area */
     text-align: left;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
@@ -73,7 +78,7 @@ body {
 
 /* Custom CSS for keeping hover color when active */
 .sidebar .menu li a {
-    display: flex; 
+    display: flex;
     align-items: center;
     text-decoration: none;
     color: inherit;
@@ -116,15 +121,22 @@ body {
 }
 
 .main-content {
-    flex: 1; /* Memungkinkan main-content untuk mengisi sisa ruang */
-    margin-left: 250px; /* Pastikan ada jarak dari sidebar */
+    flex: 1;
+    /* Memungkinkan main-content untuk mengisi sisa ruang */
+    margin-left: 250px;
+    /* Pastikan ada jarak dari sidebar */
     padding: 20px;
-    background-color: #FFD9B4; /* Mengubah latar belakang menjadi putih */
+    background-color: #FFD9B4;
+    /* Mengubah latar belakang menjadi putih */
     /* border-radius: 10px;  */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan untuk efek yang lebih baik */
-    overflow: auto; /* Tambahkan scroll jika konten melebihi tinggi layar */
- } 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Tambahkan bayangan untuk efek yang lebih baik */
+    overflow: auto;
+    /* Tambahkan scroll jika konten melebihi tinggi layar */
+}
+
 |
+
 /* Header styling */
 header {
     display: flex;
@@ -156,4 +168,93 @@ header h1 {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.custom-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    list-style: none;
+    padding: 0;
+}
+
+.custom-pagination .page-item {
+    margin: 0 5px;
+    list-style: none;
+}
+
+.custom-pagination .page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+    background: transparent;
+    /* Remove the background color */
+}
+
+.custom-pagination .page-link:hover {
+    background: #f0f0f0;
+    /* Light gray background on hover */
+    transform: translateY(-2px);
+}
+
+.custom-pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #D1FDE8 0%, #445D48 100%);
+    color: #fff;
+    border-color: #445D48;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: default;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    /* color: #ccc; */
+    /* background: linear-gradient(135deg, #D1FDE8 0%, #445D48 100%); */
+    border-color: #445D48;
+    cursor: not-allowed;
+}
+
+.custom-pagination .page-link svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.navbar {
+    padding: 0.1rem 0.2rem; /* Match this padding to the desired .d-flex size */
+    display: inline-block; /* Adjust display to prevent full-width stretching */
+    font-size: 1rem;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Adjust for rounded corners */
+    background: linear-gradient(180deg, #445D48 0%, #38B568 100%);
+    color: #FFD9B4;
+    max-width: 150px; /* Adjust as needed to match .d-flex constraints */
+    width: auto; /* Ensure width adjusts automatically */
+}
+
+
+
+.navbar .d-flex {
+    color: #fff; /* Text color adjustment */
+}
+
+
+
+.navbar-nav .nav-link {
+    padding: 0.2rem 0.5rem;
+}
+
+.dropdown-menu {
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
 }

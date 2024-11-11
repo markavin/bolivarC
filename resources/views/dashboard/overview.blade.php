@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
             margin-bottom: 20px;
             justify-content: center;
         } */
-
+ 
         .btn {
             display: inline-block;
             padding: 0.05rem 0.1rem;
@@ -34,11 +34,11 @@
             justify-content: center;
             width: 100px;
         }
-
+ 
         .navbar-nav .nav-link {
             padding: 0.1rem 0.1rem;
         }
-
+ 
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -48,37 +48,37 @@
             margin-bottom: 20px;
             /* Jarak di bawah header */
         }
-
+ 
         .user-info {
             color: #fffffF;
             font-size: 12px;
             text-align: center;
         }
-
+ 
         header {
             text-align: left;
             /* Menyelaraskan judul ke kiri */
             margin-left: 20px;
             /* Memberikan jarak dari tepi kiri */
         }
-
+ 
         #navbar {
             margin-right: 20px;
             /* Jarak dari tepi kanan */
         }
-
+ 
         .main-content {
             position: relative;
             /* Menjadikan konten utama sebagai referensi untuk posisi anak */
             padding: 20px;
             /* Jarak di dalam konten utama */
         }
-
+ 
         .navbar .nav-link {
             text-decoration: none;
             /* Menghilangkan underline */
         }
-
+ 
         .dropdown-toggle {
             border-radius: 20px;
             /* Membuat kotak lebih bulat */
@@ -87,20 +87,21 @@
             font-size: 0.9rem;
             /* Mengubah ukuran font jika perlu */
             border-radius: 10px;
+            margin-right: auto;
         }
-
+ 
         /* CSS untuk Responsif */
-
+ 
         .overview-view {
             margin-top: 20px;
         }
-
+ 
         .summary {
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
         }
-
+ 
         .summary-card {
             flex: 1;
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
@@ -110,19 +111,19 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+ 
         .summary-card h5 {
             /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
             font-size: 16px;
             color: #000000;
             margin-bottom: 10px;
         }
-
+ 
         .summary-card h3 {
             font-size: 24px;
             color: #3b4a3e;
         }
-
+ 
         /* Chart Section */
         .chart-section {
             background-color: #f4f4f4;
@@ -131,13 +132,13 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+ 
         .chart-section h5 {
             font-size: 18px;
             color: #3b4a3e;
             margin-bottom: 10px;
         }
-
+ 
         /* Top Selling Products */
         .top-selling {
             display: flex;
@@ -156,13 +157,13 @@
             justify-content: space-between;
             /* Ratakan konten */
         }
-
+ 
         .top-selling h5 {
             font-size: 18px;
             color: #3b4a3e;
             margin-bottom: 10px;
         }
-
+ 
         .list-group {
             display: flex;
             flex-direction: column;
@@ -171,7 +172,7 @@
             padding: 0;
             margin: 0;
         }
-
+ 
         .list-group-item {
             display: flex;
             justify-content: space-between;
@@ -183,11 +184,11 @@
             color: #333;
             font-size: 16px;
         }
-
+ 
         .list-group-item+.list-group-item {
             margin-top: 10px;
         }
-
+ 
         .badge {
             background-color: #FFDAB9;
             color: #3F4246;
@@ -196,13 +197,13 @@
             border-radius: 12px;
             /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
         }
-
+ 
         /* Latest Sections */
         .latest-section {
             display: flex;
             gap: 20px;
         }
-
+ 
         .latest-transactions,
         .latest-customers {
             flex: 1;
@@ -212,9 +213,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
             /* Ubah warna latar belakang menjadi gradien */
-
+ 
         }
-
+ 
         .latest-transactions h5,
         .latest-customers h5 {
             font-size: 18px;
@@ -222,9 +223,9 @@
             margin-bottom: 10px;
             /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
             /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-
+ 
         }
-
+ 
         /* Chart Styling */
         /* Chart Section Styling */
         .content-row {
@@ -235,7 +236,7 @@
             margin-top: 20px;
             /* max-width: 100%; */
         }
-
+ 
         .chart-section {
             flex: 3;
             /* Menambah ruang untuk chart agar lebih ke kiri */
@@ -247,18 +248,18 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             position: relative;
         }
-
+ 
         .chart-section h5 {
             font-size: 18px;
             font-weight: bold;
             color: #333;
             margin-bottom: 15px;
         }
-
+ 
         #overviewChart {
             max-height: 350px;
         }
-
+ 
         /* Dropdown Button Styling */
         #periodSelect {
             background-color: #2d3e32;
@@ -271,7 +272,7 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-
+ 
         /* Custom Tooltip Styling */
         .custom-tooltip {
             background-color: #2d3e32;
@@ -281,9 +282,9 @@
             font-size: 12px;
             text-align: center;
         }
-
-
-
+ 
+ 
+ 
         /* Media Queries untuk tampilan mobile */
         @media (max-width: 768px) {
             .search-bar {
@@ -300,16 +301,13 @@
                 width: 100%;
                 /* Pastikan lebar 100% */
             }
-
-
-
-            /* Summary Section Styling */
+ 
             .summary {
-                display: flex;
+                flex-direction: column;
                 gap: 20px;
-                margin-bottom: 20px;
+                align-items: center;
             }
-
+ 
             .summary-card {
                 flex: 1;
                 background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
@@ -319,35 +317,34 @@
                 text-align: center;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-
+ 
             .summary-card h5 {
                 /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
                 font-size: 16px;
                 color: #000000;
                 margin-bottom: 10px;
             }
-
+ 
+           
             .summary-card h3 {
                 font-size: 24px;
                 color: #3b4a3e;
             }
-
-            /* Chart Section */
             .chart-section {
-                background-color: #f4f4f4;
+                 background-color: #f4f4f4;
                 border-radius: 10px;
                 padding: 20px;
                 margin-bottom: 20px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-
+ 
+ 
             .chart-section h5 {
                 font-size: 18px;
                 color: #3b4a3e;
                 margin-bottom: 10px;
             }
-
-            /* Top Selling Products */
+           
             .top-selling {
                 display: flex;
                 flex: 2;
@@ -359,19 +356,20 @@
                 margin-bottom: 20px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 text-align: center;
-                max-width: 35%;
+                max-width: 100%;
                 /* Sesuaikan agar tabel terlihat lebih rapi */
                 flex-direction: column;
                 justify-content: space-between;
                 /* Ratakan konten */
             }
-
+ 
+ 
             .top-selling h5 {
                 font-size: 18px;
                 color: #3b4a3e;
                 margin-bottom: 10px;
             }
-
+ 
             .list-group {
                 display: flex;
                 flex-direction: column;
@@ -380,7 +378,7 @@
                 padding: 0;
                 margin: 0;
             }
-
+ 
             .list-group-item {
                 display: flex;
                 justify-content: space-between;
@@ -392,11 +390,11 @@
                 color: #333;
                 font-size: 16px;
             }
-
+ 
             .list-group-item+.list-group-item {
                 margin-top: 10px;
             }
-
+ 
             .badge {
                 background-color: #FFDAB9;
                 color: #3F4246;
@@ -405,13 +403,13 @@
                 border-radius: 12px;
                 /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
             }
-
+ 
             /* Latest Sections */
             .latest-section {
                 display: flex;
                 gap: 20px;
             }
-
+ 
             .latest-transactions,
             .latest-customers {
                 flex: 1;
@@ -421,9 +419,9 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
                 /* Ubah warna latar belakang menjadi gradien */
-
+ 
             }
-
+ 
             .latest-transactions h5,
             .latest-customers h5 {
                 font-size: 18px;
@@ -431,11 +429,53 @@
                 margin-bottom: 10px;
                 /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
                 /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-
+ 
             }
-
-            /* Chart Styling */
-            /* Chart Section Styling */
+ 
+ 
+            .latest-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+ 
+            .latest-transactions, .latest-customers {
+                width: 100%;
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+ 
+            .list-group-item {
+                font-size: 14px;
+                padding: 10px;
+            }
+ 
+            .badge {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+ 
+            h5 {
+                font-size: 16px;
+            }
+ 
+            h3 {
+                font-size: 20px;
+            }
+        }
+ 
+            .summary-card {
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 15px;
+                text-align: center;
+            }
+ 
+            .chart-section, .top-selling {
+                width: 100%;
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+ 
             .content-row {
                 display: flex;
                 justify-content: space-between;
@@ -444,7 +484,7 @@
                 margin-top: 20px;
                 /* max-width: 100%; */
             }
-
+ 
             .chart-section {
                 flex: 3;
                 /* Menambah ruang untuk chart agar lebih ke kiri */
@@ -456,18 +496,18 @@
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
                 position: relative;
             }
-
+ 
             .chart-section h5 {
                 font-size: 18px;
                 font-weight: bold;
                 color: #333;
                 margin-bottom: 15px;
             }
-
+ 
             #overviewChart {
                 max-height: 350px;
             }
-
+ 
             /* Dropdown Button Styling */
             #periodSelect {
                 background-color: #2d3e32;
@@ -480,7 +520,7 @@
                 margin-bottom: 20px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             }
-
+ 
             /* Custom Tooltip Styling */
             .custom-tooltip {
                 background-color: #2d3e32;
@@ -490,42 +530,30 @@
                 font-size: 12px;
                 text-align: center;
             }
-
-            /* Responsive Design
-@media (max-width: 768px) {
-    .summary {
-        flex-direction: column;
-    }
-
-    .latest-section {
-        flex-direction: column;
-    }
-} */
-
-            /* Chart and Top Selling Section */
-            .chart-section,
+       
+        .chart-section,
             .top-selling {
                 margin-top: 30px;
             }
-        }
+       
     </style>
 </head>
-
+ 
 <body>
     @include('layout.sidebar')
-
+ 
     <div class="main-content">
         <div class="header-container">
             <header>
                 <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
                 <div class="notification"></div>
             </header>
-
+ 
             <div id="navbar">
                 @include('layout.navbar')
             </div>
         </div>
-
+ 
         <div class="summary">
             <div class="summary-card">
                 <h5>Total Revenue</h5>
@@ -546,7 +574,7 @@
                 </li>
             </div>
         </div>
-
+ 
         <div class="content-row">
             <div class="chart-section">
                 <h5>Overview</h5>
@@ -556,7 +584,7 @@
                     <option value="month">Month</option>
                     <option value="year">Year</option>
                 </select>
-
+ 
                 <div id="yearSelectContainer" style="display:none;">
                     <label for="yearSelect">Select Year:</label>
                     <select id="yearSelect" onchange="updateChart();">
@@ -565,7 +593,7 @@
                         @endforeach
                     </select>
                 </div>
-
+ 
                 <canvas id="overviewChart"></canvas>
             </div>
             <div class="top-selling">
@@ -580,7 +608,7 @@
                 </ul>
             </div>
         </div>
-
+ 
         <div class="latest-section">
             <div class="latest-transactions">
                 <h5>Latest Sales Transactions</h5>
@@ -593,7 +621,7 @@
                     @endforeach
                 </ul>
             </div>
-
+ 
             <div class="latest-customers">
                 <h5>Latest Customers</h5>
                 @foreach ($latestCustomers as $customer)
@@ -603,21 +631,21 @@
                 @endforeach
             </div>
         </div>
-
+ 
         <script>
             let overviewChart;
-
+ 
             function formatCurrency(value) {
                 return `Rp ${value.toLocaleString('id-ID')}`;
             }
-
+ 
             function createChart(labels, data) {
                 const ctx = document.getElementById('overviewChart').getContext('2d');
-
+ 
                 if (overviewChart) {
                     overviewChart.destroy();
                 }
-
+ 
                 overviewChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -676,16 +704,16 @@
                     }
                 });
             }
-
+ 
             function updateChart() {
                 const period = document.getElementById('periodSelect').value;
                 let fetchUrl = `/dashboard-data?period=${period}`;
-
+ 
                 if (period === 'year') {
                     const selectedYear = document.getElementById('yearSelect').value;
                     fetchUrl += `&year=${selectedYear}`;
                 }
-
+ 
                 fetch(fetchUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -699,18 +727,18 @@
                     })
                     .catch(error => console.error('Error fetching chart data:', error));
             }
-
+ 
             function populateLabels(period) {
                 const yearSelectContainer = document.getElementById('yearSelectContainer');
                 yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
             }
-
+ 
             document.getElementById('periodSelect').addEventListener('change', function() {
                 const period = this.value;
                 populateLabels(period);
                 updateChart();
             });
-
+ 
             document.addEventListener('DOMContentLoaded', () => {
                 const periodSelect = document.getElementById('periodSelect');
                 populateLabels(periodSelect.value);
@@ -719,5 +747,5 @@
         </script>
     </div>
 </body>
-
+ 
 </html>

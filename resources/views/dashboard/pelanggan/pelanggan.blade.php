@@ -6,25 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolívar Coffee Dashboard - Customers</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         /* CSS untuk Responsif */
+        .container {
+        overflow-x: hidden;
+        max-width: 100vw; /* Membatasi lebar agar tidak melebihi viewport */
+    }
+
+    body {
+        overflow-x: hidden;
+        margin: 0; /* Hilangkan margin bawaan body untuk menghindari geseran */
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+
+        header {
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center;
+        padding-left: 40px; 
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #333;
+        }
 
         .customers-view {
             margin-top: 20px;
         }
-
+    
         .search-bar {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            /* margin-top: 30px; */
-            margin-bottom: 20px;
-            width: 100%;
-
-        }
-
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        width: calc(100% - 40px); /* Menyesuaikan lebar untuk menghindari geser */
+        margin-left: 40px;
+    }
+    
         .search-bar .search-icon {
             position: absolute;
             left: 15px;
@@ -34,58 +62,56 @@
             top: 50%;
             transform: translateY(-50%);
         }
-
+    
         .search-bar input[type="text"] {
             flex: 1;
-            /* Fill the remaining space */
             padding: 10px 12px;
-            /* Adjust padding for better spacing */
             padding-left: 40px;
-            /* Add padding to the left to accommodate the icon */
             border: 1px solid #ccc;
             border-radius: 8px;
             height: 40px;
-            /* Ensure consistent height */
             font-size: 16px;
-            /* Set font size */
         }
-
+        
         .create-btn {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-            color: #000000;
-            gap: 10px;
-            border: none;
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            height: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: auto;
-            text-align: center;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #D1FDE8, #445D48);
+        color: #000000;
+        gap: 10px;
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-right: 40px; /* Atur jarak tombol dari sisi kanan */
 
-        }
-
+    }
+    
         .create-text {
             font-size: 15px;
             margin-left: 0px;
         }
-
+    
         .create-btn .material-symbols-outlined {
             font-size: 20px;
             color: #000000;
         }
-
+    
         /* Styling tabel */
         table {
-            width: 100%;
+            width: 93%;
             border-collapse: collapse;
             margin-top: 10px;
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             overflow: hidden;
+            margin-left: 40px; /* Jarak kecil ke kiri */
+            margin-right: auto; /* Pastikan ini agar tabel bergerak ke kiri */
         }
 
         th,
@@ -173,7 +199,9 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #c90000
+            color: #c90000;
+            text-align: center;
+            justify-items: center;
         }
 
         .modal-buttons {
@@ -228,6 +256,328 @@
             width: 90%;
             max-width: 400px;
         }
+
+        #profileModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            /* Sesuaikan lebar modal */
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            /* Warna hijau lembut */
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+            /* Hapus garis di sekitar modal */
+        }
+
+        #profileModal .modal-content {
+
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #profileModal .modal-title {
+            color: #ffffff;
+            text-align: center;
+            justify-items: center;
+        }
+
+        #profileModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Spasi antar elemen */
+        }
+
+        #profileModal .modal-header,
+        #profileModal .modal-footer {
+            border: none;
+            /* Hapus garis pada header dan footer */
+            padding: 10px 20px;
+            justify-content: center;
+            /* Atur padding agar simetris */
+        }
+
+        #profileModal .modal-header {
+            border-bottom: none;
+            /* Hapus garis bawah header */
+            color: #ffffff;
+            /* Warna teks putih */
+            text-align: center;
+        }
+
+        #profileModal .modal-body {
+            justify-content: center;
+        }
+
+        #profileModal .modal-body p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #ffffff;
+            /* Warna teks label */
+        }
+
+        #profileModal .modal-body p strong {
+            flex: 1;
+            /* Pastikan label memiliki lebar yang konsisten */
+            text-align: left;
+            margin-right: 10px;
+            /* Tambahkan margin untuk jarak ke kanan */
+        }
+
+        #profileModal .modal-body p span {
+            background-color: #ffffff;
+            /* Warna latar belakang kotak */
+            color: #4C6650;
+            /* Warna teks isi */
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan dalam */
+            border: 1px solid #d3d3d3;
+            /* Garis tipis dengan warna abu-abu */
+            width: calc(100% - 150px);
+            /* Memperpanjang kotak agar lebih besar */
+            text-align: center;
+            /* Teks di dalam span rata tengah */
+            margin-left: auto;
+            /* Geser kotak putih ke kanan */
+        }
+
+
+        #profileModal .modal-footer {
+            display: flex;
+            justify-content: center;
+            border-top: none;
+            /* Hapus garis atas footer */
+        }
+
+        #profileModal .btn-close {
+            background-color: #fff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            /* Teks di dalam tombol di tengah */
+        }
+
+        #profileModal .btn-close .material-symbols-outlined {
+            display: none;
+            /* Sembunyikan ikon jika ada */
+        }
+
+        #resetPasswordModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-content {
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-header {
+            border-bottom: none;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #resetPasswordModal .modal-title {
+            color: #ffffff;
+        }
+
+        #resetPasswordModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #resetPasswordModal .modal-footer {
+            display: flex;
+            justify-content: center;
+            border-top: none;
+        }
+
+        #resetPasswordModal .btn-secondary,
+        #resetPasswordModal .btn-primary {
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #resetPasswordModal .btn-secondary {
+            background-color: #c7c7c7;
+            color: #000;
+        }
+
+        #resetPasswordModal .btn-primary {
+            background-color: #445D48;
+            color: #fff;
+        }
+
+        /* Styling untuk modal error */
+        #errorModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Konten dalam modal */
+        #errorModal .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Header modal */
+        #errorModal .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #c90000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Body modal */
+        #errorModal .modal-body {
+            font-size: 16px;
+            padding: 10px 0;
+        }
+
+        /* Footer modal */
+        #errorModal .modal-footer {
+            padding-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Button pada footer modal */
+        #errorModal .modal-footer button {
+            background-color: #f5c6cb;
+            color: #721c24;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover state pada button */
+        #errorModal .modal-footer button:hover {
+            background-color: #d3a6a1;
+        }
+
+        /* Responsif untuk mobile */
+        @media (max-width: 768px) {
+            #errorModal {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            #errorModal .modal-header,
+            #errorModal .modal-body,
+            #errorModal .modal-footer {
+                padding: 10px;
+            }
+        }
+
+        /* Modal Success for Reset Password */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #7e7e7e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: #445D48;
+            opacity: 1;
+        }
+
 
         /* Media Queries untuk tampilan mobile */
         @media (max-width: 768px) {
@@ -346,9 +696,11 @@
     @include('layout.sidebar')
 
     <div class="main-content">
-        <header>
+        <header class="header-container">
             <h1>Bolívar Coffee - Customers List <span class="status-dot"></span></h1>
-            <div class="notification"></div>
+            <div class="notification">
+                @include('layout.navbar')
+            </div>
         </header>
 
         <div class="customers-view">
@@ -367,7 +719,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Customer ID</th>
+                        {{-- <th>Customer ID</th> --}}
                         <th>Customer Name</th>
                         <th>Phone Number</th>
                         <th>Points</th>
@@ -376,10 +728,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pelanggan as $Pelanggan)
+                    @foreach ($pelanggan as $index => $Pelanggan)
                         <tr>
-                            <td data-label="No">{{ $loop->iteration }}</td>
-                            <td data-label="Customer ID">{{ $Pelanggan->id }}</td>
+                            <td data-label="No">{{ $pelanggan->total() - ($pelanggan->firstItem() - 1) - $index }}</td>
+                            {{-- <td data-label="Customer ID">{{ $Pelanggan->id }}</td> --}}
                             <td data-label="Customer Name">{{ $Pelanggan->NamaPelanggan }}</td>
                             <td data-label="Phone Number">{{ $Pelanggan->NoHP }}</td>
                             <td data-label="Points">{{ $Pelanggan->totalPoin }}</td>
@@ -407,19 +759,102 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $pelanggan->links('vendor.pagination.custom') }}
+        </div>
+    </div>
+
+
+    <!-- Profile Modal -->
+    <div id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>PROFILE </strong></h5>
+            </div>
+            <div class="modal-body">
+                <p><strong>Name:</strong> <span>{{ session('user.namaPengguna') }}</span></p>
+                <p><strong>Phone:</strong> <span>{{ session('user.noHP') }}</span></p>
+                <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
+                <p><strong>Role:</strong> <span>{{ session('user.id_role') }}</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="resetPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>Reset Password</strong></h5>
+            </div>
+            <div class="modal-body">
+                <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
+                <form id="resetPasswordForm" method="POST" action="{{ route('resetPassword') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmNewPassword"
+                            name="newPassword_confirmation" required>
+                    </div>
+                    <div id="passwordMismatchAlert" style="display: none; color: red;">
+                        New passwords do not match.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeResetPasswordModal()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="validateAndSubmitPassword()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal for Reset Password -->
+    <div id="successPasswordModal" class="success-modal">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="material-icons-outlined">check_circle</i>
+            </div>
+            <p class="modal-message">Password berhasil diubah!</p>
+            <button type="button" class="modal-button confirm-button"
+                onclick="closeSuccessPasswordModal()">DONE</button>
+        </div>
+    </div>
+
+    <!-- Modal Error untuk Password Salah -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>Error</strong></h5>
+            </div>
+            <div class="modal-body">
+                <p><strong>Error:</strong> <span id="errorMessage"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeErrorModal()">Close</button>
+            </div>
         </div>
     </div>
 
     <div id="deleteModal" class="modal">
         <div class="modal-content">
-            < <div class="modal-header">WARNING!!!
+            <div class="modal-header">WARNING!!!
+            </div>
+            <p id="deleteMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="modal-button cancel-button" onclick="closeModal()">Cancel</button>
+                <button id="confirmDeleteButton" class="modal-button confirm-button">Delete</button>
+            </div>
         </div>
-        <p id="deleteMessage"></p>
-        <div class="modal-buttons">
-            <button type="button" class="modal-button cancel-button" onclick="closeModal()">Cancel</button>
-            <button id="confirmDeleteButton" class="modal-button confirm-button">Delete</button>
-        </div>
-    </div>
     </div>
     <div id="successModal" class="success-modal">
         <div class="success-content">
@@ -428,6 +863,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let currentDeleteId = null;
 
@@ -458,6 +894,41 @@
                 openSuccessModal(); // Open success modal after deletion confirmation
             }
         });
+
+        function openProfileModal() {
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+            window.location.href = '{{ route('pelanggan.show') }}'; // Ganti dengan route atau URL yang sesuai
+        }
+
+        function validateAndSubmitPassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword !== confirmNewPassword) {
+                document.getElementById('passwordMismatchAlert').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('passwordMismatchAlert').style.display = 'none';
+
+            // Jika validasi berhasil, submit form
+            document.getElementById('resetPasswordForm').submit();
+        }
+
+        function closeSuccessPasswordModal() {
+            document.getElementById('successPasswordModal').style.display = 'none';
+            window.location.href = '{{ route('pelanggan.show') }}'; // Ganti dengan route atau URL yang sesuai
+        }
+
+        function closeResetPasswordModal() {
+            document.getElementById('resetPasswordModal').style.display = 'none';
+            window.location.href = '{{ route('pelanggan.show') }}';
+        }
     </script>
 
 </body>

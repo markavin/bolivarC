@@ -10,21 +10,49 @@
 </head>
 <style>
     /* CSS untuk Responsif */
+    .container {
+        overflow-x: hidden;
+        max-width: 100vw; /* Membatasi lebar agar tidak melebihi viewport */
+    }
+
+    body {
+        overflow-x: hidden;
+        margin: 0; /* Hilangkan margin bawaan body untuk menghindari geseran */
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    header {
+        display: flex;
+        justify-content: flex-start; 
+        align-items: center;
+        padding-left: 40px; 
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #333;
+        }
 
     .purchase-view {
         margin-top: 20px;
     }
 
-    .search-bar {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            /* margin-top: 30px; */
-            margin-bottom: 20px;
-            width: 100%;
+    
+        .search-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        width: calc(100% - 40px); /* Menyesuaikan lebar untuk menghindari geser */
+        margin-left: 40px;
+    }
 
-        }
 
         .search-bar .search-icon {
         position: absolute;
@@ -47,21 +75,22 @@
         }
 
         .create-btn {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-            color: #000000;
-            gap: 10px;
-            border: none;
-            padding: 10px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            height: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: auto;
-            text-align: center;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #D1FDE8, #445D48);
+        color: #000000;
+        gap: 10px;
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-right: 40px; /* Atur jarak tombol dari sisi kanan */
 
-        }
+    }
 
 
         .create-text {
@@ -77,13 +106,15 @@
 
     /* Styling tabel */
     table {
-        width: 100%;
+        width: 93%;
         border-collapse: collapse;
         margin-top: 10px;
         background-color: #ffffff;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         overflow: hidden;
+        margin-left: 40px; /* Jarak kecil ke kiri */
+        margin-right: auto;
     }
 
     th,
@@ -130,10 +161,9 @@
     }
 
     .visibility-btn .material-symbols-outlined {
-        font-size: 20px;
-        /* Ukuran ikon */
+        color: #ffffff;
+        font-size: 25px;
         margin: 0;
-        /* Menghapus margin jika ada */
     }
 
     .visibility-btn:hover {
@@ -214,7 +244,8 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-            color: #ffffff; /* Warna teks dan ikon */
+            color: #ffffff;
+            /* Warna teks dan ikon */
             border: none;
             padding: 10px 12px;
             border-radius: 8px;
@@ -246,6 +277,7 @@
 
     }
 </style>
+
 <body>
     @include('layout.sidebar')
 
@@ -259,14 +291,16 @@
             <div class="search-bar">
                 <span class="material-symbols-outlined search-icon">Search</span>
                 <input type="text" placeholder="Search Purchase..." class="search-input">
-                <button class="create-btn">
+                <button class="create-btn" onclick="window.location.href='{{ route('pembelian.create') }}'">
                     <span class="create-text">Create Purchase</span>
-                    <span class="material-symbols-outlined">Add</span> 
+                    <span class="material-symbols-outlined">Add</span>
+                </button>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Purchase ID</th>
+                        <th>No</th>
+                        {{-- <th>Purchase ID</th> --}}
                         <th>Stock Name</th>
                         <th>Purchase Date</th>
                         <th>Quantity</th>
@@ -276,17 +310,19 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($pembelian as $Purchase)
+                    @foreach ($pembelian as $index => $Purchase)
                         <tr>
-                            <td data-label="Purchase ID">{{ $Purchase->id_pembelian }}</td>
+                            <td data-label="No">{{ $pembelian->total() - ($pembelian->firstItem() - 1) - $index }}</td>
+                            {{-- <td data-label="Purchase ID">{{ $Purchase->id_pembelian }}</td> --}}
                             <td data-label="Stock Name">{{ $Purchase->namaBahanBaku }}</td>
                             <td data-label="Purchase Date">{{ $Purchase->tanggalPembelian }}</td>
                             <td data-label="Quantity">{{ $Purchase->totalQuantity }}</td>
                             <td data-label="Total Price">{{ $Purchase->totalHarga }}</td>
                             <td data-label="Actions">
                                 <div class="action-buttons">
-                                    <button class="visibility-btn">
-                                        <span class="material-symbols-outlined">Visibility</span> 
+                                    <button class="visibility-btn"
+                                    onclick="window.location.href='{{ route('pembelian.detail', ['id_pembelian' => $Purchase->id_pembelian]) }}'">
+                                        <span class="material-symbols-outlined">Visibility</span>
                                     </button>
                                 </div>
                             </td>
@@ -294,6 +330,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $pembelian->links('vendor.pagination.custom') }}
         </div>
     </div>
 

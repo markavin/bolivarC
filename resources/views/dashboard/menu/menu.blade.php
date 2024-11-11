@@ -11,6 +11,37 @@
     <style>
         /* CSS untuk Responsif */
 
+        .container {
+            overflow-x: hidden;
+            max-width: 100vw;
+            /* Membatasi lebar agar tidak melebihi viewport */
+        }
+
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            /* Hilangkan margin bawaan body untuk menghindari geseran */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #333;
+        }
+
         .menu-view {
             margin-top: 20px;
             display: flex;
@@ -23,10 +54,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            /* margin-top: 30px; */
             margin-bottom: 20px;
-            width: 100%;
-
+            width: calc(100% - 40px);
+            /* Menyesuaikan lebar untuk menghindari geser */
+            margin-left: 40px;
         }
 
         .search-bar .search-icon {
@@ -57,7 +88,7 @@
         .create-btn {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+            background: linear-gradient(135deg, #D1FDE8, #445D48);
             color: #000000;
             gap: 10px;
             border: none;
@@ -66,11 +97,12 @@
             cursor: pointer;
             height: 40px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: auto;
-            text-align: center;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 60px;
+            /* Atur jarak tombol dari sisi kanan */
 
         }
-
 
         .create-text {
             font-size: 15px;
@@ -86,7 +118,7 @@
         /* Styling kartu menu */
         .menu-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 10px;
             padding: 0 40px;
@@ -184,8 +216,9 @@
 
         .menuedit-btn:hover .material-symbols-outlined,
         .menudelete-btn:hover .material-symbols-outlined {
-            color: #FFD9B4;
+            color: #D1FDE8;
         }
+
         .customers-view {
             margin-top: 20px;
         }
@@ -290,6 +323,8 @@
                 /* Mengurangi padding untuk tampilan mobile */
                 margin-top: 20px;
                 /* Mengurangi margin */
+                margin-left: 10px;
+
             }
 
             .menu-image {
@@ -301,7 +336,7 @@
             }
 
             .menu-info {
-                margin-top: 40px;
+                margin-top: 60px;
                 /* Menurunkan informasi menu */
             }
 
@@ -350,29 +385,30 @@
 
             <div class="menu-cards">
                 <!-- Loop through each menu item -->
-                @foreach ($menu as $Menu)
+                @foreach ($menu as $index => $Menu)
                     <div class="menu-card">
-                        <div class="menu-id">#{{ $Menu->id }}</div>
+                        <div class="menu-id">#{{ $menu->count() - $index }}</div>
                         <div class="menu-awal">
-                           <img src="{{ asset($Menu->fotoMenu) }}" alt="Menu Image" class="menu-image">
+                            <img src="{{ asset($Menu->fotoMenu) }}" alt="Menu Image" class="menu-image">
                         </div>
                         <div class="menu-info">
                             <h2>{{ $Menu->namaMenu }}</h2>
                             <p>Rp {{ number_format($Menu->hargaMenu, 0, ',', '.') }}</p>
                         </div>
                         <div class="menu-buttons">
-                            <button class="menuedit-btn" 
-                            onclick="window.location.href='{{ route('menu.edit', ['id' => $Menu->id]) }}'">
+                            <button class="menuedit-btn"
+                                onclick="window.location.href='{{ route('menu.edit', ['id' => $Menu->id]) }}'">
                                 <span class="material-symbols-outlined">edit</span>
-                            <button class="menudelete-btn"onclick="openDeleteModal('{{ $Menu->id }}', '{{ $Menu->namaMenu }}')">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
-                            <form id="delete-form-{{ $Menu->id }}"
-                                action="{{ route('menu.delete', ['id' => $Menu->id]) }}"
-                                method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                <button
+                                    class="menudelete-btn"onclick="openDeleteModal('{{ $Menu->id }}', '{{ $Menu->namaMenu }}')">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                                <form id="delete-form-{{ $Menu->id }}"
+                                    action="{{ route('menu.delete', ['id' => $Menu->id]) }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                         </div>
                     </div>
                 @endforeach

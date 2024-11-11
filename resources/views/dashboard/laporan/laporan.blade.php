@@ -49,17 +49,19 @@
             color: #000000
         }
 
-        /* Styling tabel */
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
+        width: 93%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-left: 40px;
+        /* Jarak kecil ke kiri */
+        margin-right: auto;
+        /* Pastikan ini agar tabel bergerak ke kiri */
+    }
         th,
         td {
             padding: 12px;
@@ -425,11 +427,11 @@
                 </div>
             @endif
             <div class="alert-container">
-                <div class="alert"> 
+                <div class="alert">
                     @if ($tipeLaporan == 'penjualan')
-                        <strong>Total Income :  Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
+                        <strong>Total Income : Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
                     @else
-                        <strong>Total Expenses :  Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
+                        <strong>Total Expenses : Rp {{ number_format($totalTransaksi, 0, ',', '.') }} </strong>
                     @endif
                 </div>
                 <button class="toggle-filter-btn" onclick="toggleFilterPanel()">
@@ -507,14 +509,12 @@
                 <label for="tanggal_awal" class="visually-tanggal">Choose Date</label>
                 <div style="display: flex; align-items: center;">
                     <div style="text-align: center; margin-right: 10px;">
-                        <label for="tanggal_awal" </label><br>
-                            <input type="date" name="tanggal_awal" id="tanggal_awal"
-                                value="{{ request('tanggal_awal') }}">
+                        <input type="date" name="tanggal_awal" id="tanggal_awal"
+                            value="{{ request('tanggal_awal') }}">
                     </div>
                     <div style="text-align: center; margin-left: 10px;">
-                        <label for="tanggal_akhir" </label><br>
-                            <input type="date" name="tanggal_akhir" id="tanggal_akhir"
-                                value="{{ request('tanggal_akhir') }}">
+                        <input type="date" name="tanggal_akhir" id="tanggal_akhir"
+                            value="{{ request('tanggal_akhir') }}">
                     </div>
                 </div>
             </div>
@@ -524,6 +524,7 @@
                 <button type="submit" class="done-btn">Done</button>
             </div>
         </form>
+
     </div>
 
 

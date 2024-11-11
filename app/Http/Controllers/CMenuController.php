@@ -107,4 +107,9 @@ class CMenuController extends Controller
 
         return view("dashboard/menu/menu", compact('menu'));
     }
+
+    public function index() {
+        $menu = Menu::paginate(10); // Adjust the number as needed
+        return view('dashboard.menu.index', compact('menu'));
+    }
 }

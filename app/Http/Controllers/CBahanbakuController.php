@@ -9,27 +9,10 @@ class CBahanbakuController extends Controller
 {
     public function show()
     {
-        $bahanBaku = BahanBaku::orderBy('id', 'desc')->get();
+        $bahanBaku = BahanBaku::orderBy('id', 'desc')->paginate(5); 
         return view("dashboard/bahanBaku/bahanbaku", compact('bahanBaku'));
     }
 
-    public function create()
-    {
-        return view("dashboard/bahanBaku.createbahanBaku");
-    }
-
-    public function edit($id)
-    {
-        $stock = BahanBaku::findOrFail($id);
-        return view('dashboard.bahanBaku.editbahanBaku', compact('stock'));
-    }
-    
-    // public function delete($id)
-    // {
-    //     $stock = BahanBaku::findOrFail($id);
-    //     return view('dashboard.bahanBaku.deletebahanBaku', compact('stock'));
-    // }
-    
     public function store(Request $request)
     {
         $request->validate([
@@ -37,35 +20,71 @@ class CBahanbakuController extends Controller
             'jumlahBahanBaku' => 'required|integer|min:1',
         ]);
 
-        BahanBaku::create([
-            'namaBahanBaku' => $request->namaBahanBaku,
-            'jumlahBahanBaku' => $request->jumlahBahanBaku,
+
+
+        $namaBahanBaku = $request->input('namaBahanBaku');
+        $jumlahBahanBaku = $request->input('jumlahBahanBaku');
+
+
+        $bahanBaku = BahanBaku::create([
+            'namaBahanBaku' => $namaBahanBaku,
+            'jumlahBahanBaku' => $jumlahBahanBaku,
         ]);
 
-        return redirect()->route('bahanBaku.show');
+        return redirect()->route('bahanBaku.show')->with('success', 'Bahan Baku berhasil ditambahkan');
     }
 
-    public function update(Request $request, $id)
+    public function create()
     {
+        return view("dashboard/bahanBaku.createbahanBaku");
+    }
+
+    
+    public function delete($id)
+    {
+        $bahanBaku = BahanBaku::findOrFail($id);
+        $bahanBaku->delete();
+
+        return redirect()->route('bahanBaku.show')->with('success', 'bahan Baku berhasil dihapus');
+    }
+    
+    public function edit(Request $request, $id)
+    {
+        $bahanBaku = BahanBaku::findOrFail($id);
+
+
+        if ($request->isMethod('get')) {
+            return view('dashboard.bahanBaku.editbahanBaku', compact('bahanBaku'));
+        }
+
+
         $request->validate([
             'namaBahanBaku' => 'required|string|max:255',
             'jumlahBahanBaku' => 'required|integer|min:1',
         ]);
 
-        $stock = BahanBaku::findOrFail($id);
-        $stock->namaBahanBaku = $request->namaBahanBaku;
-        $stock->jumlahBahanBaku = $request->jumlahBahanBaku;
-        $stock->save();
 
-        return redirect()->route('bahanBaku.show');
+        $namaBahanBaku = $request->input('namaBahanBaku');
+        $jumlahBahanBaku = $request->input('jumlahBahanBaku');
+
+
+        $bahanBaku->update([
+            'namaBahanBaku' => $namaBahanBaku,
+            'jumlahBahanBaku' => $jumlahBahanBaku,
+        ]);
+
+        return redirect()->route('bahanBaku.show')->with('success', 'bahanBaku berhasil diperbarui');
     }
 
-        public function delete($id)
+   
+    public function search(Request $request)
     {
-        $stock = BahanBaku::findOrFail($id);
-        $stock->delete();
-
-        return redirect()->route('bahanBaku.show');
+        $keyword = $request->input('search');
+        $bahanBaku = BahanBaku::where('namaBahanBaku', 'LIKE', "%$keyword%")
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+        return view("dashboard/bahanBaku/bahanbaku", compact('bahanBaku'));
     }
+   
 
 }

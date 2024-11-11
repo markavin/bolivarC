@@ -57,19 +57,24 @@ class CLaporanController extends Controller
     }
 
 
-    public function getLaporan(Request $request)
-    {
-        $tipeLaporan = $request->get('tipe', 'penjualan');
-        $tanggalAwal = $request->get('tanggal_awal');
-        $tanggalAkhir = $request->get('tanggal_akhir');
-        $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir);
+   public function getLaporan(Request $request)
+{
+    // Ambil tipe laporan dan tanggal dari request
+    $tipeLaporan = $request->get('tipe', 'penjualan'); // default 'penjualan'
+    $tanggalAwal = $request->get('tanggal_awal');
+    $tanggalAkhir = $request->get('tanggal_akhir');
 
-        return view('dashboard/laporan/laporan', array_merge($dataLaporan, [
-            'tipeLaporan' => $tipeLaporan,
-            'tanggalAwal' => $tanggalAwal,
-            'tanggalAkhir' => $tanggalAkhir
-        ]));
-    }
+    // Panggil method untuk mengambil data laporan berdasarkan filter
+    $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir);
+
+    // Kembalikan data ke view dengan parameter yang sesuai
+    return view('dashboard.laporan.laporan', array_merge($dataLaporan, [
+        'tipeLaporan' => $tipeLaporan,
+        'tanggalAwal' => $tanggalAwal,
+        'tanggalAkhir' => $tanggalAkhir
+    ]));
+}
+
 
     public function exportExcel(Request $request)
     {

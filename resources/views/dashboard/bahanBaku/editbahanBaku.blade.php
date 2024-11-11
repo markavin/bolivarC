@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bolívar Coffee Dashboard - Create Stock</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Bolívar Coffee Dashboard - Edit Stock</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
-
-            .form-container {
-            background: linear-gradient(135deg, #445D48, #6F8D6D);
-            padding: 30px 40px;
+ 
+        .form-container {
+            background: linear-gradient(135deg, #445D48, #799C8C, #445D48);
+            padding: 40px 50px;
             border-radius: 12px;
             color: #ffffff;
-            width: 700px; 
-            /* height: 300px; */
+            width: 800px;
+            height: 300px;
             margin: 150px auto 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
-
+ 
         .form-container h1 {
             font-size: 24px;
             color: #333333;
             margin-bottom: 20px;
         }
-
+ 
         .form-group {
             margin-bottom: 20px;
             position: relative;
         }
-
+ 
         .form-group label {
             font-size: 14px;
             color: #ffffff;
             display: block;
             margin-bottom: 5px;
         }
-
+ 
         .form-group input {
+            margin-top: 15px;
             width: 100%;
             padding: 12px 16px 12px 45px;
             border: none;
@@ -47,8 +49,9 @@
             background-color: #f5f5f5;
             color: #333;
         }
-
+ 
         .form-group .material-icons-outlined {
+            margin-top: 15px;
             position: absolute;
             top: 50%;
             left: 15px;
@@ -56,18 +59,17 @@
             color: #445D48;
             font-size: 20px;
         }
-
-        
+ 
+       
         .form-actions {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Menempatkan tombol di sisi kanan */
             gap: 10px;
-            margin: 20px 0 0 0; 
-            width: 700px; 
-            margin-left: auto;
-            margin-right: auto;
+            margin: 20px 0 0 0;
+            width: 700px;
+            margin-left: 315px;
         }
-
+ 
         .cancel-btn,
         .submit-btn {
             padding: 10px 20px;
@@ -76,55 +78,64 @@
             font-size: 16px;
             cursor: pointer;
         }
-
+ 
         .cancel-btn {
             background-color: #f5f5f5;
-            color: #333;
+            color: #000000;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
+ 
         .submit-btn {
-            background: linear-gradient(135deg, #B0EACD, #445D48);
-            color: #ffffff;
+            background: linear-gradient(135deg, #D1FDE8, #445D48);
+            color: #000000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+ 
+        .main-content header {
+            position: relative;
+            top: 130px;
+            text-align: center;
+            margin-bottom: 0;
+            width: 800px;
+            padding-right: 120px;
         }
     </style>
 </head>
-
+ 
 <body>
     @include('layout.sidebar')
-
+ 
     <div class="main-content">
         <header>
             <h1>Stock / <span style="color: #445D48;">Edit Stock</span></h1>
         </header>
-
+ 
         <div class="form-container">
-                <form action="{{ route('stocks.update', $stock->id) }}" method="POST">
+                <form action="{{ route('bahanBaku.edit', $bahanBaku->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    
+                   
                 <div class="form-group">
-                    <label for="namaBahanBaku">Stock Name</label>
-                    <span class="material-icons-outlined">description</span>
-                    <input type="text" id="namaBahanBaku" name="namaBahanBaku" placeholder="Enter a new stock name" required>
+                    <label for="namaBahanBaku" class="form-label">Stock Name</label>
+                    <span class="material-icons-outlined">badge</span>
+                    <input type="text" class="form-control" id="namaBahanBaku" name="namaBahanBaku" value="{{ $bahanBaku->namaBahanBaku }}" placeholder="Enter a new stock name" required>
                 </div>
                 <div class="form-group">
                     <label for="jumlahBahanBaku">Stock Quantity</label>
                     <span class="material-icons-outlined">inventory</span>
-                    <input type="number" id="jumlahBahanBaku" name="jumlahBahanBaku" placeholder="Enter a new stock quantity" required min="1">
+                    <input type="text" class="form-control" id="jumlahBahanBaku" name="jumlahBahanBaku" value="{{ $bahanBaku->jumlahBahanBaku }}" placeholder="Enter a new stock quantity" required min="1">
                 </div>
-                
+               
         </div>
-
+ 
         <div class="form-actions">
             <button type="button" class="cancel-btn" onclick="window.location='{{ route('bahanBaku.show') }}'">Cancel</button>
             <button type="submit" class="submit-btn">Edit Stock</button>
         </div>
     </form>
-
+ 
     </div>
-
+ 
 </body>
-
+ 
 </html>

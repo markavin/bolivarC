@@ -8,14 +8,35 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
+        .container {
+            overflow-x: hidden;
+            max-width: 100vw;
+            /* Membatasi lebar agar tidak melebihi viewport */
+        }
+
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            /* Hilangkan margin bawaan body untuk menghindari geseran */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         .search-bar {
             position: relative;
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
-            width: 100%;
+            width: calc(100% - 40px);
+            /* Menyesuaikan lebar untuk menghindari geser */
+            margin-left: 40px;
         }
+
 
         .search-bar .search-icon {
             position: absolute;
@@ -37,10 +58,11 @@
             font-size: 16px;
         }
 
+
         .create-btn {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+            background: linear-gradient(135deg, #D1FDE8, #445D48);
             color: #000000;
             gap: 10px;
             border: none;
@@ -49,7 +71,11 @@
             cursor: pointer;
             height: 40px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 40px;
+            /* Atur jarak tombol dari sisi kanan */
+
         }
 
         .create-text {
@@ -62,13 +88,17 @@
         }
 
         table {
-            width: 100%;
+            width: 93%;
             border-collapse: collapse;
             margin-top: 10px;
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             overflow: hidden;
+            margin-left: 40px;
+            /* Jarak kecil ke kiri */
+            margin-right: auto;
+            /* Pastikan ini agar tabel bergerak ke kiri */
         }
 
         th,
@@ -123,6 +153,13 @@
 
         .Employee-view {
             margin-top: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
         }
 
         .modal {
@@ -351,10 +388,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pengguna as $pegawai)
+                    @foreach ($pengguna as $index => $pegawai)
                         <tr>
                             {{-- <td data-label="Employee Name">{{ $pegawai->id }}</td> --}}
-                            <td data-label="No">{{ $loop->iteration }}</td>
+                            <td data-label="No">{{ $pengguna->total() - ($pengguna->firstItem() - 1) - $index }}</td>
                             <td data-label="Employee Name">{{ $pegawai->namaPengguna }}</td>
                             <td data-label="Phone Number">{{ $pegawai->noHP }}</td>
                             <td data-label="Username">{{ $pegawai->username }}</td>
@@ -380,6 +417,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $pengguna->links('vendor.pagination.custom') }}
         </div>
     </div>
 

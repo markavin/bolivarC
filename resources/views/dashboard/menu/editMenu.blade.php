@@ -5,40 +5,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bolívar Coffee Dashboard - Edit Menu</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <style>
+        .form-container {
+            background: linear-gradient(135deg, #445D48, #799C8C, #445D48);
+            padding: 40px 50px;
+            border-radius: 12px;
+            color: #ffffff;
+            width: 800px;
+            height: 430px;
+            margin: 80px auto 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px 16px 12px 45px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .form-group .material-icons-outlined {
+            margin-top: 15px;
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #445D48;
+            font-size: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            /* Menempatkan tombol di sisi kanan */
+            gap: 10px;
+            margin: 20px 0 0 0;
+            width: 700px;
+            margin-left: 320px;
+        }
+
+        .cancel-btn,
+        .submit-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background-color: #f5f5f5;
+            color: #000000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #D1FDE8, #445D48);
+            color: #000000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content header {
+            position: relative;
+            top: 70px;
+            text-align: center;
+            margin-bottom: 0;
+            width: 800px;
+            padding-right: 90px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Edit Menu</h2>
-        <form action="{{ route('menu.edit', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            
-            <div class="mb-3">
-                <label for="namaMenu" class="form-label">Nama Menu</label>
-                <input type="text" class="form-control" id="namaMenu" name="namaMenu" value="{{ $menu->namaMenu }}" required>
-            </div>
+    @include('layout.sidebar')
 
-            <div class="mb-3">
-                <label for="fotoMenu" class="form-label">Foto Menu</label>
-                <input type="file" class="form-control" id="fotoMenu" name="fotoMenu" accept="image/*">
-                <!-- Display existing image if available -->
-                @if($menu->fotoMenu)
-                    <div class="mt-2">
-                        <p>Foto Saat Ini:</p>
-                        <img src="{{ asset('storage/' . $menu->fotoMenu) }}" alt="Foto Menu" style="width: 150px; height: auto;">
-                    </div>
-                @endif
-            </div>
+    <div class="main-content">
+        <header>
+            <h1>Menu / <span style="color: #445D48;">Edit Menu</span></h1>
+        </header>
 
-            <div class="mb-3">
-                <label for="hargaMenu" class="form-label">Harga Menu</label>
-                <input type="number" step="0.01" class="form-control" id="hargaMenu" name="hargaMenu" value="{{ $menu->hargaMenu }}" required>
-            </div>
+        <div class="form-container">
+            <form action="{{ route('menu.edit', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-            <button type="submit" class="btn btn-primary">Perbarui</button>
+                <div class="form-group">
+                    <label for="namaMenu" class="form-label">Menu Name</label>
+                    <span class="material-icons-outlined">badge</span>
+                    <input type="text" class="form-control" id="namaMenu" name="namaMenu"
+                        value="{{ $menu->namaMenu }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fotoMenu" class="form-label">Menu Image</label>
+                    <span class="material-icons-outlined">panorama</span>
+                    <input type="file" class="form-control" id="fotoMenu" name="fotoMenu" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    @if ($menu->fotoMenu)
+                        <p>Foto Menu Saat Ini:</p>
+                        <img src="{{ asset('storage/' . $menu->fotoMenu) }}" alt="Foto Menu"
+                            style="width: 150px; height: auto;">
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="hargaMenu" class="form-label">Menu Price</label>
+                    <span class="material-icons-outlined">payments</span>
+                    <input type="number" step="0.01" class="form-control" id="hargaMenu" name="hargaMenu"
+                        value="{{ $menu->hargaMenu }}" required>
+                </div>
+
+        </div>
+
+        <!-- Buttons placed outside the form-container -->
+        <div class="form-actions">
+            <button type="button" class="cancel-btn"
+                onclick="window.location='{{ route('menu.show') }}'">Cancel</button>
+            <button type="submit" class="submit-btn">Edit Menu</button>
+        </div>
         </form>
     </div>
 </body>

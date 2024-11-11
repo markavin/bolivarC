@@ -13,4 +13,9 @@ class menu extends Model
     protected $table = 'menu';
     protected $guarded = ['id_menu', 'created_at', 'updated_at', 'deleted_at'];
     // protected $dates = ['deleted_at'];
+
+    public function penjualan()
+    {
+        return $this->hasMany(Penjualan::class, 'id_menu', 'id'); // Hubungan hasMany
+    }
 }
