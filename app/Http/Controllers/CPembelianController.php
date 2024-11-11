@@ -11,24 +11,24 @@ use Illuminate\Support\Facades\DB;
 class CPembelianController extends Controller
 {
     public function show()
-{
-    $pembelian = DB::table('pembelian')
-        ->select(
-            'pembelian.id_pembelian',
-            DB::raw("GROUP_CONCAT(bahanBaku.namaBahanBaku SEPARATOR ', ') as namaBahanBaku"),
-            DB::raw('DATE(pembelian.tanggalPembelian) as tanggalPembelian'),
-            DB::raw('SUM(detail_pembelian.quantity) as totalQuantity'),
-            'pembelian.totalHarga',
-            'pembelian.tanggalPembelian as fullDATE'
-        )
-        ->join('detail_pembelian', 'pembelian.id_pembelian', '=', 'detail_pembelian.id_pembelian')
-        ->join('bahanBaku', 'detail_pembelian.id_bahanBaku', '=', 'bahanBaku.id')
-        ->groupBy('pembelian.id_pembelian', 'pembelian.tanggalPembelian', 'pembelian.totalHarga')
-        ->orderBy('pembelian.tanggalPembelian', 'desc')
-        ->paginate(10);
+    {
+        $pembelian = DB::table('pembelian')
+            ->select(
+                'pembelian.id_pembelian',
+                DB::raw("GROUP_CONCAT(bahanBaku.namaBahanBaku SEPARATOR ', ') as namaBahanBaku"),
+                DB::raw('DATE(pembelian.tanggalPembelian) as tanggalPembelian'),
+                DB::raw('SUM(detail_pembelian.quantity) as totalQuantity'),
+                'pembelian.totalHarga',
+                'pembelian.tanggalPembelian as fullDATE'
+            )
+            ->join('detail_pembelian', 'pembelian.id_pembelian', '=', 'detail_pembelian.id_pembelian')
+            ->join('bahanBaku', 'detail_pembelian.id_bahanBaku', '=', 'bahanBaku.id')
+            ->groupBy('pembelian.id_pembelian', 'pembelian.tanggalPembelian', 'pembelian.totalHarga')
+            ->orderBy('pembelian.tanggalPembelian', 'desc')
+            ->paginate(10);
 
-    return view("dashboard/pembelian/pembelian", compact('pembelian'));
-}
+        return view("dashboard/pembelian/pembelian", compact('pembelian'));
+    }
 
 
     public function create()
@@ -51,7 +51,7 @@ class CPembelianController extends Controller
 
 
 
-        $pembelian = Pembelian::create([ 
+        $pembelian = Pembelian::create([
             'tanggalpembelian' => now(),
             // 'harga' =>  $request->harga,
             'totalHarga' => $request->totalHarga,
@@ -70,9 +70,9 @@ class CPembelianController extends Controller
                 'subTotal' => $subTotal,
             ]);
         }
-        
-        
-    
+
+
+
         return redirect()->route('pembelian.show')->with('success', 'pembelian berhasil dibuat dan poin ditambahkan.');
     }
 
@@ -106,5 +106,26 @@ class CPembelianController extends Controller
     }
 
 
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $pembelian = Pembelian::select(
+            'pembelian.id_pembelian',
+            DB::raw("GROUP_CONCAT(bahanBaku.namaBahanBaku SEPARATOR ', ') as namaBahanBaku"),
+            'pembelian.tanggalpembelian',
+            'pembelian.totalHarga',
+            DB::raw('SUM(detail_pembelian.quantity) as totalQuantity')
+        )
+            ->join('detail_pembelian', 'pembelian.id_pembelian', '=', 'detail_pembelian.id_pembelian')
+            ->join('bahanBaku', 'detail_pembelian.id_bahanBaku', '=', 'bahanBaku.id')
+            ->groupBy('pembelian.id_pembelian', 'pembelian.tanggalpembelian', 'pembelian.totalHarga')
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('bahanBaku.namaBahanBaku', 'LIKE', "%$keyword%")
+                    ->orWhere('pembelian.tanggalpembelian', 'LIKE', "%$keyword%");
+            })
+            ->orderBy('pembelian.tanggalpembelian', 'desc')
+            ->paginate(10);
 
+        return view("dashboard.pembelian.pembelian", compact('pembelian'));
+    }
 }

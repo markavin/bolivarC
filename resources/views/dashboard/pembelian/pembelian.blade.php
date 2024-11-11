@@ -289,8 +289,11 @@
         </header>
         <div class="purchase-view">
             <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">Search</span>
-                <input type="text" placeholder="Search Purchase..." class="search-input">
+                <form action="{{ route('pembelian.search') }}" method="GET" style="display: flex; width: 84%">
+                    <span class="material-symbols-outlined search-icon">Search</span>
+                    <input type="text" placeholder="Search Purchase..." class="search-input" name="search"
+                    value="{{ request('search') }}">
+                </form>
                 <button class="create-btn" onclick="window.location.href='{{ route('pembelian.create') }}'">
                     <span class="create-text">Create Purchase</span>
                     <span class="material-symbols-outlined">Add</span>

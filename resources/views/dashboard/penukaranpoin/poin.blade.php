@@ -251,8 +251,11 @@
 
         <div class="point-view">
             <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">Search</span>
-                <input type="text" placeholder="Search point..." class="search-input">
+                <form action="{{ route('poin.search') }}" method="GET" style="display: flex; width: 84%">
+                    <span class="material-symbols-outlined search-icon">Search</span>
+                    <input type="text" placeholder="Search point..." class="search-input" name="search"
+                    value="{{ request('search') }}">
+                </form>
                 <button class="create-btn" onclick="window.location.href='{{ route('penukaran.create') }}'">
                     <span class="create-text">Create Points Exchange</span>
                     <span class="material-symbols-outlined">Add</span>

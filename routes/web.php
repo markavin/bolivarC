@@ -67,14 +67,16 @@
             Route::get('Bolivar/dashboard/sales-create', [CPenjualanController::class, 'create'])->name('penjualan.create');
             Route::post('Bolivar/dashboard/sales-store', [CPenjualanController::class, 'store'])->name('penjualan.store');
             Route::get('Bolivar/dashboard/sales-detail/{id_penjualan}', [CPenjualanController::class, 'showDetail'])->name('penjualan.detail');
+            Route::get('Bolivar/dashboard/sales-search', [CPenjualanController::class, 'search'])->name('penjualan.search');
 
             Route::get('Bolivar/dashboard/purchase', [CPembelianController::class, 'show'])->name('pembelian.show');
             Route::get('Bolivar/dashboard/purchase-create', [CPembelianController::class, 'create'])->name('pembelian.create');
             Route::post('Bolivar/dashboard/purchase-store', [CPembelianController::class, 'store'])->name('pembelian.store');
-            Route::get('Bolivar/dashboard/ourchase-detail/{id_pembelian}', [CPembelianController::class, 'showDetail'])->name('pembelian.detail');
+            Route::get('Bolivar/dashboard/purchase-detail/{id_pembelian}', [CPembelianController::class, 'showDetail'])->name('pembelian.detail');
+            Route::get('Bolivar/dashboard/purchase-search', [CPembelianController::class, 'search'])->name('pembelian.search');
             // Route untuk menampilkan daftar poin
             Route::get('Bolivar/dashboard/points', [CPoinControllers::class, 'show'])->name('poin.show');
-
+            Route::get('Bolivar/dashboard/points-search', [CPoinControllers::class, 'search'])->name('poin.search');
             Route::get('Bolivar/dashboard/exchange-create', [CPenukaranController::class, 'create'])->name('penukaran.create');
             Route::post('Bolivar/dashboard/points-store', [CPenukaranController::class, 'store'])->name('penukaran.store');
 

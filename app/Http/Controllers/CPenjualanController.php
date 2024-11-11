@@ -146,4 +146,26 @@ class CPenjualanController extends Controller
             'returnPay'
         ));
     }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $penjualan = Penjualan::select(
+            'penjualan.id_penjualan',
+            'pelanggan.NamaPelanggan',
+            'penjualan.tanggalPenjualan',
+            'penjualan.totalHarga',
+            DB::raw('SUM(detail_penjualan.quantity) as totalQuantity')
+        )
+            ->leftJoin('pelanggan', 'penjualan.id_pelanggan', '=', 'pelanggan.id')
+            ->leftJoin('detail_penjualan', 'penjualan.id_penjualan', '=', 'detail_penjualan.id_penjualan')
+            ->groupBy('penjualan.id_penjualan', 'pelanggan.NamaPelanggan', 'penjualan.tanggalPenjualan', 'penjualan.totalHarga')
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('pelanggan.NamaPelanggan', 'LIKE', "%$keyword%")
+                    ->orWhere('penjualan.tanggalPenjualan', 'LIKE', "%$keyword%");
+            })
+            ->orderBy('penjualan.tanggalPenjualan', 'desc')
+            ->paginate(10);
+
+        return view("dashboard.penjualan.penjualan", compact('penjualan'));
+    }
 }
