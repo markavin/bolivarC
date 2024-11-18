@@ -98,6 +98,53 @@
             width: 800px;
             padding-right: 90px;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #7e7e7e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 
@@ -110,7 +157,8 @@
         </header>
 
         <div class="form-container">
-            <form action="{{ route('menu.edit', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('menu.edit', ['id' => $menu->id]) }}" method="POST" enctype="multipart/form-data"
+                id="editMenuForm" onsubmit="validateForm(event)">
                 @csrf
                 @method('PUT')
 
@@ -127,13 +175,12 @@
                     <input type="file" class="form-control" id="fotoMenu" name="fotoMenu" accept="image/*">
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     @if ($menu->fotoMenu)
-                        <p>Foto Menu Saat Ini:</p>
-                        <img src="{{ asset('storage/' . $menu->fotoMenu) }}" alt="Foto Menu"
-                            style="width: 150px; height: auto;">
-                    @endif
-                </div>
+                    <p>Foto Menu Saat Ini:</p>
+                    <img src="{{ asset('public/img' . $menu->fotoMenu) }}" alt="Foto Menu" style="width: 150px; height: auto;">
+                @endif
+                </div> --}}
 
                 <div class="form-group">
                     <label for="hargaMenu" class="form-label">Menu Price</label>
@@ -152,6 +199,69 @@
         </div>
         </form>
     </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #28a745;">
+                <i class="material-icons-outlined">check_circle</i>
+            </div>
+            <p class="modal-message">Menu created successfully!</p>
+            <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #dc3545;">
+                <i class="material-icons-outlined">error</i>
+            </div>
+            <p class="modal-message" id="errorMessage">Menu creation failed! Please check your inputs.</p>
+            <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
+        </div>
+    </div>
+    <script>
+        const MenuShowUrl = "{{ route('menu.show') }}";
+
+        async function checknamamenu(namaMenu) {
+            // Check if the menu name already exists using the AJAX call
+            const response = await fetch(`{{ route('menu.Checknamamenu') }}?namaMenu=${namaMenu}`);
+            const result = await response.json();
+            return result.exists; // This should return true or false depending on if the menu name exists
+        }
+
+        async function validateForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const namaMenu = document.getElementById('namaMenu').value.trim();
+
+            // Check if the menu name exists in the database
+            const namaMenuExists = await checknamamenu(namaMenu);
+
+            // Show error modal if menu name exists
+            if (namaMenuExists) {
+                showErrorModal("Nama Menu sudah ada. Silakan gunakan nama lain.");
+            } else {
+                // If no errors, show the success modal
+                document.getElementById('successModal').style.display = 'flex';
+            }
+        }
+
+        function showErrorModal(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorModal').style.display = 'flex';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('editMenuForm').submit(); // Submit the form after success modal
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

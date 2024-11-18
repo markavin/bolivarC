@@ -105,6 +105,53 @@
             width: 800px;
             padding-left: 140px;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #7e7e7e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 
@@ -117,7 +164,8 @@
         </header>
 
         <div class="form-container">
-            <form action="{{ route('pelanggan.edit', $pelanggan->id) }}" method="POST">
+            <form action="{{ route('pelanggan.edit', $pelanggan->id) }}" method="POST" id="editCustForm"
+                onsubmit="validateForm(event)">
                 @csrf
                 @method('PUT') <!-- Menentukan metode PUT untuk update -->
 
@@ -146,6 +194,71 @@
         </form>
 
     </div>
+
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #28a745;">
+                <i class="material-icons-outlined">check_circle</i>
+            </div>
+            <p class="modal-message">Employee created successfully!</p>
+            <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #dc3545;">
+                <i class="material-icons-outlined">error</i>
+            </div>
+            <p class="modal-message" id="errorMessage">Employee creation failed! Please check your inputs.</p>
+            <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
+        </div>
+    </div>
+
+    <script>
+        const pelangganShowUrl = "{{ route('pelanggan.show') }}";
+
+        async function checknoHP(NoHP) {
+            const response = await fetch(`{{ route('pelanggan.ChecknoHP') }}?NoHP=${NoHP}`);
+            const result = await response.json();
+            return result.exists;
+        }
+
+        async function validateForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const namaPengguna = document.getElementById('NamaPelanggan').value.trim();
+            const NoHP = document.getElementById('NoHP').value.trim();
+
+            const noHPexists = await checknoHP(NoHP);
+
+            if (noHPexists) {
+                showErrorModal("Nomor HP sudah ada. Silakan gunakan nomor lain.");
+            } else if (NoHP.length < 10 || NoHP.length > 15 || isNaN(NoHP)) {
+                showErrorModal("Nomor HP tidak valid. Harus antara 10 hingga 15 digit.");
+            } else {
+                // If validation passes, show success modal and submit the form
+                document.getElementById('successModal').style.display = 'flex';
+            }
+        }
+
+        function showErrorModal(message) {
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorModal').style.display = 'flex';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('editCustForm').submit(); // Submit the form after success
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

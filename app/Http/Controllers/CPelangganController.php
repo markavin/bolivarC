@@ -90,4 +90,12 @@ class CPelangganController extends Controller
 
         return view("dashboard/pelanggan/pelanggan", compact('pelanggan'));
     }
+
+
+    public function ChecknoHP(Request $request)
+    {
+        $NoHP = $request->input('NoHP');
+        $exists = Pelanggan::where('NoHP', $NoHP)->exists();
+        return response()->json(['exists' => $exists]);
+    }
 }

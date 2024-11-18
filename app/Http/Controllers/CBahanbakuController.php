@@ -87,4 +87,10 @@ class CBahanbakuController extends Controller
     }
    
 
+    public function ChecknamaStock(Request $request)
+    {
+        $namaBahanBaku = $request->input('namaBahanBaku');
+        $exists = BahanBaku::where('namaBahanBaku', $namaBahanBaku)->exists();
+        return response()->json(['exists' => $exists]);
+    }
 }

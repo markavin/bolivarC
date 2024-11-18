@@ -90,7 +90,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         white-space: nowrap;
         flex-shrink: 0;
-        margin-right: 60px;
+        margin-right: 50px;
         /* Atur jarak tombol dari sisi kanan */
 
     }
@@ -344,6 +344,7 @@
             text-align: left;
             font-weight: bold;
         }
+        
     }
 </style>
 
@@ -352,7 +353,7 @@
 
     <div class="main-content">
         <header>
-            <h1>Bolívar Coffee - Stock List</h1>
+            <h1>Bolívar Coffee - Stock List</h1> <span class="status-dot"></span>
             <div class="notification"></div>
         </header>
 

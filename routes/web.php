@@ -48,6 +48,8 @@
             Route::match(['get', 'put'], 'Bolivar/dashboard/customers/{id}/edit', [CPelangganController::class, 'edit'])->name('pelanggan.edit');
             Route::delete('Bolivar/dashboard/customers/{id}', [CPelangganController::class, 'delete'])->name('pelanggan.delete');
             Route::get('Bolivar/dashboard/customers-search', [CPelangganController::class, 'search'])->name('pelanggan.search');
+            Route::get('/pelanggan/checknoHP', [CPelangganController::class, 'checknoHP'])->name('pelanggan.ChecknoHP');
+            
 
             Route::get('Bolivar/dashboard/menu', [CMenuController::class, 'show'])->name('menu.show');
             Route::get('Bolivar/dashboard/menu-create', [CMenuController::class, 'create'])->name('menu.create');
@@ -55,6 +57,8 @@
             Route::match(['get', 'put'], 'Bolivar/dashboard/menu/{id}/edit', [CMenuController::class, 'edit'])->name('menu.edit');
             Route::delete('Bolivar/dashboard/menu/{id}', [CMenuController::class, 'delete'])->name('menu.delete');
             Route::get('Bolivar/dashboard/menu-search', [CMenuController::class, 'search'])->name('menu.search');
+            Route::get('/menu/checknamaMenu', [CMenuController::class, 'Checknamamenu'])->name('menu.Checknamamenu');
+
 
             Route::get('Bolivar/dashboard/stock', [CBahanbakuController::class, 'show'])->name('bahanBaku.show');
             Route::get('Bolivar/dashboard/stock-create', [CBahanbakuController::class, 'create'])->name('bahanBaku.create');
@@ -62,6 +66,7 @@
             Route::post('Bolivar/dashboard/stock-store', [CBahanbakuController::class, 'store'])->name('bahanBaku.store');
             Route::delete('/dashboard/stock/{id}', [CBahanbakuController::class, 'delete'])->name('bahanBaku.delete');
             Route::get('Bolivar/dashboard/stock-search', [CBahanbakuController::class, 'search'])->name('bahanBaku.search');
+            Route::get('/bahanBaku/checknamaStock', [CBahanbakuController::class, 'checknamaStock'])->name('bahanBaku.ChecknamaStock');
 
             Route::get('Bolivar/dashboard/sales', [CPenjualanController::class, 'show'])->name('penjualan.show');
             Route::get('Bolivar/dashboard/sales-create', [CPenjualanController::class, 'create'])->name('penjualan.create');
@@ -104,6 +109,8 @@
             Route::match(['get', 'put'], 'Bolivar/dashboard/employee/{id}/edit', [CPegawaiController::class, 'edit'])->name('pegawai.edit');
             Route::delete('Bolivar/dashboard/employee/{id}', [CPegawaiController::class, 'delete'])->name('pegawai.delete');
             Route::get('Bolivar/dashboard/employee-search', [CPegawaiController::class, 'search'])->name('pegawai.search');
+            Route::get('/pegawai/ChecknoHP', [CPegawaiController::class, 'ChecknoHP'])->name('pegawai.ChecknoHP');
+
 
             Route::get('Bolivar/dashboard/reports', [CLaporanController::class, 'getLaporan'])->name('laporan.index');
             Route::get('/laporan-data', [CLaporanController::class, 'getgrafikdata'])->name('laporan.data');

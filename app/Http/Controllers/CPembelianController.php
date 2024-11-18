@@ -46,7 +46,7 @@ class CPembelianController extends Controller
             'namaBahanBaku.*' => 'required|exists:bahanBaku,id',
             'harga.*' => 'required|numeric',
             'quantity.*' => 'required|integer|min:1',
-            'totalHarga' => 'required|numeric',
+            'totalHarga' => 'required|numeric|min:1',
         ]);
 
 

@@ -198,6 +198,14 @@
             background-color: #445D48;
             opacity: 1;
         }
+
+        header {
+            margin-top: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 220px;
+        }
     </style>
 </head>
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
             margin-bottom: 20px;
             justify-content: center;
         } */
- 
+
         .btn {
             display: inline-block;
             padding: 0.05rem 0.1rem;
@@ -34,11 +34,11 @@
             justify-content: center;
             width: 100px;
         }
- 
+
         .navbar-nav .nav-link {
             padding: 0.1rem 0.1rem;
         }
- 
+
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -48,37 +48,37 @@
             margin-bottom: 20px;
             /* Jarak di bawah header */
         }
- 
+
         .user-info {
             color: #fffffF;
             font-size: 12px;
             text-align: center;
         }
- 
+
         header {
             text-align: left;
             /* Menyelaraskan judul ke kiri */
-            margin-left: 20px;
+            margin-left: 0px;
             /* Memberikan jarak dari tepi kiri */
         }
- 
+
         #navbar {
             margin-right: 20px;
             /* Jarak dari tepi kanan */
         }
- 
+
         .main-content {
             position: relative;
             /* Menjadikan konten utama sebagai referensi untuk posisi anak */
             padding: 20px;
             /* Jarak di dalam konten utama */
         }
- 
+
         .navbar .nav-link {
             text-decoration: none;
             /* Menghilangkan underline */
         }
- 
+
         .dropdown-toggle {
             border-radius: 20px;
             /* Membuat kotak lebih bulat */
@@ -89,19 +89,19 @@
             border-radius: 10px;
             margin-right: auto;
         }
- 
+
         /* CSS untuk Responsif */
- 
+
         .overview-view {
             margin-top: 20px;
         }
- 
+
         .summary {
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
         }
- 
+
         .summary-card {
             flex: 1;
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
@@ -111,19 +111,19 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
- 
+
         .summary-card h5 {
             /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
             font-size: 16px;
             color: #000000;
             margin-bottom: 10px;
         }
- 
+
         .summary-card h3 {
             font-size: 24px;
             color: #3b4a3e;
         }
- 
+
         /* Chart Section */
         .chart-section {
             background-color: #f4f4f4;
@@ -132,13 +132,13 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
- 
+
         .chart-section h5 {
             font-size: 18px;
             color: #3b4a3e;
             margin-bottom: 10px;
         }
- 
+
         /* Top Selling Products */
         .top-selling {
             display: flex;
@@ -157,13 +157,13 @@
             justify-content: space-between;
             /* Ratakan konten */
         }
- 
+
         .top-selling h5 {
             font-size: 18px;
             color: #3b4a3e;
             margin-bottom: 10px;
         }
- 
+
         .list-group {
             display: flex;
             flex-direction: column;
@@ -172,7 +172,7 @@
             padding: 0;
             margin: 0;
         }
- 
+
         .list-group-item {
             display: flex;
             justify-content: space-between;
@@ -184,11 +184,11 @@
             color: #333;
             font-size: 16px;
         }
- 
+
         .list-group-item+.list-group-item {
             margin-top: 10px;
         }
- 
+
         .badge {
             background-color: #FFDAB9;
             color: #3F4246;
@@ -197,13 +197,13 @@
             border-radius: 12px;
             /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
         }
- 
+
         /* Latest Sections */
         .latest-section {
             display: flex;
             gap: 20px;
         }
- 
+
         .latest-transactions,
         .latest-customers {
             flex: 1;
@@ -213,9 +213,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
             /* Ubah warna latar belakang menjadi gradien */
- 
+
         }
- 
+
         .latest-transactions h5,
         .latest-customers h5 {
             font-size: 18px;
@@ -223,9 +223,9 @@
             margin-bottom: 10px;
             /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
             /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
- 
+
         }
- 
+
         /* Chart Styling */
         /* Chart Section Styling */
         .content-row {
@@ -236,7 +236,7 @@
             margin-top: 20px;
             /* max-width: 100%; */
         }
- 
+
         .chart-section {
             flex: 3;
             /* Menambah ruang untuk chart agar lebih ke kiri */
@@ -248,18 +248,18 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             position: relative;
         }
- 
+
         .chart-section h5 {
             font-size: 18px;
             font-weight: bold;
             color: #333;
             margin-bottom: 15px;
         }
- 
+
         #overviewChart {
             max-height: 350px;
         }
- 
+
         /* Dropdown Button Styling */
         #periodSelect {
             background-color: #2d3e32;
@@ -272,7 +272,7 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
- 
+
         /* Custom Tooltip Styling */
         .custom-tooltip {
             background-color: #2d3e32;
@@ -282,9 +282,9 @@
             font-size: 12px;
             text-align: center;
         }
- 
- 
- 
+
+
+
         /* Media Queries untuk tampilan mobile */
         @media (max-width: 768px) {
             .search-bar {
@@ -301,13 +301,13 @@
                 width: 100%;
                 /* Pastikan lebar 100% */
             }
- 
+
             .summary {
                 flex-direction: column;
                 gap: 20px;
                 align-items: center;
             }
- 
+
             .summary-card {
                 flex: 1;
                 background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
@@ -317,34 +317,35 @@
                 text-align: center;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
- 
+
             .summary-card h5 {
                 /* Warna teks untuk "Total Revenue", "Total Sales Transactions", dan "Total Customers" */
                 font-size: 16px;
                 color: #000000;
                 margin-bottom: 10px;
             }
- 
-           
+
+
             .summary-card h3 {
                 font-size: 24px;
                 color: #3b4a3e;
             }
+
             .chart-section {
-                 background-color: #f4f4f4;
+                background-color: #f4f4f4;
                 border-radius: 10px;
                 padding: 20px;
                 margin-bottom: 20px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
- 
- 
+
+
             .chart-section h5 {
                 font-size: 18px;
                 color: #3b4a3e;
                 margin-bottom: 10px;
             }
-           
+
             .top-selling {
                 display: flex;
                 flex: 2;
@@ -362,14 +363,14 @@
                 justify-content: space-between;
                 /* Ratakan konten */
             }
- 
- 
+
+
             .top-selling h5 {
                 font-size: 18px;
                 color: #3b4a3e;
                 margin-bottom: 10px;
             }
- 
+
             .list-group {
                 display: flex;
                 flex-direction: column;
@@ -378,7 +379,7 @@
                 padding: 0;
                 margin: 0;
             }
- 
+
             .list-group-item {
                 display: flex;
                 justify-content: space-between;
@@ -390,11 +391,11 @@
                 color: #333;
                 font-size: 16px;
             }
- 
+
             .list-group-item+.list-group-item {
                 margin-top: 10px;
             }
- 
+
             .badge {
                 background-color: #FFDAB9;
                 color: #3F4246;
@@ -403,13 +404,13 @@
                 border-radius: 12px;
                 /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
             }
- 
+
             /* Latest Sections */
             .latest-section {
                 display: flex;
                 gap: 20px;
             }
- 
+
             .latest-transactions,
             .latest-customers {
                 flex: 1;
@@ -419,9 +420,9 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
                 /* Ubah warna latar belakang menjadi gradien */
- 
+
             }
- 
+
             .latest-transactions h5,
             .latest-customers h5 {
                 font-size: 18px;
@@ -429,223 +430,491 @@
                 margin-bottom: 10px;
                 /* background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%); Ubah warna latar belakang menjadi gradien */
                 /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
- 
+
             }
- 
- 
+
+
             .latest-section {
                 flex-direction: column;
                 gap: 15px;
             }
- 
-            .latest-transactions, .latest-customers {
+
+            .latest-transactions,
+            .latest-customers {
                 width: 100%;
                 padding: 15px;
                 margin-bottom: 15px;
             }
- 
+
             .list-group-item {
                 font-size: 14px;
                 padding: 10px;
             }
- 
+
             .badge {
                 font-size: 12px;
                 padding: 4px 8px;
             }
- 
+
             h5 {
                 font-size: 16px;
             }
- 
+
             h3 {
                 font-size: 20px;
             }
         }
- 
-            .summary-card {
-                width: 100%;
-                margin-bottom: 10px;
-                padding: 15px;
-                text-align: center;
-            }
- 
-            .chart-section, .top-selling {
-                width: 100%;
-                margin-bottom: 20px;
-                padding: 15px;
-            }
- 
-            .content-row {
-                display: flex;
-                justify-content: space-between;
-                /* Membuat jarak di antara Overview dan Top Selling */
-                gap: 20px;
-                margin-top: 20px;
-                /* max-width: 100%; */
-            }
- 
-            .chart-section {
-                flex: 3;
-                /* Menambah ruang untuk chart agar lebih ke kiri */
-                max-width: 65%;
-                /* Sesuaikan lebar jika diperlukan */
-                background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
-                border-radius: 15px;
-                padding: 20px;
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-                position: relative;
-            }
- 
-            .chart-section h5 {
-                font-size: 18px;
-                font-weight: bold;
-                color: #333;
-                margin-bottom: 15px;
-            }
- 
-            #overviewChart {
-                max-height: 350px;
-            }
- 
-            /* Dropdown Button Styling */
-            #periodSelect {
-                background-color: #2d3e32;
-                color: #fff;
-                border: none;
-                border-radius: 8px;
-                padding: 8px 16px;
-                font-size: 14px;
-                margin-top: 10px;
-                margin-bottom: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            }
- 
-            /* Custom Tooltip Styling */
-            .custom-tooltip {
-                background-color: #2d3e32;
-                color: #fff;
-                border-radius: 5px;
-                padding: 8px;
-                font-size: 12px;
-                text-align: center;
-            }
-       
+
+        .summary-card {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
         .chart-section,
-            .top-selling {
-                margin-top: 30px;
-            }
-       
+        .top-selling {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .content-row {
+            display: flex;
+            justify-content: space-between;
+            /* Membuat jarak di antara Overview dan Top Selling */
+            gap: 20px;
+            margin-top: 20px;
+            /* max-width: 100%; */
+        }
+
+        .chart-section {
+            flex: 3;
+            /* Menambah ruang untuk chart agar lebih ke kiri */
+            max-width: 65%;
+            /* Sesuaikan lebar jika diperlukan */
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .chart-section h5 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #overviewChart {
+            max-height: 350px;
+        }
+
+        /* Dropdown Button Styling */
+        #periodSelect {
+            background-color: #2d3e32;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Custom Tooltip Styling */
+        .custom-tooltip {
+            background-color: #2d3e32;
+            color: #fff;
+            border-radius: 5px;
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .chart-section,
+        .top-selling {
+            margin-top: 30px;
+        }
+
+        #profileModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            /* Sesuaikan lebar modal */
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            /* Warna hijau lembut */
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+            /* Hapus garis di sekitar modal */
+        }
+
+        #profileModal .modal-content {
+
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #profileModal .modal-title {
+            color: #ffffff;
+            text-align: center;
+            justify-items: center;
+        }
+
+        #profileModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Spasi antar elemen */
+        }
+
+        #profileModal .modal-header,
+        #profileModal .modal-footer {
+            border: none;
+            /* Hapus garis pada header dan footer */
+            padding: 10px 20px;
+            justify-content: center;
+            /* Atur padding agar simetris */
+        }
+
+        #profileModal .modal-header {
+            border-bottom: none;
+            /* Hapus garis bawah header */
+            color: #ffffff;
+            /* Warna teks putih */
+            text-align: center;
+        }
+
+        #profileModal .modal-body {
+            justify-content: center;
+        }
+
+        #profileModal .modal-body p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #ffffff;
+            /* Warna teks label */
+        }
+
+        #profileModal .modal-body p strong {
+            flex: 1;
+            /* Pastikan label memiliki lebar yang konsisten */
+            text-align: left;
+            margin-right: 10px;
+            /* Tambahkan margin untuk jarak ke kanan */
+        }
+
+        #profileModal .modal-body p span {
+            background-color: #ffffff;
+            /* Warna latar belakang kotak */
+            color: #4C6650;
+            /* Warna teks isi */
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan dalam */
+            border: 1px solid #d3d3d3;
+            /* Garis tipis dengan warna abu-abu */
+            width: calc(100% - 150px);
+            /* Memperpanjang kotak agar lebih besar */
+            text-align: center;
+            /* Teks di dalam span rata tengah */
+            margin-left: auto;
+            /* Geser kotak putih ke kanan */
+        }
+
+
+        #profileModal .modal-footer {
+            display: flex;
+            justify-content: center;
+            border-top: none;
+            /* Hapus garis atas footer */
+        }
+
+        #profileModal .btn-close {
+            background-color: #fff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            /* Teks di dalam tombol di tengah */
+        }
+
+        #profileModal .btn-close .material-symbols-outlined {
+            display: none;
+            /* Sembunyikan ikon jika ada */
+        }
+
+        #resetPasswordModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-content {
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-header {
+            border-bottom: none;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #resetPasswordModal .modal-title {
+            color: #ffffff;
+        }
+
+        #resetPasswordModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #resetPasswordModal .modal-footer {
+            display: flex;
+            justify-content: center;
+            border-top: none;
+        }
+
+        #resetPasswordModal .btn-secondary,
+        #resetPasswordModal .btn-primary {
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #resetPasswordModal .btn-secondary {
+            background-color: #c7c7c7;
+            color: #000;
+        }
+
+        #resetPasswordModal .btn-primary {
+            background-color: #445D48;
+            color: #fff;
+        }
     </style>
 </head>
- 
+
 <body>
     @include('layout.sidebar')
- 
+
     <div class="main-content">
-        <div class="header-container">
-            <header>
-                <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
-                <div class="notification"></div>
-            </header>
- 
-            <div id="navbar">
+        <header class="header-container">
+            <h1>Bolívar Coffee is Open <span class="status-dot"></span></h1>
+            <div class="notification">
                 @include('layout.navbar')
             </div>
-        </div>
- 
-        <div class="summary">
-            <div class="summary-card">
-                <h5>Total Revenue</h5>
-                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
-                    <h3>Rp {{ number_format($totalRevenue, 2, ',', '.') }}</h3>
-                </li>
-            </div>
-            <div class="summary-card">
-                <h5>Total Sales Transactions</h5>
-                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
-                    <h3>{{ $totalSalesTransactions }}</h3>
-                </li>
-            </div>
-            <div class="summary-card">
-                <h5>Total Expenses</h5>
-                <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
-                    <h3>Rp {{ number_format($totalExpenses, 2, ',', '.') }}</h3>
-                </li>
-            </div>
-        </div>
- 
-        <div class="content-row">
-            <div class="chart-section">
-                <h5>Overview</h5>
-                <label for="periodSelect">Select Period:</label>
-                <select id="periodSelect" class="form-control" onchange="updateChart();">
-                    <option value="week">Week</option>
-                    <option value="month">Month</option>
-                    <option value="year">Year</option>
-                </select>
- 
-                <div id="yearSelectContainer" style="display:none;">
-                    <label for="yearSelect">Select Year:</label>
-                    <select id="yearSelect" onchange="updateChart();">
-                        @foreach (range(2020, date('Y')) as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-                </div>
- 
-                <canvas id="overviewChart"></canvas>
-            </div>
-            <div class="top-selling">
-                <h5>Top Selling Products</h5>
-                <ul class="list-group">
-                    @foreach ($topSelling as $menu)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ $menu->namaMenu }}
-                            <span class="badge bg-primary rounded-pill">{{ $loop->iteration }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
- 
-        <div class="latest-section">
-            <div class="latest-transactions">
-                <h5>Latest Sales Transactions</h5>
-                <ul class="list-group">
-                    @foreach ($latestSalesTransactions as $transaction)
-                        <li class="list-group-item">
-                            {{ $transaction->created_at->format('d M Y H:i') }} - Rp
-                            {{ number_format($transaction->totalHarga, 2, ',', '.') }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
- 
-            <div class="latest-customers">
-                <h5>Latest Customers</h5>
-                @foreach ($latestCustomers as $customer)
-                    <li class="list-group-item">
-                        {{ $customer->name }} - Joined {{ $customer->created_at->format('d M Y') }}
+        </header>
+        <div class="Dashboard-view">
+            <div class="summary">
+                <div class="summary-card">
+                    <h5>Total Revenue</h5>
+                    <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                        <h3>Rp {{ number_format($totalRevenue, 2, ',', '.') }}</h3>
                     </li>
-                @endforeach
+                </div>
+                <div class="summary-card">
+                    <h5>Total Sales Transactions</h5>
+                    <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                        <h3>{{ $totalSalesTransactions }}</h3>
+                    </li>
+                </div>
+                <div class="summary-card">
+                    <h5>Total Expenses</h5>
+                    <li class="list-group-item" style="display: flex; justify-content: center; align-items: center;">
+                        <h3>Rp {{ number_format($totalExpenses, 2, ',', '.') }}</h3>
+                    </li>
+                </div>
+            </div>
+
+            <div class="content-row">
+                <div class="chart-section">
+                    <h5>Overview</h5>
+                    <label for="periodSelect">Select Period:</label>
+                    <select id="periodSelect" class="form-control" onchange="updateChart();">
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+
+                    <div id="yearSelectContainer" style="display:none;">
+                        <label for="yearSelect">Select Year:</label>
+                        <select id="yearSelect" onchange="updateChart();">
+                            @foreach (range(2020, date('Y')) as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <canvas id="overviewChart"></canvas>
+                </div>
+                <div class="top-selling">
+                    <h5>Top Selling Products</h5>
+                    <ul class="list-group">
+                        @foreach ($topSelling as $menu)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ $menu->namaMenu }}
+                                <span class="badge bg-primary rounded-pill">{{ $loop->iteration }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <div class="latest-section">
+                <div class="latest-transactions">
+                    <h5>Latest Sales Transactions</h5>
+                    <ul class="list-group">
+                        @foreach ($latestSalesTransactions as $transaction)
+                            <li class="list-group-item">
+                                {{ $transaction->created_at->format('d M Y H:i') }} - Rp
+                                {{ number_format($transaction->totalHarga, 2, ',', '.') }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="latest-customers">
+                    <h5>Latest Customers</h5>
+                    @foreach ($latestCustomers as $customer)
+                        <li class="list-group-item">
+                            {{ $customer->name }} - Joined {{ $customer->created_at->format('d M Y') }}
+                        </li>
+                    @endforeach
+                </div>
+            </div>
+            <!-- Profile Modal -->
+            <div id="profileModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Profile</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Name:<span>{{ session('user.namaPengguna') }}</span></p>
+                        <p>Phone:<span>{{ session('user.noHP') }}</span></p>
+                        <p>Username:<span>{{ session('user.username') }}</span></p>
+                        <p>Role:<span>{{ session('user.id_role') }}</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reset Password Modal -->
+            <div id="resetPasswordModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reset Password</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
+                        <form id="resetPasswordForm" method="POST" action="{{ route('resetPassword') }}">
+                            @csrf
+                            <div class="modal-body">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                                    required>
+                            </div>
+                            <div class="modal-body">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                    required>
+                            </div>
+                            <div class="modal-body">
+                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmNewPassword"
+                                    name="newPassword_confirmation" required>
+                            </div>
+                            <div id="passwordMismatchAlert" style="display: none; color: red;">
+                                New passwords do not match.
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeResetPasswordModal()">Close</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="validateAndSubmitPassword()">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
- 
+
+        <!-- Success Modal for Reset Password -->
+        <div id="successPasswordModal" class="success-modal">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="material-icons-outlined">check_circle</i>
+                </div>
+                <p class="modal-message">Password berhasil diubah!</p>
+                <button type="button" class="modal-button confirm-button"
+                    onclick="closeSuccessPasswordModal()">DONE</button>
+            </div>
+        </div>
+
+        <!-- Modal Error untuk Password Salah -->
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><strong>Error</strong></h5>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Error:</strong> <span id="errorMessage"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeErrorModal()">Close</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             let overviewChart;
- 
+
             function formatCurrency(value) {
                 return `Rp ${value.toLocaleString('id-ID')}`;
             }
- 
+
             function createChart(labels, data) {
                 const ctx = document.getElementById('overviewChart').getContext('2d');
- 
+
                 if (overviewChart) {
                     overviewChart.destroy();
                 }
- 
+
                 overviewChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -704,16 +973,16 @@
                     }
                 });
             }
- 
+
             function updateChart() {
                 const period = document.getElementById('periodSelect').value;
                 let fetchUrl = `/dashboard-data?period=${period}`;
- 
+
                 if (period === 'year') {
                     const selectedYear = document.getElementById('yearSelect').value;
                     fetchUrl += `&year=${selectedYear}`;
                 }
- 
+
                 fetch(fetchUrl)
                     .then(response => {
                         if (!response.ok) {
@@ -727,25 +996,60 @@
                     })
                     .catch(error => console.error('Error fetching chart data:', error));
             }
- 
+
             function populateLabels(period) {
                 const yearSelectContainer = document.getElementById('yearSelectContainer');
                 yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
             }
- 
+
             document.getElementById('periodSelect').addEventListener('change', function() {
                 const period = this.value;
                 populateLabels(period);
                 updateChart();
             });
- 
+
             document.addEventListener('DOMContentLoaded', () => {
                 const periodSelect = document.getElementById('periodSelect');
                 populateLabels(periodSelect.value);
                 updateChart();
             });
+
+            function openProfileModal() {
+                document.getElementById('profileModal').style.display = 'flex';
+            }
+
+            function closeProfileModal() {
+                document.getElementById('profileModal').style.display = 'none';
+                window.location.href = '{{ route('dashboard.index') }}'; // Ganti dengan route atau URL yang sesuai
+            }
+
+            function validateAndSubmitPassword() {
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                if (newPassword !== confirmNewPassword) {
+                    document.getElementById('passwordMismatchAlert').style.display = 'block';
+                    return;
+                }
+
+                document.getElementById('passwordMismatchAlert').style.display = 'none';
+
+                // Jika validasi berhasil, submit form
+                document.getElementById('resetPasswordForm').submit();
+            }
+
+            function closeSuccessPasswordModal() {
+                document.getElementById('successPasswordModal').style.display = 'none';
+                window.location.href = '{{ route('dashboard.index') }}'; // Ganti dengan route atau URL yang sesuai
+            }
+
+            function closeResetPasswordModal() {
+                document.getElementById('resetPasswordModal').style.display = 'none';
+                window.location.href = '{{ route('dashboard.index') }}';
+            }
         </script>
-    </div>
+
 </body>
- 
+
 </html>

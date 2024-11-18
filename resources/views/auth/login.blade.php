@@ -101,6 +101,7 @@
             cursor: pointer;
             transition: background-color 0.5s;
             box-sizing: border-box;
+            margin-top: 10px;
         }
 
         button.login-button:hover {
@@ -137,9 +138,9 @@
                 <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
 
-            <div class="forgot-password">
+            {{-- <div class="forgot-password">
                 <a href="#">Reset Password?</a>
-            </div>
+            </div> --}}
 
             <button type="submit" class="login-button">Log In</button>
         </form>

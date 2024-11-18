@@ -16,6 +16,8 @@
             max-width: 800px;
             margin: 50px auto 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0px;
+            margin-top: 10px;
         }
 
         .form-container h1 {
@@ -75,6 +77,108 @@
             padding: 15px;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .success-modal,
+        .error-modal,
+        .success-guest {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-content,
+        .error-content,
+        .success-modelG {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .success-icon,
+        .error-icon,
+        .guest-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-icon,
+        .guest-icon {
+            color: #28a745;
+        }
+
+        .error-icon {
+            color: #dc3545;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #7e7e7e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: #445D48;
+            opacity: 1;
+        }
+
         #addStockBtn {
             color: #96D3FF;
             background: none;
@@ -131,6 +235,13 @@
             color: #333;
             margin-left: 10px;
         }
+        header {
+            margin-top: 5px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 220px;
+        }
     </style>
 </head>
 
@@ -153,7 +264,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('pembelian.store') }}" method="POST" id="createPurchaseForm">
+            <form action="{{ route('pembelian.store') }}" method="POST" id="createPurchaseForm"
+                onsubmit="return validateForm(event)">
                 @csrf
                 <div id="stockContainer">
                     <!-- Stock Group -->
@@ -174,8 +286,8 @@
 
                             <div class="form-group stock-quantity-group">
                                 <label for="stockQuantity">Quantity</label>
-                                <input type="number" class="stockQuantity" name="quantity[]" min="1" value="1"
-                                    required oninput="calculateSubTotal(this)">
+                                <input type="number" class="stockQuantity" name="quantity[]" min="1"
+                                    value="1" required oninput="calculateSubTotal(this)">
                             </div>
                         </div>
 
@@ -224,12 +336,39 @@
         </div>
 
         <div class="form-actions">
-            <button type="button" class="cancel-btn" onclick="window.location='{{ route('pembelian.show') }}'">Cancel</button>
+            <button type="button" class="cancel-btn"
+                onclick="window.location='{{ route('pembelian.show') }}'">Cancel</button>
             <button type="submit" form="createPurchaseForm" class="submit-btn">Create Purchase</button>
         </div>
     </div>
 
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #dc3545;">
+                <i class="material-icons-outlined">error</i>
+            </div>
+            <p class="modal-message">Purchase failed! Please check your inputs.</p>
+            <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon" style="color: #28a745;">
+                <i class="material-icons-outlined">check_circle</i>
+            </div>
+            <p class="modal-message">Purchase Successful!</p>
+            <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
+        </div>
+    </div>
+
     <script>
+        const pembelianShowUrl = "{{ route('pembelian.show') }}";
+        const pembelianCreateUrl = "{{ route('pembelian.create') }}";
+
         function calculateSubTotal(element) {
             const stockGroup = element.closest('.stock-group');
             const priceInput = stockGroup.querySelector('.stockPrice');
@@ -238,12 +377,8 @@
 
             const price = parseFloat(priceInput.value) || 0;
             const quantity = parseInt(quantityInput.value) || 0;
-
-            // Hitung subtotal untuk item ini
             const subTotal = price * quantity;
             subTotalInput.value = subTotal;
-
-            // Update total harga dan total quantity
             calculateTotalPrice();
         }
 
@@ -255,7 +390,6 @@
             stockGroups.forEach(group => {
                 const subTotalInput = group.querySelector('.stockSubTotal');
                 const quantityInput = group.querySelector('.stockQuantity');
-
                 const subTotal = parseFloat(subTotalInput.value) || 0;
                 const quantity = parseInt(quantityInput.value) || 0;
 
@@ -263,47 +397,71 @@
                 totalQuantity += quantity;
             });
 
-            // Tampilkan total price dan total quantity
             document.getElementById('totalPriceDisplay').value = totalPrice;
             document.getElementById('totalPrice').value = totalPrice;
             document.getElementById('totalQuantity').value = totalQuantity;
+        }
+
+        function validateForm(event) {
+            event.preventDefault(); // Stop default form submission
+
+            const totalQuantity = parseFloat(document.getElementById('totalQuantity').value);
+            const totalPrice = parseFloat(document.getElementById('totalPrice').value);
+
+            if (totalQuantity > 0 && totalPrice > 0) {
+                document.getElementById('successModal').style.display = 'flex';
+            } else {
+                document.getElementById('errorModal').style.display = 'flex';
+            }
+            return false; // Stop the form from submitting
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('createPurchaseForm').submit();// Arahkan ke halaman pembelian.show setelah sukses
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').style.display = 'none';
+            // Kembali ke form pembelian tanpa mengirim data
+            window.location.href = pembelianCreateUrl;
         }
 
         function addStock() {
             const newStockGroup = document.createElement('div');
             newStockGroup.classList.add('stock-group');
             newStockGroup.innerHTML = `
-                <div class="form-row">
-                    <div class="form-group stock-select-group">
-                        <label>Choose Stock</label>
-                        <select class="bahanBakuSelect" name="namaBahanBaku[]" required>
-                            <option value="">Choose Stock</option>
-                            @foreach ($bahanBaku as $item)
-                                <option value="{{ $item->id }}" data-price="{{ $item->hargaBahan }}">{{ $item->namaBahanBaku }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group stock-quantity-group">
-                        <label>Quantity</label>
-                        <input type="number" class="stockQuantity" name="quantity[]" min="1" value="1" required oninput="calculateSubTotal(this)">
-                    </div>
+        <div class="form-row">
+            <div class="form-group stock-select-group">
+                <label>Choose Stock</label>
+                <select class="bahanBakuSelect" name="namaBahanBaku[]" required>
+                    <option value="">Choose Stock</option>
+                    @foreach ($bahanBaku as $item)
+                        <option value="{{ $item->id }}" data-price="{{ $item->hargaBahan }}">{{ $item->namaBahanBaku }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group stock-quantity-group">
+                <label>Quantity</label>
+                <input type="number" class="stockQuantity" name="quantity[]" min="1" value="1" required oninput="calculateSubTotal(this)">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group stock-price-group">
+                <label>Price</label>
+                <div class="currency-label">
+                    <span>Rp</span>
+                    <input type="number" class="stockPrice" name="harga[]" min="0" required oninput="calculateSubTotal(this)">
                 </div>
-                <div class="form-row">
-                    <div class="form-group stock-price-group">
-                        <label>Price</label>
-                        <div class="currency-label">
-                            <span>Rp</span>
-                            <input type="number" class="stockPrice" name="harga[]" min="0" required oninput="calculateSubTotal(this)">
-                        </div>
-                    </div>
-                    <div class="form-group stock-subtotal-group">
-                        <label>SubTotal</label>
-                        <div class="currency-label">
-                            <span>Rp</span>
-                            <input type="text" class="stockSubTotal" name="subTotal[]" readonly>
-                        </div>
-                    </div>
-                </div>`;
+            </div>
+            <div class="form-group stock-subtotal-group">
+                <label>SubTotal</label>
+                <div class="currency-label">
+                    <span>Rp</span>
+                    <input type="text" class="stockSubTotal" name="subTotal[]" readonly>
+                </div>
+            </div>
+        </div>`;
             document.getElementById('stockContainer').appendChild(newStockGroup);
         }
     </script>

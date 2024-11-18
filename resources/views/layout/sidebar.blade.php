@@ -56,7 +56,7 @@
                     <span class="material-symbols-outlined">currency_exchange</span> Point
                 </a>
             </li>
-        @elseif (optional(session('user'))->id_role == 1)
+        @elseif (optional(session('user'))->id_role == 1)  
             <li class="{{ Request::is('Bolivar/dashboard/employee') ? 'active' : '' }}">
                 <a href="{{ url('Bolivar/dashboard/employee') }}"
                     style="display: flex; align-items: center; text-decoration: none; color: inherit;"
@@ -98,4 +98,27 @@
         // Tambahkan kelas 'active' ke elemen yang diklik
         element.parentElement.classList.add('active');
     }
+
+    // Menyimpan status aktif pada menu menggunakan sessionStorage
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuItems = document.querySelectorAll('.menu li a');
+
+        // Periksa apakah ada menu yang disimpan di sessionStorage
+        const activePath = sessionStorage.getItem('activeMenu');
+        if (activePath) {
+            menuItems.forEach(item => {
+                if (item.getAttribute('href') === activePath) {
+                    item.parentElement.classList.add('active');
+                }
+            });
+        }
+
+        // Simpan status menu aktif di sessionStorage saat diklik
+        menuItems.forEach(item => {
+            item.addEventListener('click', function () {
+                sessionStorage.setItem('activeMenu', item.getAttribute('href'));
+                setActive(this);
+            });
+        });
+    });
 </script>

@@ -35,14 +35,14 @@ class CMenuController extends Controller
 
         if ($request->hasFile('fotoMenu')) {
             $fotoMenu = $request->file('fotoMenu');
-            $fotoPath = 'img/menu/' . $fotoMenu->getClientOriginalName(); 
-            $fotoMenu->move(public_path('img/menu'), $fotoMenu->getClientOriginalName()); 
+            $fotoPath = 'img/menu/' . $fotoMenu->getClientOriginalName();
+            $fotoMenu->move(public_path('img/menu'), $fotoMenu->getClientOriginalName());
         } else {
             $fotoPath = null;
         }
 
         $menu = menu::create([
-            'namaMenu' => $namaMenu, 
+            'namaMenu' => $namaMenu,
             'fotoMenu' => $fotoPath,
             'hargaMenu' => $hargaMenu,
         ]);
@@ -108,8 +108,17 @@ class CMenuController extends Controller
         return view("dashboard/menu/menu", compact('menu'));
     }
 
-    public function index() {
+    public function index()
+    {
         $menu = Menu::paginate(10); // Adjust the number as needed
         return view('dashboard.menu.index', compact('menu'));
+    }
+
+    public function Checknamamenu(Request $request)
+    {
+        $namaMenu = $request->input('namaMenu');
+        // Checking if the menu name exists in the database
+        $exists = Menu::where('namaMenu', $namaMenu)->exists();
+        return response()->json(['exists' => $exists]);  // Return true or false
     }
 }

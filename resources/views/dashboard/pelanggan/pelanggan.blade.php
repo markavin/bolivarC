@@ -10,49 +10,58 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         /* CSS untuk Responsif */
+        .notification {
+            margin-left: 600px;
+            /* padding-left: 15px; atau sesuai kebutuhan */
+        }
+
         .container {
-        overflow-x: hidden;
-        max-width: 100vw; /* Membatasi lebar agar tidak melebihi viewport */
-    }
+            overflow-x: hidden;
+            max-width: 100vw;
+            /* Membatasi lebar agar tidak melebihi viewport */
+        }
 
-    body {
-        overflow-x: hidden;
-        margin: 0; /* Hilangkan margin bawaan body untuk menghindari geseran */
-    }
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            /* Hilangkan margin bawaan body untuk menghindari geseran */
+        }
 
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-    }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
 
         header {
-        display: flex;
-        justify-content: flex-start; 
-        align-items: center;
-        padding-left: 40px; 
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
         }
 
         h1 {
             font-size: 30px;
             color: #333;
+            font-weight: bold;
         }
 
         .customers-view {
             margin-top: 20px;
         }
-    
+
         .search-bar {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 20px;
-        width: calc(100% - 40px); /* Menyesuaikan lebar untuk menghindari geser */
-        margin-left: 40px;
-    }
-    
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: calc(100% - 40px);
+            /* Menyesuaikan lebar untuk menghindari geser */
+            margin-left: 40px;
+        }
+
         .search-bar .search-icon {
             position: absolute;
             left: 15px;
@@ -62,7 +71,7 @@
             top: 50%;
             transform: translateY(-50%);
         }
-    
+
         .search-bar input[type="text"] {
             flex: 1;
             padding: 10px 12px;
@@ -72,35 +81,36 @@
             height: 40px;
             font-size: 16px;
         }
-        
-        .create-btn {
-        display: flex;
-        align-items: center;
-        background: linear-gradient(135deg, #D1FDE8, #445D48);
-        color: #000000;
-        gap: 10px;
-        border: none;
-        padding: 10px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        height: 40px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        white-space: nowrap;
-        flex-shrink: 0;
-        margin-right: 40px; /* Atur jarak tombol dari sisi kanan */
 
-    }
-    
+        .create-btn {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #D1FDE8, #445D48);
+            color: #000000;
+            gap: 10px;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            height: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 40px;
+            /* Atur jarak tombol dari sisi kanan */
+
+        }
+
         .create-text {
             font-size: 15px;
             margin-left: 0px;
         }
-    
+
         .create-btn .material-symbols-outlined {
             font-size: 20px;
             color: #000000;
         }
-    
+
         /* Styling tabel */
         table {
             width: 93%;
@@ -110,8 +120,10 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             overflow: hidden;
-            margin-left: 40px; /* Jarak kecil ke kiri */
-            margin-right: auto; /* Pastikan ini agar tabel bergerak ke kiri */
+            margin-left: 40px;
+            /* Jarak kecil ke kiri */
+            margin-right: auto;
+            /* Pastikan ini agar tabel bergerak ke kiri */
         }
 
         th,
@@ -763,18 +775,17 @@
         </div>
     </div>
 
-
     <!-- Profile Modal -->
     <div id="profileModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><strong>PROFILE </strong></h5>
+                <h5 class="modal-title">Profile</h5>
             </div>
             <div class="modal-body">
-                <p><strong>Name:</strong> <span>{{ session('user.namaPengguna') }}</span></p>
-                <p><strong>Phone:</strong> <span>{{ session('user.noHP') }}</span></p>
-                <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
-                <p><strong>Role:</strong> <span>{{ session('user.id_role') }}</span></p>
+                <p>Name:<span>{{ session('user.namaPengguna') }}</span></p>
+                <p>Phone:<span>{{ session('user.noHP') }}</span></p>
+                <p>Username:<span>{{ session('user.username') }}</span></p>
+                <p>Role:<span>{{ session('user.id_role') }}</span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
@@ -783,25 +794,25 @@
     </div>
 
     <!-- Reset Password Modal -->
-    <div id="resetPasswordModal" class="modal">
+    <div id="resetPasswordModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><strong>Reset Password</strong></h5>
+                <h5 class="modal-title">Reset Password</h5>
             </div>
             <div class="modal-body">
                 <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
                 <form id="resetPasswordForm" method="POST" action="{{ route('resetPassword') }}">
                     @csrf
-                    <div class="mb-3">
+                    <div class="modal-body">
                         <label for="currentPassword" class="form-label">Current Password</label>
                         <input type="password" class="form-control" id="currentPassword" name="currentPassword"
                             required>
                     </div>
-                    <div class="mb-3">
+                    <div class="modal-body">
                         <label for="newPassword" class="form-label">New Password</label>
                         <input type="password" class="form-control" id="newPassword" name="newPassword" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="modal-body">
                         <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
                         <input type="password" class="form-control" id="confirmNewPassword"
                             name="newPassword_confirmation" required>

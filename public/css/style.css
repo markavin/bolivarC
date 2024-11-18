@@ -92,6 +92,24 @@ body {
     color: #ffffff;
     border-radius: 5px;
 }
+.menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu li:hover,
+.menu li.active {
+    background-color: #f0f0f0; /* Warna latar belakang saat hover atau aktif */
+    color: #333; /* Warna teks saat hover atau aktif */
+}
+
+.menu li:hover a,
+.menu li.active a {
+    color: #333; /* Warna teks link saat hover atau aktif */
+}
 
 .logout li {
     width: fit-content;

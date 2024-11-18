@@ -45,7 +45,7 @@ class CPegawaiController extends Controller
 
         $idRole = 2;
 
-        $username = Str::lower(explode(' ', trim($namaPengguna))[0]) . $idRole;
+        $username = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, 0, 3);
         $password = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, -4);
 
 
@@ -77,7 +77,7 @@ class CPegawaiController extends Controller
 
         $namaPengguna = $request->input('namaPengguna');
         $noHP = $request->input('noHP');
-        $username = Str::lower(explode(' ', trim($namaPengguna))[0]) . $pengguna->id_role;
+        $username = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, 0, 3);
         $password = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, -4);
 
         $pengguna->update([
@@ -121,5 +121,12 @@ class CPegawaiController extends Controller
         $role = $user->role ?? null; // Assuming a relationship if needed
 
         return view('dashboard.profile.show', compact('user', 'role'));
+    }
+
+    public function ChecknoHP(Request $request)
+    {
+        $noHP = $request->input('noHP');
+        $exists = Pengguna::where('noHP', $noHP)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }
