@@ -12,13 +12,11 @@
         /* CSS untuk Responsif */
         .notification {
             margin-left: 600px;
-            /* padding-left: 15px; atau sesuai kebutuhan */
         }
 
         .container {
             overflow-x: hidden;
             max-width: 100vw;
-            /* Membatasi lebar agar tidak melebihi viewport */
         }
 
         body {
@@ -32,7 +30,6 @@
         *::after {
             box-sizing: border-box;
         }
-
 
         header {
             display: flex;
@@ -278,7 +275,7 @@
             transform: translate(-50%, -50%);
             justify-content: center;
             align-items: center;
-            width: 500px;
+            width: 400px;
             /* Sesuaikan lebar modal */
             background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
             /* Warna hijau lembut */
@@ -315,18 +312,14 @@
             /* Hapus garis pada header dan footer */
             padding: 10px 20px;
             justify-content: center;
-            /* Atur padding agar simetris */
-        }
-
-        #profileModal .modal-header {
             border-bottom: none;
-            /* Hapus garis bawah header */
             color: #ffffff;
-            /* Warna teks putih */
-            text-align: center;
         }
 
         #profileModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             justify-content: center;
         }
 
@@ -403,7 +396,7 @@
             transform: translate(-50%, -50%);
             justify-content: center;
             align-items: center;
-            width: 500px;
+            width: 450px;
             background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
             border-radius: 12px;
             padding: 20px;
@@ -411,33 +404,43 @@
         }
 
         #resetPasswordModal .modal-content {
-            width: 100%;
+            width: 500%;
             background-color: transparent;
             box-shadow: none;
             border: none;
         }
 
-        #resetPasswordModal .modal-header {
-            border-bottom: none;
-            color: #ffffff;
-            text-align: center;
+        #resetPasswordModal .modal-header, 
+        #resetPasswordModal .modal-footer{
+            border: none;
+            /* Hapus garis pada header dan footer */
+            padding: 10px 20px;
+            justify-content: center;
+            /* Atur padding agar simetris */
         }
 
         #resetPasswordModal .modal-title {
             color: #ffffff;
+            font-size: 24px;
         }
 
         #resetPasswordModal .modal-body {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            color: #ffffff; /* Atur warna teks menjadi putih */
+            text-align: left;
+            /* justify-content: center; */
         }
 
-        #resetPasswordModal .modal-footer {
+         #resetPasswordModal .modal-label {
             display: flex;
-            justify-content: center;
-            border-top: none;
-        }
+            flex-direction: column;
+            gap: 15px;
+            color: #ffffff; /* Atur warna teks menjadi putih */
+            text-align: center;
+            /* justify-content: center; */
+        } 
 
         #resetPasswordModal .btn-secondary,
         #resetPasswordModal .btn-primary {
@@ -495,6 +498,7 @@
         #errorModal .modal-body {
             font-size: 16px;
             padding: 10px 0;
+            justify-content: center;
         }
 
         /* Footer modal */
@@ -607,6 +611,12 @@
                 width: 100%;
                 /* Pastikan lebar 100% */
             }
+
+            .notification {
+                margin-left: 0; /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
+                align-self: flex-start; /* Tempatkan di sebelah kiri */
+            }
+
 
             .search-input {
                 padding: 10px;
@@ -799,7 +809,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Reset Password</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-label">
                 <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
                 <form id="resetPasswordForm" method="POST" action="{{ route('resetPassword') }}">
                     @csrf

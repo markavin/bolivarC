@@ -9,17 +9,451 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* .navbar {
+     
+        .notification {
+            margin-left: 600px;
+            /* padding-left: 15px; atau sesuai kebutuhan */
+        }
+
+        .container {
+            overflow-x: hidden;
+            max-width: 100vw;
+            /* Membatasi lebar agar tidak melebihi viewport */
+        }
+
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            /* Hilangkan margin bawaan body untuk menghindari geseran */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        
+        header {
             display: flex;
-            padding: 0.05rem 0.1rem;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 0 0 0.5rem 0.5rem;
-            background: linear-gradient(135deg, #445D48 0%, #38B568 100%);
-            color: #FFDAB9;
-            margin-bottom: 20px;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
             justify-content: center;
-        } */
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #c90000;
+            text-align: center;
+            justify-items: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            color: #445D48
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .confirm-button {
+            background-color: #445D48;
+            color: rgb(240, 240, 240);
+        }
+
+        .cancel-button {
+            background-color: #c7c7c7;
+            color: rgb(255, 255, 255);
+        }
+
+        .modal-button:hover {
+            opacity: 0.9;
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        #profileModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            /* Sesuaikan lebar modal */
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            /* Warna hijau lembut */
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+            /* Hapus garis di sekitar modal */
+        }
+
+        #profileModal .modal-content {
+
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #profileModal .modal-title {
+            color: #ffffff;
+            text-align: center;
+            justify-items: center;
+        }
+
+        #profileModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Spasi antar elemen */
+        }
+
+        #profileModal .modal-header,
+        #profileModal .modal-footer {
+            border: none;
+            /* Hapus garis pada header dan footer */
+            padding: 20px 20px;
+            justify-content: center;
+            border-bottom: none;
+            color: #ffffff;
+        }
+
+        #profileModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        #profileModal .modal-body p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #ffffff;
+            /* Warna teks label */
+        }
+
+        #profileModal .modal-body p strong {
+            flex: 1;
+            /* Pastikan label memiliki lebar yang konsisten */
+            text-align: left;
+            margin-right: 10px;
+            /* Tambahkan margin untuk jarak ke kanan */
+        }
+
+        #profileModal .modal-body p span {
+            background-color: #ffffff;
+            /* Warna latar belakang kotak */
+            color: #4C6650;
+            /* Warna teks isi */
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan dalam */
+            border: 1px solid #d3d3d3;
+            /* Garis tipis dengan warna abu-abu */
+            width: calc(100% - 150px);
+            /* Memperpanjang kotak agar lebih besar */
+            text-align: center;
+            /* Teks di dalam span rata tengah */
+            margin-left: auto;
+            /* Geser kotak putih ke kanan */
+        }
+
+
+        #profileModal .modal-footer {
+            display: flex;
+            justify-content: center;
+            border-top: none;
+            /* Hapus garis atas footer */
+        }
+
+        #profileModal .btn-close {
+            background-color: #fff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            /* Teks di dalam tombol di tengah */
+        }
+
+        #profileModal .btn-close .material-symbols-outlined {
+            display: none;
+            /* Sembunyikan ikon jika ada */
+        }
+
+        #resetPasswordModal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+            width: 450px;
+            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-content {
+            width: 500%;
+            background-color: transparent;
+            box-shadow: none;
+            border: none;
+        }
+
+        #resetPasswordModal .modal-header, 
+        #resetPasswordModal .modal-footer{
+            border: none;
+            /* Hapus garis pada header dan footer */
+            padding: 10px 20px;
+            justify-content: center;
+            /* Atur padding agar simetris */
+        }
+
+        #resetPasswordModal .modal-title {
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        #resetPasswordModal .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: #ffffff; /* Atur warna teks menjadi putih */
+            text-align: left;
+            /* justify-content: center; */
+        }
+
+         #resetPasswordModal .modal-label {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: #ffffff; /* Atur warna teks menjadi putih */
+            text-align: center;
+            /* justify-content: center; */
+        } 
+
+        #resetPasswordModal .btn-secondary,
+        #resetPasswordModal .btn-primary {
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #resetPasswordModal .btn-secondary {
+            background-color: #c7c7c7;
+            color: #000;
+        }
+
+        #resetPasswordModal .btn-primary {
+            background-color: #445D48;
+            color: #fff;
+        }
+
+        /* Styling untuk modal error */
+        #errorModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Konten dalam modal */
+        #errorModal .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Header modal */
+        #errorModal .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #c90000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Body modal */
+        #errorModal .modal-body {
+            font-size: 16px;
+            padding: 10px 0;
+            justify-content: center;
+        }
+
+        /* Footer modal */
+        #errorModal .modal-footer {
+            padding-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Button pada footer modal */
+        #errorModal .modal-footer button {
+            background-color: #f5c6cb;
+            color: #721c24;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover state pada button */
+        #errorModal .modal-footer button:hover {
+            background-color: #d3a6a1;
+        }
+
+        /* Media Queries untuk tampilan mobile */
+        @media (max-width: 768px) {
+            #errorModal {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            #errorModal .modal-header,
+            #errorModal .modal-body,
+            #errorModal .modal-footer {
+                padding: 10px;
+            }
+        }
+        
+        /* Modal Success for Reset Password */
+        .success-modal {
+            display: none;
+            position: fixed;
+            z-index: 1100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-button {
+            background-color: #7e7e7e;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: #445D48;
+            opacity: 1;
+        }
 
         .btn {
             display: inline-block;
@@ -35,18 +469,15 @@
             width: 100px;
         }
 
-        .navbar-nav .nav-link {
+        /* .navbar-nav .nav-link {
             padding: 0.1rem 0.1rem;
-        }
+        } */
 
-        .header-container {
+        /* .header-container {
             display: flex;
             justify-content: space-between;
-            /* Menempatkan navbar dan judul di sisi yang berbeda */
             align-items: center;
-            /* Menyelaraskan secara vertikal */
             margin-bottom: 20px;
-            /* Jarak di bawah header */
         }
 
         .user-info {
@@ -57,15 +488,12 @@
 
         header {
             text-align: left;
-            /* Menyelaraskan judul ke kiri */
             margin-left: 0px;
-            /* Memberikan jarak dari tepi kiri */
-        }
+        } */
 
-        #navbar {
+        /* #navbar {
             margin-right: 20px;
-            /* Jarak dari tepi kanan */
-        }
+        } */
 
         .main-content {
             position: relative;
@@ -74,21 +502,17 @@
             /* Jarak di dalam konten utama */
         }
 
-        .navbar .nav-link {
+        /* .navbar .nav-link {
             text-decoration: none;
-            /* Menghilangkan underline */
-        }
+        } */
 
-        .dropdown-toggle {
+        /* .dropdown-toggle {
             border-radius: 20px;
-            /* Membuat kotak lebih bulat */
             padding: 0.25rem 0.2rem;
-            /* Mengurangi padding */
             font-size: 0.9rem;
-            /* Mengubah ukuran font jika perlu */
             border-radius: 10px;
             margin-right: auto;
-        }
+        } */
 
         /* CSS untuk Responsif */
 
@@ -283,10 +707,8 @@
             text-align: center;
         }
 
-
-
-        /* Media Queries untuk tampilan mobile */
-        @media (max-width: 768px) {
+         /* Media Queries untuk tampilan mobile */
+         @media (max-width: 768px) {
             .search-bar {
                 display: flex;
                 /* Pastikan display adalah flex */
@@ -300,6 +722,11 @@
                 margin-bottom: 30px;
                 width: 100%;
                 /* Pastikan lebar 100% */
+            }
+
+            .notification {
+                margin-left: 0; /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
+                align-self: flex-start; /* Tempatkan di sebelah kiri */
             }
 
             .summary {
@@ -539,192 +966,6 @@
             margin-top: 30px;
         }
 
-        #profileModal {
-            display: none;
-            position: fixed;
-            z-index: 1100;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            justify-content: center;
-            align-items: center;
-            width: 500px;
-            /* Sesuaikan lebar modal */
-            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
-            /* Warna hijau lembut */
-            border-radius: 12px;
-            padding: 20px;
-            border: none;
-            /* Hapus garis di sekitar modal */
-        }
-
-        #profileModal .modal-content {
-
-            width: 100%;
-            background-color: transparent;
-            box-shadow: none;
-            border: none;
-        }
-
-        #profileModal .modal-title {
-            color: #ffffff;
-            text-align: center;
-            justify-items: center;
-        }
-
-        #profileModal .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            /* Spasi antar elemen */
-        }
-
-        #profileModal .modal-header,
-        #profileModal .modal-footer {
-            border: none;
-            /* Hapus garis pada header dan footer */
-            padding: 10px 20px;
-            justify-content: center;
-            /* Atur padding agar simetris */
-        }
-
-        #profileModal .modal-header {
-            border-bottom: none;
-            /* Hapus garis bawah header */
-            color: #ffffff;
-            /* Warna teks putih */
-            text-align: center;
-        }
-
-        #profileModal .modal-body {
-            justify-content: center;
-        }
-
-        #profileModal .modal-body p {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #ffffff;
-            /* Warna teks label */
-        }
-
-        #profileModal .modal-body p strong {
-            flex: 1;
-            /* Pastikan label memiliki lebar yang konsisten */
-            text-align: left;
-            margin-right: 10px;
-            /* Tambahkan margin untuk jarak ke kanan */
-        }
-
-        #profileModal .modal-body p span {
-            background-color: #ffffff;
-            /* Warna latar belakang kotak */
-            color: #4C6650;
-            /* Warna teks isi */
-            padding: 5px 10px;
-            border-radius: 8px;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-            /* Efek bayangan dalam */
-            border: 1px solid #d3d3d3;
-            /* Garis tipis dengan warna abu-abu */
-            width: calc(100% - 150px);
-            /* Memperpanjang kotak agar lebih besar */
-            text-align: center;
-            /* Teks di dalam span rata tengah */
-            margin-left: auto;
-            /* Geser kotak putih ke kanan */
-        }
-
-
-        #profileModal .modal-footer {
-            display: flex;
-            justify-content: center;
-            border-top: none;
-            /* Hapus garis atas footer */
-        }
-
-        #profileModal .btn-close {
-            background-color: #fff;
-            color: #000000;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            display: inline-block;
-            width: auto;
-            text-align: center;
-            /* Teks di dalam tombol di tengah */
-        }
-
-        #profileModal .btn-close .material-symbols-outlined {
-            display: none;
-            /* Sembunyikan ikon jika ada */
-        }
-
-        #resetPasswordModal {
-            display: none;
-            position: fixed;
-            z-index: 1100;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            justify-content: center;
-            align-items: center;
-            width: 500px;
-            background: linear-gradient(135deg, #445D48 0%, #799C8C 48%, #445D48 100%);
-            border-radius: 12px;
-            padding: 20px;
-            border: none;
-        }
-
-        #resetPasswordModal .modal-content {
-            width: 100%;
-            background-color: transparent;
-            box-shadow: none;
-            border: none;
-        }
-
-        #resetPasswordModal .modal-header {
-            border-bottom: none;
-            color: #ffffff;
-            text-align: center;
-        }
-
-        #resetPasswordModal .modal-title {
-            color: #ffffff;
-        }
-
-        #resetPasswordModal .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        #resetPasswordModal .modal-footer {
-            display: flex;
-            justify-content: center;
-            border-top: none;
-        }
-
-        #resetPasswordModal .btn-secondary,
-        #resetPasswordModal .btn-primary {
-            border-radius: 8px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        #resetPasswordModal .btn-secondary {
-            background-color: #c7c7c7;
-            color: #000;
-        }
-
-        #resetPasswordModal .btn-primary {
-            background-color: #445D48;
-            color: #fff;
-        }
     </style>
 </head>
 
@@ -738,6 +979,7 @@
                 @include('layout.navbar')
             </div>
         </header>
+
         <div class="Dashboard-view">
             <div class="summary">
                 <div class="summary-card">
@@ -816,6 +1058,7 @@
                     @endforeach
                 </div>
             </div>
+
             <!-- Profile Modal -->
             <div id="profileModal">
                 <div class="modal-content">
@@ -840,7 +1083,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title">Reset Password</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-label">
                         <p><strong>Username:</strong> <span>{{ session('user.username') }}</span></p>
                         <form id="resetPasswordForm" method="POST" action="{{ route('resetPassword') }}">
                             @csrf
@@ -865,11 +1108,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            onclick="closeResetPasswordModal()">Close</button>
-                        <button type="button" class="btn btn-primary"
-                            onclick="validateAndSubmitPassword()">Submit</button>
-                    </div>
+                        <button type="button" class="btn btn-secondary" onclick="closeResetPasswordModal()">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="validateAndSubmitPassword()">Submit</button>
                 </div>
             </div>
         </div>
@@ -900,6 +1140,7 @@
                 </div>
             </div>
         </div>
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             let overviewChart;
