@@ -140,17 +140,11 @@ body {
 
 .main-content {
     flex: 1;
-    /* Memungkinkan main-content untuk mengisi sisa ruang */
     margin-left: 250px;
-    /* Pastikan ada jarak dari sidebar */
     padding: 20px;
     background-color: #FFD9B4;
-    /* Mengubah latar belakang menjadi putih */
-    /* border-radius: 10px;  */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Tambahkan bayangan untuk efek yang lebih baik */
     overflow: auto;
-    /* Tambahkan scroll jika konten melebihi tinggi layar */
 }
 
 |

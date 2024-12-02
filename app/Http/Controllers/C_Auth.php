@@ -70,13 +70,13 @@ class C_Auth extends Controller
             $request->all(),
             [
                 'currentPassword' => 'required',
-                'newPassword' => 'required|confirmed|min:8',
+                'newPassword' => 'required|confirmed|min:6',
             ],
             [
                 'currentPassword.required' => 'Masukkan password lama Anda.',
                 'newPassword.required' => 'Masukkan password baru.',
                 'newPassword.confirmed' => 'Password konfirmasi tidak cocok.',
-                'newPassword.min' => 'Password minimal 8 karakter.',
+                'newPassword.min' => 'Password minimal 6 karakter.',
             ]
         );
 
@@ -96,5 +96,19 @@ class C_Auth extends Controller
         // Tampilkan pesan sukses dan redirect ke halaman login atau dashboard
         Session::flash('success', 'Password berhasil diubah.');
         return redirect()->route('login'); // Atau arahkan ke halaman yang sesuai
+    }
+
+
+    public function validateCurrentPassword(Request $request)
+    {
+        $currentPassword = $request->input('currentPassword');
+        $user = Auth::user();
+
+        // Cek kecocokan password lama
+        if (Hash::check($currentPassword, $user->password)) {
+            return response()->json(['valid' => true]);
+        }
+
+        return response()->json(['valid' => false]);
     }
 }

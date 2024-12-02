@@ -26,6 +26,7 @@
     Route::middleware(['auth:web'])->group(function () {
         // Rute yang bisa diakses oleh semua pengguna yang login
         Route::post('/reset-password', [C_Auth::class, 'resetPassword'])->name('resetPassword');
+        Route::post('/validate-current-password', [C_Auth::class, 'validateCurrentPassword'])->name('validateCurrentPassword');
         Route::get('Bolivar/dashboard/home', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/dashboard-data', [DashboardController::class, 'getDashboardData'])->name('dashboard.data');
         Route::get('Bolivar/dashboard/profile', [CPegawaiController::class, 'profile'])->name('profile.show');

@@ -410,8 +410,8 @@
             border: none;
         }
 
-        #resetPasswordModal .modal-header, 
-        #resetPasswordModal .modal-footer{
+        #resetPasswordModal .modal-header,
+        #resetPasswordModal .modal-footer {
             border: none;
             /* Hapus garis pada header dan footer */
             padding: 10px 20px;
@@ -428,19 +428,21 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            color: #ffffff; /* Atur warna teks menjadi putih */
+            color: #ffffff;
+            /* Atur warna teks menjadi putih */
             text-align: left;
             /* justify-content: center; */
         }
 
-         #resetPasswordModal .modal-label {
+        #resetPasswordModal .modal-label {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            color: #ffffff; /* Atur warna teks menjadi putih */
+            color: #ffffff;
+            /* Atur warna teks menjadi putih */
             text-align: center;
             /* justify-content: center; */
-        } 
+        }
 
         #resetPasswordModal .btn-secondary,
         #resetPasswordModal .btn-primary {
@@ -455,9 +457,11 @@
         }
 
         #resetPasswordModal .btn-primary {
+            z-index: 9999;
             background-color: #445D48;
             color: #fff;
         }
+
 
         /* Styling untuk modal error */
         #errorModal {
@@ -613,8 +617,10 @@
             }
 
             .notification {
-                margin-left: 0; /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
-                align-self: flex-start; /* Tempatkan di sebelah kiri */
+                margin-left: 0;
+                /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
+                align-self: flex-start;
+                /* Tempatkan di sebelah kiri */
             }
 
 
@@ -795,7 +801,18 @@
                 <p>Name:<span>{{ session('user.namaPengguna') }}</span></p>
                 <p>Phone:<span>{{ session('user.noHP') }}</span></p>
                 <p>Username:<span>{{ session('user.username') }}</span></p>
-                <p>Role:<span>{{ session('user.id_role') }}</span></p>
+                <p>Role:
+                    <span>
+                        @if (session('user.id_role') == 1)
+                            Owner
+                        @elseif (session('user.id_role') == 2)
+                            Employee
+                        @else
+                            Unknown Role
+                        @endif
+                    </span>
+                </p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
@@ -817,6 +834,9 @@
                         <label for="currentPassword" class="form-label">Current Password</label>
                         <input type="password" class="form-control" id="currentPassword" name="currentPassword"
                             required>
+                        <div id="currentPasswordError" style="display: none; color: #721c24; margin-top: 5px;">
+                            Current password is incorrect.
+                        </div>
                     </div>
                     <div class="modal-body">
                         <label for="newPassword" class="form-label">New Password</label>
@@ -827,41 +847,21 @@
                         <input type="password" class="form-control" id="confirmNewPassword"
                             name="newPassword_confirmation" required>
                     </div>
-                    <div id="passwordMismatchAlert" style="display: none; color: red;">
+                    <div id="passwordMismatchAlert" style="display: none; color: #721c24;">
                         New passwords do not match.
                     </div>
+                    <div id="passwordLengthError" style="display: none; color: #721c24;">
+                        Password must be at least 6 characters long.
+                    </div>
+                    <div id="fieldsRequiredAlert" style="display: none; color:#721c24; margin-top: 5px;">
+                        Please fill out the fields.
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeResetPasswordModal()">Close</button>
                 <button type="button" class="btn btn-primary" onclick="validateAndSubmitPassword()">Submit</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal for Reset Password -->
-    <div id="successPasswordModal" class="success-modal">
-        <div class="success-content">
-            <div class="success-icon">
-                <i class="material-icons-outlined">check_circle</i>
-            </div>
-            <p class="modal-message">Password berhasil diubah!</p>
-            <button type="button" class="modal-button confirm-button"
-                onclick="closeSuccessPasswordModal()">DONE</button>
-        </div>
-    </div>
-
-    <!-- Modal Error untuk Password Salah -->
-    <div id="errorModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><strong>Error</strong></h5>
-            </div>
-            <div class="modal-body">
-                <p><strong>Error:</strong> <span id="errorMessage"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closeErrorModal()">Close</button>
             </div>
         </div>
     </div>
@@ -912,7 +912,7 @@
             if (currentDeleteId) {
                 document.getElementById(`delete-form-${currentDeleteId}`).submit();
                 closeModal();
-                openSuccessModal(); // Open success modal after deletion confirmation
+                openSuccessModal();
             }
         });
 
@@ -930,20 +930,54 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
+            // Reset error messages
+            document.getElementById('fieldsRequiredAlert').style.display = 'none';
+            document.getElementById('passwordMismatchAlert').style.display = 'none';
+            document.getElementById('currentPasswordError').style.display = 'none';
+            document.getElementById('passwordLengthError').style.display = 'none'; // Menambahkan reset untuk error baru
+
+            // Check if all fields are filled
+            if (!currentPassword || !newPassword || !confirmNewPassword) {
+                document.getElementById('fieldsRequiredAlert').style.display = 'block';
+                return; // Stop further validation if fields are empty
+            }
+
+            // Check if new passwords match
             if (newPassword !== confirmNewPassword) {
                 document.getElementById('passwordMismatchAlert').style.display = 'block';
                 return;
             }
 
-            document.getElementById('passwordMismatchAlert').style.display = 'none';
+            // Check if new password is at least 6 characters long
+            if (newPassword.length < 6) {
+                document.getElementById('passwordLengthError').style.display = 'block';
+                return;
+            }
 
-            // Jika validasi berhasil, submit form
-            document.getElementById('resetPasswordForm').submit();
-        }
+            // Validate current password via backend
+            fetch('{{ route('validateCurrentPassword') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        currentPassword: currentPassword,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.valid) {
+                        document.getElementById('currentPasswordError').style.display = 'block';
+                        return;
+                    }
 
-        function closeSuccessPasswordModal() {
-            document.getElementById('successPasswordModal').style.display = 'none';
-            window.location.href = '{{ route('pelanggan.show') }}'; // Ganti dengan route atau URL yang sesuai
+                    // If current password is valid, submit the form to reset password
+                    document.getElementById('resetPasswordForm').submit(); // Submit the form
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         function closeResetPasswordModal() {
