@@ -85,7 +85,6 @@ class CPenjualanController extends Controller
             ]);
         }
 
-        // Only add points if the customer is not a specific ID (e.g., a special case or 'Guest')
         if ($customerId && $customerName !== 'Guest') {
             $pelanggan = Pelanggan::find($customerId);
             $pelanggan->increment('totalPoin', 10);

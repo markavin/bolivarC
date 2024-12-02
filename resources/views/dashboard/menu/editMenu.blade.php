@@ -185,8 +185,8 @@
                 <div class="form-group">
                     <label for="hargaMenu" class="form-label">Menu Price</label>
                     <span class="material-icons-outlined">payments</span>
-                    <input type="number" step="0.01" class="form-control" id="hargaMenu" name="hargaMenu"
-                        value="{{ $menu->hargaMenu }}" required>
+                    <input type="text" step="0.01" class="form-control" id="hargaMenu" name="hargaMenu"
+                        value="{{ $menu->hargaMenu }}" required oninput="formatHargaMenu(event)">
                 </div>
 
         </div>
@@ -231,19 +231,38 @@
             return result.exists; // This should return true or false depending on if the menu name exists
         }
 
+        function formatNumber(number) {
+            return number.toLocaleString('id-ID');
+        }
+        async function checknamamenu(namaMenu) {
+            const response = await fetch(`{{ route('menu.Checknamamenu') }}?namaMenu=${namaMenu}`);
+            const result = await response.json();
+            return result.exists;
+        }
+
+        function formatHargaMenu(event) {
+            // Ambil nilai inputan
+            let input = event.target.value;
+
+            // Hapus semua karakter selain angka
+            input = input.replace(/\D/g, "");
+
+            // Format angka dengan titik sebagai pemisah ribuan
+            const formattedInput = input.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            // Set nilai input dengan hasil format
+            event.target.value = formattedInput;
+        }
         async function validateForm(event) {
             event.preventDefault(); // Prevent the default form submission
 
             const namaMenu = document.getElementById('namaMenu').value.trim();
 
-            // Check if the menu name exists in the database
             const namaMenuExists = await checknamamenu(namaMenu);
 
-            // Show error modal if menu name exists
             if (namaMenuExists) {
                 showErrorModal("Nama Menu sudah ada. Silakan gunakan nama lain.");
             } else {
-                // If no errors, show the success modal
                 document.getElementById('successModal').style.display = 'flex';
             }
         }
@@ -261,6 +280,16 @@
         function closeErrorModal() {
             document.getElementById('errorModal').style.display = 'none';
         }
+        function removeDotsFromHarga() {
+            const hargaInput = document.getElementById('hargaMenu');
+            let harga = hargaInput.value;
+            // Menghapus titik dari input
+            harga = harga.replace(/\./g, "");
+            hargaInput.value = harga;
+        }
+
+        // Tambahkan event listener untuk submit form
+        document.getElementById('editMenuForm').addEventListener('submit', removeDotsFromHarga);
     </script>
 </body>
 

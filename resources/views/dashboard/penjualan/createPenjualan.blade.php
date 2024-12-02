@@ -80,7 +80,8 @@
             cursor: pointer;
             text-decoration: underline;
         }
-/* 
+
+        /*
         .form-group input,
         .form-group select {
             width: 100%;
@@ -257,7 +258,7 @@
                                 <option value="">Choose menu</option>
                                 @foreach ($menu as $item)
                                     <option value="{{ $item->id }}" data-price="{{ $item->hargaMenu }}">
-                                        {{ $item->namaMenu }}
+                                        {{ $item->namaMenu }} - {{ $item->hargaMenu }}
                                     </option>
                                 @endforeach
                             </select>
@@ -292,7 +293,7 @@
                         <label for="paymentAmount">Nominal of Payment</label>
                         <div style="display: flex; align-items: center;">
                             <span style="margin-right: 5px;">Rp</span>
-                            <input type="number" id="paymentAmount" name="totalBayar" required>
+                            <input type="text" id="paymentAmount" name="totalBayar" required>
                         </div>
                     </div>
 
@@ -351,6 +352,14 @@
     </div>
 
     <script>
+        document.getElementById('createSaleForm').addEventListener('submit', function() {
+            // Ambil elemen input total bayar
+            const paymentAmountInput = document.getElementById('paymentAmount');
+
+            // Hapus pemisah ribuan sebelum mengirim data
+            paymentAmountInput.value = paymentAmountInput.value.replace(/[^0-9]/g, '');
+        });
+
         document.getElementById('customerSelect').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
             const phoneNumber = selectedOption.dataset.phone || '';
@@ -363,9 +372,14 @@
             }
         });
 
+        function formatNumber(number) {
+            return number.toLocaleString('id-ID');
+        }
+
+
         function validateForm(event) {
-            const totalBayar = parseFloat(document.getElementById('paymentAmount').value);
-            const totalHarga = parseFloat(document.getElementById('totalPrice').value);
+            const totalBayar = parseFloat(document.getElementById('paymentAmount').value.replace(/[^0-9]/g, '')) || 0;
+            const totalHarga = parseFloat(document.getElementById('totalPrice').value.replace(/[^0-9]/g, '')) || 0;
 
             if (totalBayar < totalHarga) {
                 event.preventDefault();
@@ -375,6 +389,7 @@
 
             event.preventDefault();
             const selectedCustomer = document.getElementById('customerSelect').value;
+
             if (selectedCustomer === '0') {
                 document.getElementById('successguest').style.display = 'flex';
             } else {
@@ -382,6 +397,7 @@
             }
             return false;
         }
+
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
@@ -408,30 +424,36 @@
                 totalQuantity += quantity;
             });
 
-            // Tampilkan Total Price tanpa simbol "Rp" di dalam input
-            document.getElementById('totalPriceDisplay').value = totalPrice;
-            document.getElementById('totalPrice').value = totalPrice;
+
+            document.getElementById('totalPriceDisplay').value = formatNumber(totalPrice);
+            document.getElementById('totalPrice').value = totalPrice; // Input tersembunyi tetap dalam format angka mentah
             document.getElementById('totalQuantity').value = totalQuantity;
+
             calculateReturnAmount();
         }
 
+
         function calculateReturnAmount() {
-            // Ambil nilai total harga dan jumlah pembayaran
             const totalPrice = parseFloat(document.getElementById('totalPrice').value.replace(/[^0-9]/g, '')) || 0;
             const paymentAmount = parseFloat(document.getElementById('paymentAmount').value.replace(/[^0-9]/g, '')) || 0;
 
-            // Hitung jumlah pengembalian
             const returnAmount = paymentAmount - totalPrice;
 
-            // Tampilkan jumlah pengembalian hanya dengan angka
             document.getElementById('returnAmount').value = returnAmount >= 0 ?
-                returnAmount.toLocaleString('id-ID') :
-                `-${Math.abs(returnAmount).toLocaleString('id-ID')}`;
+                formatNumber(returnAmount) :
+                `-${formatNumber(Math.abs(returnAmount))}`;
         }
 
 
-        // Tambahkan event listener untuk menghitung jumlah pengembalian saat pengguna mengetik di input pembayaran
-        document.getElementById('paymentAmount').addEventListener('input', calculateReturnAmount);
+        document.getElementById('paymentAmount').addEventListener('input', function() {
+            let rawValue = this.value.replace(/[^0-9]/g, '');
+
+            let formattedValue = formatNumber(parseInt(rawValue || 0));
+
+            this.value = formattedValue;
+            calculateReturnAmount();
+        });
+
 
         document.getElementById('addMenuBtn').addEventListener('click', function() {
             const newMenuGroup = document.createElement('div');

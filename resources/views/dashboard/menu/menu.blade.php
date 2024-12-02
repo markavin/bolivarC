@@ -384,7 +384,6 @@
             </div>
 
             <div class="menu-cards">
-                <!-- Loop through each menu item -->
                 @foreach ($menu as $index => $Menu)
                     <div class="menu-card">
                         <div class="menu-id">#{{ $menu->count() - $index }}</div>

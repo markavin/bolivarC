@@ -303,7 +303,6 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        {{-- <th>Purchase ID</th> --}}
                         <th>Stock Name</th>
                         <th>Purchase Date</th>
                         <th>Quantity</th>
@@ -320,7 +319,7 @@
                             <td data-label="Stock Name">{{ $Purchase->namaBahanBaku }}</td>
                             <td data-label="Purchase Date">{{ $Purchase->tanggalPembelian }}</td>
                             <td data-label="Quantity">{{ $Purchase->totalQuantity }}</td>
-                            <td data-label="Total Price">{{ $Purchase->totalHarga }}</td>
+                            <td data-label="Total Price">{{number_format($Purchase->totalHarga, 0, ',', '.') }}</td>
                             <td data-label="Actions">
                                 <div class="action-buttons">
                                     <button class="visibility-btn"

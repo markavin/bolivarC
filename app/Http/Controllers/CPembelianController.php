@@ -69,9 +69,15 @@ class CPembelianController extends Controller
                 'harga' => $harga,
                 'subTotal' => $subTotal,
             ]);
+
+            $bahanBaku = BahanBaku::find($bahanBakuid);
+            if ($bahanBaku) {   
+                $bahanBaku->update([
+                    'jumlahBahanBaku' => $bahanBaku->jumlahBahanBaku + $quantity,  // Stok ditambah
+                ]);
+            }
+            
         }
-
-
 
         return redirect()->route('pembelian.show')->with('success', 'pembelian berhasil dibuat dan poin ditambahkan.');
     }

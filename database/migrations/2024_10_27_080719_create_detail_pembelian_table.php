@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_bahanBaku');
             $table->timestamps();
             $table->foreign('id_pembelian')->references('id_pembelian')->on('pembelian');
-            $table->foreign('id_bahanBaku')->references('id')->on('bahanBaku');
+            $table->foreign('id_bahanBaku')->references('id')->on('bahanBaku')->onDelete('cascade');
         });
     }
 

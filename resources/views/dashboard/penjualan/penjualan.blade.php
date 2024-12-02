@@ -253,7 +253,7 @@
                             </td>
                             <td data-label="Sales Date">{{ $Sales->tanggalPenjualan }}</td>
                             <td data-label="Quantity">{{ $Sales->totalQuantity }}</td>
-                            <td data-label="Total Price">{{ $Sales->totalHarga }}</td>
+                            <td data-label="Total Price">{{number_format($Sales->totalHarga, 0, ',', '.') }}</td>
                             <td data-label="Actions">
                                 <div class="action-buttons">
                                     <button class="visibility-btn"

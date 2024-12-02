@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BahanBaku;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
 use App\Models\Pelanggan;
@@ -13,9 +14,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // Logging untuk memeriksa apakah metode dipanggil
 
-        // Mengambil data untuk overview
         $totalRevenue = Penjualan::sum('totalHarga');
         $totalSalesTransactions = Penjualan::count();
         $totalExpenses = Pembelian::sum('totalHarga');
@@ -28,6 +27,8 @@ class DashboardController extends Controller
             ->get();
         $latestSalesTransactions = Penjualan::orderBy('created_at', 'desc')->limit(5)->get();
         $latestCustomers = Pelanggan::orderBy('created_at', 'desc')->limit(5)->get();
+        $latestPurchaseTransactions = Pembelian::orderBy('created_at', 'desc')->limit(5)->get();
+        $latestStock = BahanBaku::orderBy('created_at', 'desc')->limit(5)->get();
 
         $availableYears = $this->getAvailableYears();
 
@@ -38,7 +39,9 @@ class DashboardController extends Controller
             'topSelling',
             'latestSalesTransactions',
             'latestCustomers',
-            'availableYears'
+            'availableYears',
+            'latestPurchaseTransactions',
+            'latestStock'
         ));
     }
 

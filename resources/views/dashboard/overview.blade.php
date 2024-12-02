@@ -7,18 +7,17 @@
     <title>Bolívar Coffee Dashboard</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-     
         .notification {
             margin-left: 600px;
-            /* padding-left: 15px; atau sesuai kebutuhan */
         }
 
         .container {
             overflow-x: hidden;
             max-width: 100vw;
-            /* Membatasi lebar agar tidak melebihi viewport */
         }
 
         body {
@@ -32,7 +31,7 @@
         *::after {
             box-sizing: border-box;
         }
-        
+
         header {
             display: flex;
             justify-content: flex-start;
@@ -170,8 +169,7 @@
         #profileModal .modal-header,
         #profileModal .modal-footer {
             border: none;
-            /* Hapus garis pada header dan footer */
-            padding: 20px 20px;
+            padding: 10px 20px;
             justify-content: center;
             border-bottom: none;
             color: #ffffff;
@@ -196,10 +194,8 @@
 
         #profileModal .modal-body p strong {
             flex: 1;
-            /* Pastikan label memiliki lebar yang konsisten */
             text-align: left;
             margin-right: 10px;
-            /* Tambahkan margin untuk jarak ke kanan */
         }
 
         #profileModal .modal-body p span {
@@ -231,7 +227,7 @@
 
         #profileModal .btn-close {
             background-color: #fff;
-            color: #fff;
+            color: #000000;
             border: none;
             border-radius: 8px;
             padding: 10px 20px;
@@ -245,7 +241,6 @@
 
         #profileModal .btn-close .material-symbols-outlined {
             display: none;
-            /* Sembunyikan ikon jika ada */
         }
 
         #resetPasswordModal {
@@ -271,8 +266,8 @@
             border: none;
         }
 
-        #resetPasswordModal .modal-header, 
-        #resetPasswordModal .modal-footer{
+        #resetPasswordModal .modal-header,
+        #resetPasswordModal .modal-footer {
             border: none;
             /* Hapus garis pada header dan footer */
             padding: 10px 20px;
@@ -289,19 +284,19 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            color: #ffffff; /* Atur warna teks menjadi putih */
+            color: #ffffff;
+            /* Atur warna teks menjadi putih */
             text-align: left;
             /* justify-content: center; */
         }
 
-         #resetPasswordModal .modal-label {
+        #resetPasswordModal .modal-label {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            color: #ffffff; /* Atur warna teks menjadi putih */
+            color: #ffffff;
             text-align: center;
-            /* justify-content: center; */
-        } 
+        }
 
         #resetPasswordModal .btn-secondary,
         #resetPasswordModal .btn-primary {
@@ -316,205 +311,48 @@
         }
 
         #resetPasswordModal .btn-primary {
+            z-index: 9999;
             background-color: #445D48;
             color: #fff;
         }
 
-        /* Styling untuk modal error */
-        #errorModal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 400px;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Konten dalam modal */
-        #errorModal .modal-content {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 100%;
-        }
-
-        /* Header modal */
-        #errorModal .modal-header {
-            font-size: 18px;
-            font-weight: bold;
-            color: #c90000;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Body modal */
-        #errorModal .modal-body {
-            font-size: 16px;
-            padding: 10px 0;
-            justify-content: center;
-        }
-
-        /* Footer modal */
-        #errorModal .modal-footer {
-            padding-top: 10px;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Button pada footer modal */
-        #errorModal .modal-footer button {
-            background-color: #f5c6cb;
-            color: #721c24;
-            padding: 8px 15px;
-            border: none;
+        .btn-secondary {
+            background-color: #c7c7c7;
+            color: #000;
             border-radius: 8px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
         }
 
-        /* Hover state pada button */
-        #errorModal .modal-footer button:hover {
-            background-color: #d3a6a1;
-        }
-
-        /* Media Queries untuk tampilan mobile */
-        @media (max-width: 768px) {
-            #errorModal {
-                width: 90%;
-                max-width: 350px;
-            }
-
-            #errorModal .modal-header,
-            #errorModal .modal-body,
-            #errorModal .modal-footer {
-                padding: 10px;
-            }
-        }
-        
-        /* Modal Success for Reset Password */
-        .success-modal {
-            display: none;
-            position: fixed;
-            z-index: 1100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .success-content {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .success-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            color: #28a745;
-        }
-
-        .modal-message {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .modal-button {
-            background-color: #7e7e7e;
-            color: #fff;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-button:hover {
+        .btn-primary {
             background-color: #445D48;
-            opacity: 1;
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            overflow-x;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 0.05rem 0.1rem;
-            font-size: 0.9rem;
-            /* box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 0 0 0.5rem 0.5rem; */
-            background: linear-gradient(135deg, #445D48 0%, #38B568 100%);
-            color: #FFDAB9;
-            margin-bottom: 20px;
-            margin-left: 150px;
-            justify-content: center;
-            width: 100px;
-        }
-
-        /* .navbar-nav .nav-link {
-            padding: 0.1rem 0.1rem;
-        } */
-
-        /* .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .user-info {
-            color: #fffffF;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        header {
-            text-align: left;
-            margin-left: 0px;
-        } */
-
-        /* #navbar {
-            margin-right: 20px;
-        } */
 
         .main-content {
-            position: relative;
-            /* Menjadikan konten utama sebagai referensi untuk posisi anak */
-            padding: 20px;
+            position: relative padding: 20px;
             /* Jarak di dalam konten utama */
         }
 
-        /* .navbar .nav-link {
-            text-decoration: none;
-        } */
+        .overview {
+            width: auto;
+            height: auto;
+            max-height: 250px;
+            /* Menyesuaikan tinggi maksimum lebih rendah */
+            overflow-y: auto;
+            /* Jika konten melebihi tinggi, tampilkan scroll */
+            padding: 5px;
+            box-sizing: border-box;
+            display: inline-block;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
 
-        /* .dropdown-toggle {
-            border-radius: 20px;
-            padding: 0.25rem 0.2rem;
-            font-size: 0.9rem;
-            border-radius: 10px;
-            margin-right: auto;
-        } */
-
-        /* CSS untuk Responsif */
 
         .overview-view {
             margin-top: 20px;
@@ -567,32 +405,34 @@
         .top-selling {
             display: flex;
             flex: 2;
-            /* Melebarkan top-selling agar mengisi lebih banyak ruang */
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
-            /* Ubah warna latar belakang menjadi gradien */
             border-radius: 10px;
-            padding: 30px 20px;
-            margin-bottom: 20px;
+            padding-top: 0;
+            padding-bottom: 0;
+            /* margin-bottom: 0px; */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             max-width: 35%;
-            /* Sesuaikan agar tabel terlihat lebih rapi */
             flex-direction: column;
             justify-content: space-between;
-            /* Ratakan konten */
         }
 
         .top-selling h5 {
+            margin-bottom: 5px;
             font-size: 18px;
-            color: #3b4a3e;
-            margin-bottom: 10px;
+            text-align: center;
         }
+
+        .top-selling ul {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
 
         .list-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            /* Mengatur jarak antar item */
             padding: 0;
             margin: 0;
         }
@@ -600,7 +440,6 @@
         .list-group-item {
             display: flex;
             justify-content: space-between;
-            /* Mendorong badge ke kanan */
             border-radius: 10px;
             padding: 15px;
             background-color: #ffffff;
@@ -614,19 +453,25 @@
         }
 
         .badge {
-            background-color: #FFDAB9;
+            background-color: #FFDAB9 !important;
+            /* Ubah ke warna peach */
             color: #3F4246;
+            /* Sesuaikan warna teks agar kontras */
             font-size: 14px;
             padding: 5px 10px;
             border-radius: 12px;
-            /* margin-left: 10px; Tambahkan margin kiri untuk jarak dengan teks */
+
         }
 
         /* Latest Sections */
         .latest-section {
             display: flex;
             gap: 20px;
+            /* Jarak antara elemen */
+            margin-bottom: 20px;
+            /* Jarak bawah untuk kontainer */
         }
+
 
         .latest-transactions,
         .latest-customers {
@@ -650,22 +495,37 @@
 
         }
 
+        .latest-transactions,
+        .latest-stock {
+            flex: 1;
+            background-color: #FFDAB9;
+            /* Sama dengan Latest Customers */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
+        }
+
+        .latest-transactions h5,
+        .latest-stock h5 {
+            font-size: 18px;
+            color: #3b4a3e;
+            margin-bottom: 10px;
+        }
+
+
         /* Chart Styling */
         /* Chart Section Styling */
         .content-row {
             display: flex;
             justify-content: space-between;
-            /* Membuat jarak di antara Overview dan Top Selling */
             gap: 20px;
             margin-top: 20px;
-            /* max-width: 100%; */
         }
 
         .chart-section {
             flex: 3;
-            /* Menambah ruang untuk chart agar lebih ke kiri */
             max-width: 65%;
-            /* Sesuaikan lebar jika diperlukan */
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
             border-radius: 15px;
             padding: 20px;
@@ -681,23 +541,31 @@
         }
 
         #overviewChart {
-            max-height: 350px;
+            max-width: 100%;
+            height: 150px;
+            width: auto;
         }
 
-        /* Dropdown Button Styling */
+
+        .overview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .overview-header h5 {
+            margin: 0;
+            font-size: 18px;
+        }
+
         #periodSelect {
-            background-color: #2d3e32;
-            color: #fffffF;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 16px;
+            width: 150px;
+            max-width: 100%;
+            padding: 5px;
             font-size: 14px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Custom Tooltip Styling */
         .custom-tooltip {
             background-color: #2d3e32;
             color: #fff;
@@ -707,26 +575,23 @@
             text-align: center;
         }
 
-         /* Media Queries untuk tampilan mobile */
-         @media (max-width: 768px) {
+        /* Media Queries untuk tampilan mobile */
+        @media (max-width: 768px) {
             .search-bar {
                 display: flex;
-                /* Pastikan display adalah flex */
                 flex-direction: row;
-                /* Ubah dari column ke row */
                 align-items: center;
-                /* Center align items vertically */
                 gap: 10px;
-                /* Tambahkan jarak antar elemen */
                 margin-top: 30px;
                 margin-bottom: 30px;
                 width: 100%;
-                /* Pastikan lebar 100% */
             }
 
             .notification {
-                margin-left: 0; /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
-                align-self: flex-start; /* Tempatkan di sebelah kiri */
+                margin-left: 0;
+                /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
+                align-self: flex-start;
+                /* Tempatkan di sebelah kiri */
             }
 
             .summary {
@@ -772,6 +637,14 @@
                 color: #3b4a3e;
                 margin-bottom: 10px;
             }
+
+            #periodSelect {
+                width: 120px;
+                /* Lebih kecil untuk layar kecil */
+                font-size: 12px;
+            }
+
+
 
             .top-selling {
                 display: flex;
@@ -965,7 +838,6 @@
         .top-selling {
             margin-top: 30px;
         }
-
     </style>
 </head>
 
@@ -1004,13 +876,15 @@
 
             <div class="content-row">
                 <div class="chart-section">
-                    <h5>Overview</h5>
-                    <label for="periodSelect">Select Period:</label>
-                    <select id="periodSelect" class="form-control" onchange="updateChart();">
-                        <option value="week">Week</option>
-                        <option value="month">Month</option>
-                        <option value="year">Year</option>
-                    </select>
+                    <div class="overview-header">
+                        <h5>Overview</h5>
+                        <select id="periodSelect" class="form-control" onchange="updateChart();">
+                            <option value="week">Week</option>
+                            <option value="month">Month</option>
+                            <option value="year">Year</option>
+                        </select>
+                    </div>
+
 
                     <div id="yearSelectContainer" style="display:none;">
                         <label for="yearSelect">Select Year:</label>
@@ -1020,6 +894,7 @@
                             @endforeach
                         </select>
                     </div>
+                    <canvas id="overviewChart"></canvas>
 
                     <canvas id="overviewChart"></canvas>
                 </div>
@@ -1029,7 +904,7 @@
                         @foreach ($topSelling as $menu)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 {{ $menu->namaMenu }}
-                                <span class="badge bg-primary rounded-pill">{{ $loop->iteration }}</span>
+                                <span class="badge rounded-pill">{{ $loop->iteration }}</span>
                             </li>
                         @endforeach
                     </ul>
@@ -1053,11 +928,39 @@
                     <h5>Latest Customers</h5>
                     @foreach ($latestCustomers as $customer)
                         <li class="list-group-item">
-                            {{ $customer->name }} - Joined {{ $customer->created_at->format('d M Y') }}
+                            {{ $customer->NamaPelanggan }} - Joined {{ $customer->created_at->format('d M Y') }}
                         </li>
                     @endforeach
                 </div>
             </div>
+
+            <div class="latest-section">
+                <!-- Latest Purchase Transactions -->
+                <div class="latest-transactions">
+                    <h5>Latest Purchase Transactions</h5>
+                    <ul class="list-group">
+                        @foreach ($latestPurchaseTransactions as $transaction)
+                            <li class="list-group-item">
+                                {{ $transaction->created_at->format('d M Y H:i') }} - Rp
+                                {{ number_format($transaction->totalHarga, 2, ',', '.') }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Latest Stock -->
+                <div class="latest-stock">
+                    <h5>Latest Stock</h5>
+                    <ul class="list-group">
+                        @foreach ($latestStock as $stock)
+                            <li class="list-group-item">
+                                {{ $stock->namaBahanBaku }} - {{ $stock->jumlahBahanBaku }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
 
             <!-- Profile Modal -->
             <div id="profileModal">
@@ -1069,7 +972,18 @@
                         <p>Name:<span>{{ session('user.namaPengguna') }}</span></p>
                         <p>Phone:<span>{{ session('user.noHP') }}</span></p>
                         <p>Username:<span>{{ session('user.username') }}</span></p>
-                        <p>Role:<span>{{ session('user.id_role') }}</span></p>
+                        <p>Role:
+                            <span>
+                                @if (session('user.id_role') == 1)
+                                    Owner
+                                @elseif (session('user.id_role') == 2)
+                                    Employee
+                                @else
+                                    Unknown Role
+                                @endif
+                            </span>
+                        </p>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="closeProfileModal()">Close</button>
@@ -1091,6 +1005,9 @@
                                 <label for="currentPassword" class="form-label">Current Password</label>
                                 <input type="password" class="form-control" id="currentPassword" name="currentPassword"
                                     required>
+                                <div id="currentPasswordError" style="display: none; color: #721c24; margin-top: 5px;">
+                                    Current password is incorrect.
+                                </div>
                             </div>
                             <div class="modal-body">
                                 <label for="newPassword" class="form-label">New Password</label>
@@ -1102,194 +1019,206 @@
                                 <input type="password" class="form-control" id="confirmNewPassword"
                                     name="newPassword_confirmation" required>
                             </div>
-                            <div id="passwordMismatchAlert" style="display: none; color: red;">
+                            <div id="passwordMismatchAlert" style="display: none; color: #721c24;">
                                 New passwords do not match.
                             </div>
+                            <div id="passwordLengthError" style="display: none; color: #721c24;">
+                                Password must be at least 6 characters long.
+                            </div>
+                            <div id="fieldsRequiredAlert" style="display: none; color:#721c24; margin-top: 5px;">
+                                Please fill out the fields.
+                            </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeResetPasswordModal()">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="validateAndSubmitPassword()">Submit</button>
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeResetPasswordModal()">Close</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="validateAndSubmitPassword()">Submit</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Success Modal for Reset Password -->
-        <div id="successPasswordModal" class="success-modal">
-            <div class="success-content">
-                <div class="success-icon">
-                    <i class="material-icons-outlined">check_circle</i>
-                </div>
-                <p class="modal-message">Password berhasil diubah!</p>
-                <button type="button" class="modal-button confirm-button"
-                    onclick="closeSuccessPasswordModal()">DONE</button>
-            </div>
-        </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                let overviewChart;
 
-        <!-- Modal Error untuk Password Salah -->
-        <div id="errorModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><strong>Error</strong></h5>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Error:</strong> <span id="errorMessage"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeErrorModal()">Close</button>
-                </div>
-            </div>
-        </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            let overviewChart;
-
-            function formatCurrency(value) {
-                return `Rp ${value.toLocaleString('id-ID')}`;
-            }
-
-            function createChart(labels, data) {
-                const ctx = document.getElementById('overviewChart').getContext('2d');
-
-                if (overviewChart) {
-                    overviewChart.destroy();
+                function formatCurrency(value) {
+                    return `Rp ${value.toLocaleString('id-ID')}`;
                 }
 
-                overviewChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Total Sales',
-                            data: data,
-                            backgroundColor: '#f7d1ba',
-                            borderRadius: 10,
-                            barPercentage: 0.5,
-                            categoryPercentage: 0.6,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                backgroundColor: '#2d3e32',
-                                titleColor: '#ffffff',
-                                bodyColor: '#ffffff',
-                                callbacks: {
-                                    label: function(context) {
-                                        return formatCurrency(context.raw);
-                                    }
-                                }
-                            }
+                function createChart(labels, data) {
+                    const ctx = document.getElementById('overviewChart').getContext('2d');
+
+                    if (overviewChart) {
+                        overviewChart.destroy();
+                    }
+
+                    overviewChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Total Sales',
+                                data: data,
+                                backgroundColor: '#f7d1ba',
+                                borderRadius: 10,
+                                barPercentage: 0.5,
+                                categoryPercentage: 0.6,
+                            }]
                         },
-                        scales: {
-                            x: {
-                                grid: {
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
                                     display: false
                                 },
-                                ticks: {
-                                    color: '#333',
-                                    font: {
-                                        size: 12
+                                tooltip: {
+                                    backgroundColor: '#2d3e32',
+                                    titleColor: '#ffffff',
+                                    bodyColor: '#ffffff',
+                                    callbacks: {
+                                        label: function(context) {
+                                            return formatCurrency(context.raw);
+                                        }
                                     }
                                 }
                             },
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    color: '#333',
-                                    font: {
-                                        size: 12
+                            scales: {
+                                x: {
+                                    grid: {
+                                        display: false
                                     },
-                                    callback: function(value) {
-                                        return formatCurrency(value);
+                                    ticks: {
+                                        color: '#333',
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: '#333',
+                                        font: {
+                                            size: 12
+                                        },
+                                        callback: function(value) {
+                                            return formatCurrency(value);
+                                        }
                                     }
                                 }
                             }
                         }
+                    });
+                }
+
+                function updateChart() {
+                    const period = document.getElementById('periodSelect').value;
+                    let fetchUrl = `/dashboard-data?period=${period}`;
+
+                    if (period === 'year') {
+                        const selectedYear = document.getElementById('yearSelect').value;
+                        fetchUrl += `&year=${selectedYear}`;
                     }
+
+                    fetch(fetchUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Received data:', data);
+                            createChart(data.labels, data.sales);
+                        })
+                        .catch(error => console.error('Error fetching chart data:', error));
+                }
+
+                function populateLabels(period) {
+                    const yearSelectContainer = document.getElementById('yearSelectContainer');
+                    yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
+                }
+
+                document.getElementById('periodSelect').addEventListener('change', function() {
+                    const period = this.value;
+                    populateLabels(period);
+                    updateChart();
                 });
-            }
 
-            function updateChart() {
-                const period = document.getElementById('periodSelect').value;
-                let fetchUrl = `/dashboard-data?period=${period}`;
+                document.addEventListener('DOMContentLoaded', () => {
+                    const periodSelect = document.getElementById('periodSelect');
+                    populateLabels(periodSelect.value);
+                    updateChart();
+                });
 
-                if (period === 'year') {
-                    const selectedYear = document.getElementById('yearSelect').value;
-                    fetchUrl += `&year=${selectedYear}`;
+                function openProfileModal() {
+                    document.getElementById('profileModal').style.display = 'flex';
                 }
 
-                fetch(fetchUrl)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Received data:', data);
-                        createChart(data.labels, data.sales);
-                    })
-                    .catch(error => console.error('Error fetching chart data:', error));
-            }
-
-            function populateLabels(period) {
-                const yearSelectContainer = document.getElementById('yearSelectContainer');
-                yearSelectContainer.style.display = period === 'year' ? 'block' : 'none';
-            }
-
-            document.getElementById('periodSelect').addEventListener('change', function() {
-                const period = this.value;
-                populateLabels(period);
-                updateChart();
-            });
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const periodSelect = document.getElementById('periodSelect');
-                populateLabels(periodSelect.value);
-                updateChart();
-            });
-
-            function openProfileModal() {
-                document.getElementById('profileModal').style.display = 'flex';
-            }
-
-            function closeProfileModal() {
-                document.getElementById('profileModal').style.display = 'none';
-                window.location.href = '{{ route('dashboard.index') }}'; // Ganti dengan route atau URL yang sesuai
-            }
-
-            function validateAndSubmitPassword() {
-                const currentPassword = document.getElementById('currentPassword').value;
-                const newPassword = document.getElementById('newPassword').value;
-                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-
-                if (newPassword !== confirmNewPassword) {
-                    document.getElementById('passwordMismatchAlert').style.display = 'block';
-                    return;
+                function closeProfileModal() {
+                    document.getElementById('profileModal').style.display = 'none';
+                    window.location.href = '{{ route('dashboard.index') }}';
                 }
 
-                document.getElementById('passwordMismatchAlert').style.display = 'none';
+                function validateAndSubmitPassword() {
+                    const currentPassword = document.getElementById('currentPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-                // Jika validasi berhasil, submit form
-                document.getElementById('resetPasswordForm').submit();
-            }
 
-            function closeSuccessPasswordModal() {
-                document.getElementById('successPasswordModal').style.display = 'none';
-                window.location.href = '{{ route('dashboard.index') }}'; // Ganti dengan route atau URL yang sesuai
-            }
+                    document.getElementById('fieldsRequiredAlert').style.display = 'none';
+                    document.getElementById('passwordMismatchAlert').style.display = 'none';
+                    document.getElementById('currentPasswordError').style.display = 'none';
+                    document.getElementById('passwordLengthError').style.display = 'none';
 
-            function closeResetPasswordModal() {
-                document.getElementById('resetPasswordModal').style.display = 'none';
-                window.location.href = '{{ route('dashboard.index') }}';
-            }
-        </script>
+                    if (!currentPassword || !newPassword || !confirmNewPassword) {
+                        document.getElementById('fieldsRequiredAlert').style.display = 'block';
+                        return;
+                    }
+
+                    if (newPassword !== confirmNewPassword) {
+                        document.getElementById('passwordMismatchAlert').style.display = 'block';
+                        return;
+                    }
+
+                    if (newPassword.length < 6) {
+                        document.getElementById('passwordLengthError').style.display = 'block';
+                        return;
+                    }
+
+                    fetch('{{ route('validateCurrentPassword') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                currentPassword: currentPassword,
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.valid) {
+                                document.getElementById('currentPasswordError').style.display = 'block';
+                                return;
+                            }
+
+
+                            document.getElementById('resetPasswordForm').submit();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+
+                function closeResetPasswordModal() {
+                    document.getElementById('resetPasswordModal').style.display = 'none';
+                    window.location.href = '{{ route('dashboard.index') }}';
+                }
+            </script>
 
 </body>
 

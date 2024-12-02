@@ -235,6 +235,7 @@
             color: #333;
             margin-left: 10px;
         }
+
         header {
             margin-top: 5px;
             display: flex;
@@ -268,9 +269,7 @@
                 onsubmit="return validateForm(event)">
                 @csrf
                 <div id="stockContainer">
-                    <!-- Stock Group -->
                     <div class="stock-group">
-                        <!-- Row for Choose Stock and Quantity -->
                         <div class="form-row">
                             <div class="form-group stock-select-group">
                                 <label for="bahanBakuSelect">Choose Stock</label>
@@ -297,8 +296,8 @@
                                 <label for="stockPrice">Price</label>
                                 <div class="currency-label">
                                     <span>Rp</span>
-                                    <input type="number" class="stockPrice" name="harga[]" min="0" required
-                                        oninput="calculateSubTotal(this)">
+                                    <input type="text" class="stockPrice" name="harga[]" required
+                                        oninput="formatInputPrice(this)">
                                 </div>
                             </div>
 
@@ -315,7 +314,6 @@
 
                 <button type="button" id="addStockBtn" onclick="addStock()">Add Stock</button>
 
-                <!-- Summary for Total Quantity and Total Price -->
                 <div class="summary-group">
                     <div class="form-group">
                         <label for="totalQuantity">Total Quantity</label>
@@ -369,18 +367,40 @@
         const pembelianShowUrl = "{{ route('pembelian.show') }}";
         const pembelianCreateUrl = "{{ route('pembelian.create') }}";
 
+        function formatNumber(number) {
+            return number.toLocaleString('id-ID'); 
+        }
+
+        function formatInputPrice(input) {
+            let value = input.value.replace(/\./g, '');
+
+            const number = parseInt(value, 10);
+
+            if (!isNaN(number)) {
+                input.value = number.toLocaleString('id-ID');
+            } else {
+                input.value = '';
+            }
+
+            calculateSubTotal(input);
+        }
+
+
         function calculateSubTotal(element) {
             const stockGroup = element.closest('.stock-group');
             const priceInput = stockGroup.querySelector('.stockPrice');
             const quantityInput = stockGroup.querySelector('.stockQuantity');
             const subTotalInput = stockGroup.querySelector('.stockSubTotal');
 
-            const price = parseFloat(priceInput.value) || 0;
+            
+            const price = parseFloat(priceInput.value.replace(/\./g, '')) || 0;
             const quantity = parseInt(quantityInput.value) || 0;
             const subTotal = price * quantity;
-            subTotalInput.value = subTotal;
-            calculateTotalPrice();
+
+            subTotalInput.value = subTotal.toLocaleString('id-ID');
+            calculateTotalPrice(); 
         }
+
 
         function calculateTotalPrice() {
             const stockGroups = document.querySelectorAll('.stock-group');
@@ -390,20 +410,20 @@
             stockGroups.forEach(group => {
                 const subTotalInput = group.querySelector('.stockSubTotal');
                 const quantityInput = group.querySelector('.stockQuantity');
-                const subTotal = parseFloat(subTotalInput.value) || 0;
+                const subTotal = parseFloat(subTotalInput.value.replace(/\./g, '')) || 0;
                 const quantity = parseInt(quantityInput.value) || 0;
 
                 totalPrice += subTotal;
                 totalQuantity += quantity;
             });
 
-            document.getElementById('totalPriceDisplay').value = totalPrice;
-            document.getElementById('totalPrice').value = totalPrice;
+            document.getElementById('totalPriceDisplay').value = totalPrice.toLocaleString('id-ID');
+            document.getElementById('totalPrice').value = totalPrice; // Gunakan nilai numerik untuk input hidden
             document.getElementById('totalQuantity').value = totalQuantity;
         }
 
         function validateForm(event) {
-            event.preventDefault(); // Stop default form submission
+            event.preventDefault();
 
             const totalQuantity = parseFloat(document.getElementById('totalQuantity').value);
             const totalPrice = parseFloat(document.getElementById('totalPrice').value);
@@ -413,17 +433,17 @@
             } else {
                 document.getElementById('errorModal').style.display = 'flex';
             }
-            return false; // Stop the form from submitting
+            return false;
+            x
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
-            document.getElementById('createPurchaseForm').submit();// Arahkan ke halaman pembelian.show setelah sukses
+            document.getElementById('createPurchaseForm').submit();
         }
 
         function closeErrorModal() {
             document.getElementById('errorModal').style.display = 'none';
-            // Kembali ke form pembelian tanpa mengirim data
             window.location.href = pembelianCreateUrl;
         }
 

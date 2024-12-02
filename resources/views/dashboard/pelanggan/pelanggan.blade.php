@@ -930,31 +930,30 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-            // Reset error messages
+          
             document.getElementById('fieldsRequiredAlert').style.display = 'none';
             document.getElementById('passwordMismatchAlert').style.display = 'none';
             document.getElementById('currentPasswordError').style.display = 'none';
-            document.getElementById('passwordLengthError').style.display = 'none'; // Menambahkan reset untuk error baru
+            document.getElementById('passwordLengthError').style.display = 'none'; 
 
-            // Check if all fields are filled
+           
             if (!currentPassword || !newPassword || !confirmNewPassword) {
                 document.getElementById('fieldsRequiredAlert').style.display = 'block';
-                return; // Stop further validation if fields are empty
+                return;
             }
 
-            // Check if new passwords match
+           
             if (newPassword !== confirmNewPassword) {
                 document.getElementById('passwordMismatchAlert').style.display = 'block';
                 return;
             }
 
-            // Check if new password is at least 6 characters long
+           
             if (newPassword.length < 6) {
                 document.getElementById('passwordLengthError').style.display = 'block';
                 return;
             }
 
-            // Validate current password via backend
             fetch('{{ route('validateCurrentPassword') }}', {
                     method: 'POST',
                     headers: {
@@ -972,8 +971,8 @@
                         return;
                     }
 
-                    // If current password is valid, submit the form to reset password
-                    document.getElementById('resetPasswordForm').submit(); // Submit the form
+                 
+                    document.getElementById('resetPasswordForm').submit();
                 })
                 .catch(error => {
                     console.error('Error:', error);
