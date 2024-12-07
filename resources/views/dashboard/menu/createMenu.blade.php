@@ -151,11 +151,12 @@
         }
 
         header {
-            margin-top: 50px;
+            margin-top: 10px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding-left: 40px;
+            padding-left: 100px;
+            margin-left: 120px
         }
     </style>
 </head>
@@ -220,7 +221,7 @@
             <div class="modal-icon" style="color: #28a745;">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Menu created successfully!</p>
+            <p class="modal-message">"Menu created successfully!"</p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
@@ -260,7 +261,7 @@
             // Set nilai input dengan hasil format
             event.target.value = formattedInput;
         }
-        
+
         async function validateForm(event) {
             event.preventDefault();
 
@@ -269,8 +270,9 @@
             const namaMenuExists = await checknamamenu(namaMenu);
 
             if (namaMenuExists) {
-                showErrorModal("Nama Menu sudah ada. Silakan gunakan nama lain.");
+                showErrorModal("The menu name already exists. Please use a different name.");
             } else {
+                // document.getElementById('namaMenu').textContent = namaMenu;
                 document.getElementById('successModal').style.display = 'flex';
             }
         }

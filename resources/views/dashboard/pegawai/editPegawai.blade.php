@@ -233,9 +233,9 @@
             const noHPexists = await checknoHP(noHP);
 
             if (noHPexists) {
-                showErrorModal("Nomor HP sudah ada. Silakan gunakan nomor lain.");
+                showErrorModal("The phone number already exists. Please use a different number.");
             } else if (noHP.length < 10 || noHP.length > 15 || isNaN(noHP)) {
-                showErrorModal("Nomor HP tidak valid. Harus antara 10 hingga 15 digit.");
+                showErrorModal("The phone number is invalid. It must be between 10 and 15 digits.");
             } else {
                 document.getElementById('successModal').style.display = 'flex';
             }

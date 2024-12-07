@@ -52,31 +52,38 @@ class CMenuController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $menu = menu::findOrFail($id);
-
+        $menu = Menu::findOrFail($id);
 
         if ($request->isMethod('get')) {
             return view('dashboard.menu.editMenu', compact('menu'));
         }
 
-
         $request->validate([
-            'namaMenu' => 'required|string|max:25',
-            'fotoMenu' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'namaMenu' => [
+                'required',
+                'string',
+                'max:25',
+                function ($attribute, $value, $fail) use ($id) {
+                    // Cek jika ada menu dengan nama yang sama kecuali yang sedang diedit
+                    $exists = Menu::where('namaMenu', $value)->where('id', '!=', $id)->exists();
+                    if ($exists) {
+                        $fail('Nama menu sudah ada. Silakan gunakan nama lain.');
+                    }
+                },
+            ],
+            'fotoMenu' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'hargaMenu' => 'required|numeric',
         ]);
 
-
         $namaMenu = $request->input('namaMenu');
-        // $fotoMenu = $request->input('fotoMenu');
         $hargaMenu = $request->input('hargaMenu');
 
         if ($request->hasFile('fotoMenu')) {
             $fotoMenu = $request->file('fotoMenu');
-            $fotoPath = 'img/menu/' . $fotoMenu->getClientOriginalName(); // Tentukan path relatif
-            $fotoMenu->move(public_path('img/menu'), $fotoMenu->getClientOriginalName()); // Simpan file di public/img/menu
+            $fotoPath = 'img/menu/' . $fotoMenu->getClientOriginalName();
+            $fotoMenu->move(public_path('img/menu'), $fotoMenu->getClientOriginalName());
         } else {
-            $fotoPath = $menu->fotoMenu; // Tetap menggunakan path lama jika tidak diunggah
+            $fotoPath = $menu->fotoMenu; // Tetap menggunakan path lama jika tidak ada upload baru
         }
 
         $menu->update([
@@ -85,8 +92,9 @@ class CMenuController extends Controller
             'hargaMenu' => $hargaMenu,
         ]);
 
-        return redirect()->route('menu.show')->with('success', 'menu berhasil diperbarui');
+        return redirect()->route('menu.show')->with('success', 'Menu berhasil diperbarui');
     }
+
 
 
     public function delete($id)
@@ -117,8 +125,15 @@ class CMenuController extends Controller
     public function Checknamamenu(Request $request)
     {
         $namaMenu = $request->input('namaMenu');
-        // Checking if the menu name exists in the database
-        $exists = Menu::where('namaMenu', $namaMenu)->exists();
-        return response()->json(['exists' => $exists]);  // Return true or false
+        $excludeId = $request->input('excludeId');
+
+        $query = Menu::where('namaMenu', $namaMenu);
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        $exists = $query->exists();
+
+        return response()->json(['exists' => $exists]);
     }
 }

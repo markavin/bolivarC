@@ -245,7 +245,7 @@
             const stockExists = await checknamaStock(namaBahanBaku);
 
             if (stockExists) {
-                showErrorModal("Nama stock sudah ada. Silakan gunakan nama lain.");
+                showErrorModal("The stock name already exists. Please use a different name.");
             } else {
                 document.getElementById('successModal').style.display = 'flex';
             }

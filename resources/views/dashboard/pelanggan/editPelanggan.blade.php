@@ -68,11 +68,11 @@
         .form-actions {
             display: flex;
             justify-content: flex-end;
-            /* Menempatkan tombol ke kiri */
+            /* Menempatkan tombol di sisi kanan */
             gap: 10px;
             margin: 20px 0 0 0;
             width: 700px;
-            margin-left: 238px;
+            margin-left: 315px;
         }
 
         .cancel-btn,
@@ -152,6 +152,14 @@
             opacity: 0.9;
             transition: opacity 0.3s ease;
         }
+        header {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 100px;
+            margin-left: 80px
+        }
     </style>
 </head>
 
@@ -202,7 +210,7 @@
             <div class="modal-icon" style="color: #28a745;">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Employee created successfully!</p>
+            <p class="modal-message">Customers Updated successfully!</p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
@@ -213,7 +221,7 @@
             <div class="modal-icon" style="color: #dc3545;">
                 <i class="material-icons-outlined">error</i>
             </div>
-            <p class="modal-message" id="errorMessage">Employee creation failed! Please check your inputs.</p>
+            <p class="modal-message" id="errorMessage">Customers updated failed! Please check your inputs.</p>
             <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
         </div>
     </div>
@@ -236,9 +244,9 @@
             const noHPexists = await checknoHP(NoHP);
 
             if (noHPexists) {
-                showErrorModal("Nomor HP sudah ada. Silakan gunakan nomor lain.");
+                showErrorModal("The phone number already exists. Please use a different number.");
             } else if (NoHP.length < 10 || NoHP.length > 15 || isNaN(NoHP)) {
-                showErrorModal("Nomor HP tidak valid. Harus antara 10 hingga 15 digit.");
+                showErrorModal("The phone number is invalid. It must be between 10 and 15 digits.");
             } else {
                 // If validation passes, show success modal and submit the form
                 document.getElementById('successModal').style.display = 'flex';

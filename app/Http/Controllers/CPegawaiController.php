@@ -28,7 +28,7 @@ class CPegawaiController extends Controller
         $request->validate([
             'namaPengguna' => 'required|string|max:50',
             'noHP' => 'required|numeric|digits_between:10,15',
-            // 'namaRole' => 'required|string|exists:role,namaRole'
+          
         ]);
 
 
@@ -78,7 +78,7 @@ class CPegawaiController extends Controller
         $namaPengguna = $request->input('namaPengguna');
         $noHP = $request->input('noHP');
         $username = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, 0, 3);
-        $password = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, -4);
+        $password = Str::lower(explode(' ', trim($namaPengguna))[0]) . substr($noHP, -3);
 
         $pengguna->update([
             'namaPengguna' => $namaPengguna,

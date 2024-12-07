@@ -59,6 +59,39 @@
             font-size: 20px;
         }
 
+        .form-group img {
+            width: 120px;
+            /* Ukuran gambar */
+            height: 120px;
+            /* Sama dengan width untuk bentuk lingkaran */
+            border-radius: 50%;
+            /* Membuat gambar menjadi lingkaran */
+            object-fit: cover;
+            /* Memastikan gambar memenuhi area dengan proporsi */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Tambahkan bayangan */
+        }
+
+        .form-group input[type="file"] {
+            padding-left: 40px;
+            display: inline-block;
+        }
+
+        .form-group .material-icons-outlined {
+            position: absolute;
+            /* Menempatkan ikon di dalam input */
+            left: 10px;
+            /* Jarak dari sisi kiri */
+            top: 50%;
+            /* Posisi vertikal di tengah */
+            transform: translateY(-50%);
+            /* Menyelaraskan ikon ke tengah vertikal */
+            color: #445D48;
+            /* Warna ikon */
+            font-size: 20px;
+            /* Ukuran ikon */
+        }
+
         .form-actions {
             display: flex;
             justify-content: flex-end;
@@ -171,16 +204,19 @@
 
                 <div class="form-group">
                     <label for="fotoMenu" class="form-label">Menu Image</label>
-                    <span class="material-icons-outlined">panorama</span>
-                    <input type="file" class="form-control" id="fotoMenu" name="fotoMenu" accept="image/*">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <!-- Gambar Sebelah Kiri -->
+                        @if ($menu->fotoMenu)
+                            <img src="{{ asset($menu->fotoMenu) }}" alt="Menu Image" class="menu-image">
+                        @endif
+                        <!-- Input File + Ikon -->
+                        <div style="position: relative; display: inline-block;">
+                            {{-- <span class="material-icons-outlined">panorama</span> --}}
+                            <input type="file" class="form-control" id="fotoMenu" name="fotoMenu" accept="image/*">
+                        </div>
+                    </div>
                 </div>
 
-                {{-- <div class="form-group">
-                    @if ($menu->fotoMenu)
-                    <p>Foto Menu Saat Ini:</p>
-                    <img src="{{ asset('public/img' . $menu->fotoMenu) }}" alt="Foto Menu" style="width: 150px; height: auto;">
-                @endif
-                </div> --}}
 
                 <div class="form-group">
                     <label for="hargaMenu" class="form-label">Menu Price</label>
@@ -206,7 +242,7 @@
             <div class="modal-icon" style="color: #28a745;">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Menu created successfully!</p>
+            <p class="modal-message">Menu Updated successfully!</p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
@@ -217,7 +253,7 @@
             <div class="modal-icon" style="color: #dc3545;">
                 <i class="material-icons-outlined">error</i>
             </div>
-            <p class="modal-message" id="errorMessage">Menu creation failed! Please check your inputs.</p>
+            <p class="modal-message" id="errorMessage">Menu Updated failed! Please check your inputs.</p>
             <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
         </div>
     </div>
@@ -254,16 +290,19 @@
             event.target.value = formattedInput;
         }
         async function validateForm(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault(); // Mencegah pengiriman form
 
             const namaMenu = document.getElementById('namaMenu').value.trim();
+            const currentMenuId = "{{ $menu->id }}"; // Dapatkan ID menu saat ini dari server
 
-            const namaMenuExists = await checknamamenu(namaMenu);
+            const response = await fetch(
+                `{{ route('menu.Checknamamenu') }}?namaMenu=${namaMenu}&excludeId=${currentMenuId}`);
+            const result = await response.json();
 
-            if (namaMenuExists) {
-                showErrorModal("Nama Menu sudah ada. Silakan gunakan nama lain.");
+            if (result.exists) {
+                showErrorModal("The menu name already exists. Please use a different name.");
             } else {
-                document.getElementById('successModal').style.display = 'flex';
+                closeSuccessModal();
             }
         }
 
@@ -280,6 +319,7 @@
         function closeErrorModal() {
             document.getElementById('errorModal').style.display = 'none';
         }
+
         function removeDotsFromHarga() {
             const hargaInput = document.getElementById('hargaMenu');
             let harga = hargaInput.value;

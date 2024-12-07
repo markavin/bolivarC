@@ -221,6 +221,7 @@
             background-color: #445D48;
             opacity: 1;
         }
+
         header {
             margin-top: 5px;
             display: flex;
@@ -284,8 +285,10 @@
                     <select name="id_menu" id="id_menu" class="form-control" required>
                         <option value="">Choose Menu</option>
                         @foreach ($menu as $item)
-                            <option value="{{ $item->id }}">{{ $item->namaMenu }} (Price: Rp
-                                {{ number_format($item->hargaMenu, 0, ',', '.') }})</option>
+                            <option value="{{ $item->id }}">
+                                {{ $item->namaMenu }} - Rp {{ number_format($item->hargaMenu, 0, ',', '.') }} -
+                                {{ $item->deduct_poin }} Points
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -318,24 +321,29 @@
     </div>
 
     <!-- Success Modal -->
+    <!-- Success Modal -->
     <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="modal-icon" style="color: #28a745;">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Purchase Successful!</p>
+            <p class="modal-message">Redeem Point Successful!</p>
+            {{-- <p class="modal-message">
+                Sisa poin {{ $customer->NamaPelanggan }} sebesar {{ $customer->totalPoin }} Poin
+            </p> --}}
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
 
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const pelangganSelect = document.getElementById('id_pelanggan');
             const totalPoinInput = document.getElementById('total_poin');
             const menuSelect = document.getElementById('id_menu');
             const deductPoinInput = document.getElementById('deduct_poin');
 
-            pelangganSelect.addEventListener('change', function () {
+            pelangganSelect.addEventListener('change', function() {
                 const pelangganId = this.value;
 
                 if (pelangganId) {
@@ -355,7 +363,7 @@
                 menuSelect.value = '';
             });
 
-            menuSelect.addEventListener('change', function () {
+            menuSelect.addEventListener('change', function() {
                 const menuId = this.value;
 
                 if (menuId) {
@@ -374,7 +382,7 @@
         });
 
         const form = document.getElementById('createRedemptionForm');
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function(event) {
             const totalPoin = parseInt(document.getElementById('total_poin').value) || 0;
             const deductPoin = parseInt(document.getElementById('deduct_poin').value) || 0;
 

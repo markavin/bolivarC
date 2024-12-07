@@ -93,7 +93,7 @@ class C_Auth extends Controller
         $user->password = Hash::make($request->input('newPassword'));
         $user->save();
 
-        // Tampilkan pesan sukses dan redirect ke halaman login atau dashboard
+        
         Session::flash('success', 'Password berhasil diubah.');
         return redirect()->route('login'); // Atau arahkan ke halaman yang sesuai
     }

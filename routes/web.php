@@ -116,6 +116,7 @@
             Route::get('Bolivar/dashboard/reports', [CLaporanController::class, 'getLaporan'])->name('laporan.index');
             Route::get('/laporan-data', [CLaporanController::class, 'getgrafikdata'])->name('laporan.data');
             Route::get('/laporan/export-excel', [CLaporanController::class, 'exportExcel'])->name('laporan.exportExcel');
+            Route::get('laporan/export-pdf', [CLaporanController::class, 'exportPDF'])->name('laporan.exportPDF');
         });
     });
 

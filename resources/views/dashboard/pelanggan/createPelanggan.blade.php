@@ -65,11 +65,11 @@
         .form-actions {
             display: flex;
             justify-content: flex-end;
-            /* Menempatkan tombol ke kiri */
+            /* Menempatkan tombol di sisi kanan */
             gap: 10px;
             margin: 20px 0 0 0;
             width: 700px;
-            margin-left: 238px;
+            margin-left: 315px;
         }
 
         .cancel-btn,
@@ -157,11 +157,12 @@
         }
 
         header {
-            margin-top: 50px;
+            margin-top: 10px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding-left: 40px;
+            padding-left: 100px;
+            margin-left: 80px
         }
     </style>
 </head>
@@ -219,6 +220,7 @@
                 <i class="material-icons-outlined">check_circle</i>
             </div>
             <p class="modal-message">Customer created successfully!</p>
+            <p class="modal-message" id="successCustomerMessage"></p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
@@ -246,20 +248,22 @@
         async function validateForm(event) {
             event.preventDefault(); // Prevent the default form submission
 
-            const namaPengguna = document.getElementById('NamaPelanggan').value.trim();
+            const namaPelanggan = document.getElementById('NamaPelanggan').value.trim();
             const NoHP = document.getElementById('NoHP').value.trim();
 
             const noHPexists = await checknoHP(NoHP);
 
             if (noHPexists) {
-                showErrorModal("Nomor HP sudah ada. Silakan gunakan nomor lain.");
+                showErrorModal("The phone number already exists. Please use a different number.");
             } else if (NoHP.length < 10 || NoHP.length > 15 || isNaN(NoHP)) {
-                showErrorModal("Nomor HP tidak valid. Harus antara 10 hingga 15 digit.");
+                showErrorModal("The phone number is invalid. It must be between 10 and 15 digits.");
             } else {
-                // If validation passes, show success modal and submit the form
+                // Jika validasi berhasil, tampilkan nama pelanggan di modal sukses
+                document.getElementById('successCustomerMessage').textContent = `${namaPelanggan} GOT +5 POINT.`;
                 document.getElementById('successModal').style.display = 'flex';
             }
         }
+
 
         function showErrorModal(message) {
             document.getElementById('errorMessage').textContent = message;

@@ -196,7 +196,7 @@
             <div class="modal-icon" style="color: #28a745;">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Stock created successfully!</p>
+            <p class="modal-message">Stock Updated successfully!</p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
@@ -207,7 +207,7 @@
             <div class="modal-icon" style="color: #dc3545;">
                 <i class="material-icons-outlined">error</i>
             </div>
-            <p class="modal-message" id="errorMessage">Stock creation failed! Please check your inputs.</p>
+            <p class="modal-message" id="errorMessage">Stock Updated failed! Please check your inputs.</p>
             <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
         </div>
     </div>
@@ -228,7 +228,7 @@
             const stockExists = await checknamaStock(namaBahanBaku);
 
             if (stockExists) {
-                showErrorModal("Nama stock sudah ada. Silakan gunakan nama lain.");
+                showErrorModal("The stock name already exists. Please use a different name.");
             } else {
                 document.getElementById('successModal').style.display = 'flex';
             }

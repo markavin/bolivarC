@@ -150,7 +150,6 @@
             align-items: center;
             padding-left: 40px;
         }
-
     </style>
 </head>
 
@@ -164,15 +163,16 @@
 
         <div class="form-container">
             @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-            <form action="{{ route('pegawai.store') }}" method="POST" id="createEmployeeForm" onsubmit="validateForm(event)">
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form action="{{ route('pegawai.store') }}" method="POST" id="createEmployeeForm"
+                onsubmit="validateForm(event)">
                 @csrf
                 <div class="form-group">
                     <label for="namaPengguna" class="form-label">Nama Pegawai</label>
@@ -236,10 +236,10 @@
             const noHP = document.getElementById('noHP').value.trim();
             const noHPexistts = await checknoHP(noHP);
 
-            if (noHPexistts) {
-                showErrorModal("Nomor HP sudah ada. Silakan gunakan nama lain.");
+            if (noHPexists) {
+                showErrorModal("The phone number already exists. Please use a different number.");
             } else if (noHP.length < 10 || noHP.length > 15 || isNaN(noHP)) {
-                showErrorModal("Nomor HP tidak valid. Harus antara 10 hingga 15 digit.");
+                showErrorModal("The phone number is invalid. It must be between 10 and 15 digits.");
             } else {
                 document.getElementById('successModal').style.display = 'flex';
             }

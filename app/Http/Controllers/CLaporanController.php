@@ -6,20 +6,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class CLaporanController extends Controller
 {
-    public function fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir)
+    public function fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan)
     {
-        if ($tipeLaporan == 'penjualan') {
+        if ($tipeLaporan == 'penukaran') {
+            $laporan = DB::table('penukaran')
+                ->join('pelanggan', 'penukaran.id_pelanggan', '=', 'pelanggan.id')
+                ->join('menu', 'penukaran.id_menu', '=', 'menu.id')
+                ->join('poin', 'penukaran.id_penukaran', '=', 'poin.id_penukaran')
+                ->select(
+                    'penukaran.id_penukaran',
+                    DB::raw('DATE(penukaran.tanggal_penukaran) as tanggalPenukaran'),
+                    'pelanggan.NamaPelanggan',
+                    'menu.namaMenu',
+                    'penukaran.total_penukaranPoin as totalPoin',
+                    'pelanggan.totalPoin as sisaPoin',
+                    'poin.status'
+                )
+                ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
+                    return $query->whereBetween('penukaran.tanggal_penukaran', [$tanggalAwal, $tanggalAkhir]);
+                })
+                ->when($NamaPelanggan, function ($query, $NamaPelanggan) {
+                    return $query->where('pelanggan.NamaPelanggan', 'LIKE', "%$NamaPelanggan%");
+                })
+                ->orderBy('penukaran.tanggal_penukaran', 'DESC')
+                ->get();
+
+            $totalTransaksi = $laporan->count(); // Total transaksi penukaran
+        } else if ($tipeLaporan == 'penjualan') {
             $laporan = DB::table('penjualan')
-                ->join('pelanggan', 'penjualan.id_pelanggan', '=', 'pelanggan.id')
+                ->leftJoin('pelanggan', 'penjualan.id_pelanggan', '=', 'pelanggan.id')
                 ->join('detail_penjualan', 'penjualan.id_penjualan', '=', 'detail_penjualan.id_penjualan')
                 ->join('menu', 'detail_penjualan.id_menu', '=', 'menu.id')
                 ->select(
                     'penjualan.id_penjualan',
                     DB::raw('DATE(penjualan.tanggalPenjualan) as tanggalPenjualan'),
-                    'pelanggan.NamaPelanggan',
+                    DB::raw('COALESCE(pelanggan.NamaPelanggan, "Guest") as NamaPelanggan'),
                     DB::raw('GROUP_CONCAT(menu.namaMenu SEPARATOR ", ") as namaMenu'),
                     'penjualan.totalHarga',
                     DB::raw('SUM(detail_penjualan.quantity) as totalQuantity')
@@ -27,7 +54,7 @@ class CLaporanController extends Controller
                 ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
                     return $query->whereBetween('penjualan.tanggalPenjualan', [$tanggalAwal, $tanggalAkhir]);
                 })
-                ->groupBy('penjualan.id_penjualan', 'penjualan.tanggalPenjualan', 'pelanggan.NamaPelanggan', 'penjualan.totalHarga')
+                ->groupBy('penjualan.id_penjualan', 'penjualan.tanggalPenjualan', 'pelanggan.NamaPelanggan', 'pelanggan.totalPoin', 'penjualan.totalHarga')
                 ->orderBy('penjualan.tanggalPenjualan', 'DESC')
                 ->get();
 
@@ -57,33 +84,88 @@ class CLaporanController extends Controller
     }
 
 
-   public function getLaporan(Request $request)
-{
-    // Ambil tipe laporan dan tanggal dari request
-    $tipeLaporan = $request->get('tipe', 'penjualan'); // default 'penjualan'
-    $tanggalAwal = $request->get('tanggal_awal');
-    $tanggalAkhir = $request->get('tanggal_akhir');
 
-    // Panggil method untuk mengambil data laporan berdasarkan filter
-    $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir);
+    public function getLaporan(Request $request)
+    {
+        $tipeLaporan = $request->get('tipe', 'penjualan');
+        $tanggalAwal = $request->get('tanggal_awal');
+        $tanggalAkhir = $request->get('tanggal_akhir');
+        $NamaPelanggan = $request->get('nama_pelanggan');
 
-    // Kembalikan data ke view dengan parameter yang sesuai
-    return view('dashboard.laporan.laporan', array_merge($dataLaporan, [
-        'tipeLaporan' => $tipeLaporan,
-        'tanggalAwal' => $tanggalAwal,
-        'tanggalAkhir' => $tanggalAkhir
-    ]));
-}
+        $daftarPelanggan = [];
+        if ($tipeLaporan == 'penukaran') {
+            $daftarPelanggan = DB::table('pelanggan')->pluck('NamaPelanggan', 'id');
+        }
+
+        $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan);
+
+        return view('dashboard.laporan.laporan', array_merge($dataLaporan, [
+            'tipeLaporan' => $tipeLaporan,
+            'tanggalAwal' => $tanggalAwal,
+            'tanggalAkhir' => $tanggalAkhir,
+            'NamaPelanggan' => $NamaPelanggan,
+            'daftarPelanggan' => $daftarPelanggan,
+        ]));
+    }
 
 
     public function exportExcel(Request $request)
     {
-        $tipeLaporan = $request->get('tipe', 'penjualan'); 
+        $tipeLaporan = $request->get('tipe', 'penjualan');
         $tanggalAwal = $request->get('tanggal_awal');
         $tanggalAkhir = $request->get('tanggal_akhir');
-        $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir);
-        $laporanCollection = collect($dataLaporan['laporan']);
+        $NamaPelanggan = $request->get('nama_pelanggan');
 
-        return Excel::download(new LaporanExport($laporanCollection, $tipeLaporan), 'laporan.xlsx');
+        $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan);
+
+        if ($dataLaporan['laporan']->isEmpty()) {
+            return back()->with('error', 'No data available for the selected filters.');
+        }
+
+        $fileName = "{$tipeLaporan}_report_{$tanggalAwal}_to_{$tanggalAkhir}.xlsx";
+
+        return Excel::download(
+            new LaporanExport($dataLaporan['laporan'], $tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan),
+            $fileName
+        );
+    }
+
+
+    public function exportPDF(Request $request)
+    {
+        $tipeLaporan = $request->get('tipe', 'penjualan');
+        $tanggalAwal = $request->get('tanggal_awal');
+        $tanggalAkhir = $request->get('tanggal_akhir');
+        $NamaPelanggan = $request->get('nama_pelanggan');
+        // Ambil data laporan sesuai dengan filter
+        $dataLaporan = $this->fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan);
+
+        // Validasi jika data kosong
+        if ($dataLaporan['laporan']->isEmpty()) {
+            return back()->with('error', 'No data available for the selected filters.');
+        }
+        
+
+        if($tipeLaporan == 'penukaran'){
+            $fileName = "Redemptions_report_{$tanggalAwal}_to_{$tanggalAkhir}.pdf";
+        }
+        elseif($tipeLaporan == 'penjualan'){
+            $fileName = "Sales_report_{$tanggalAwal}_to_{$tanggalAkhir}.pdf";
+        }
+        else{
+            $fileName = "Purchase_report_{$tanggalAwal}_to_{$tanggalAkhir}.pdf";
+        }
+        $totalTransaksi = $dataLaporan['totalTransaksi'];
+        
+        $pdf = FacadePdf::loadView('dashboard.laporan.pdf', [
+            'laporan' => $dataLaporan['laporan'],
+            'tipeLaporan' => $tipeLaporan,
+            'tanggalAwal' => $tanggalAwal,
+            'tanggalAkhir' => $tanggalAkhir,
+            'NamaPelanggan' => $NamaPelanggan,
+            'totalTransaksi' => $totalTransaksi,
+        ]);
+
+        return $pdf->download($fileName);
     }
 }

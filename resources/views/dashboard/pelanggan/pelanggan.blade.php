@@ -110,7 +110,7 @@
 
         /* Styling tabel */
         table {
-            width: 93%;
+            width: 93.5%;
             border-collapse: collapse;
             margin-top: 10px;
             background-color: #ffffff;
@@ -359,7 +359,6 @@
             margin-left: auto;
             /* Geser kotak putih ke kanan */
         }
-
 
         #profileModal .modal-footer {
             display: flex;

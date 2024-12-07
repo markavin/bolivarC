@@ -15,8 +15,21 @@ class CPenukaranController extends Controller
 
     public function create()
     {
-        $pelanggan = Pelanggan::all(); // Fetch all customers
-        $menu = Menu::all(); // Fetch all menu items
+        // Ambil data pelanggan
+        $pelanggan = Pelanggan::all();
+
+        // Ambil data menu dan hitung deduct_poin berdasarkan harga menu
+        $menu = Menu::all()->map(function ($item) {
+            if ($item->hargaMenu > 27000) {
+                $item->deduct_poin = 20; // Harga > 27,000, pengurangan poin 20
+            } elseif ($item->hargaMenu > 25000) {
+                $item->deduct_poin = 15; // Harga > 25,000, pengurangan poin 15
+            } else {
+                $item->deduct_poin = 10; // Harga <= 25,000, pengurangan poin 10
+            }
+            return $item;
+        });
+
         return view('dashboard.penukaranpoin.createPenukaran', compact('pelanggan', 'menu'));
     }
 
@@ -35,11 +48,11 @@ class CPenukaranController extends Controller
         // Hitung poin yang akan dikurang berdasarkan harga menu
         $deductPoints = 0;
         if ($menu->hargaMenu > 27000) {
-            $deductPoints = 20; // Sesuai permintaan, misalnya harga >27000 maka pengurangan 27 poin
+            $deductPoints = 20;
         } elseif ($menu->hargaMenu > 25000) {
-            $deductPoints = 15; // Misalnya harga >25000 maka pengurangan 25 poin
+            $deductPoints = 15;
         } else {
-            $deductPoints = 10; // Harga <=25000 maka pengurangan 20 poin
+            $deductPoints = 10;
         }
 
         // Cek apakah pelanggan memiliki cukup poin untuk penukaran
@@ -64,7 +77,6 @@ class CPenukaranController extends Controller
             ]);
 
             // Catat pengurangan poin di tabel 'poin'
-            // Di dalam metode store()
             Poin::create([
                 'id_pelanggan' => $pelanggan->id,
                 'status' => 'penukaran',  // Status transaksi
@@ -74,13 +86,19 @@ class CPenukaranController extends Controller
 
             DB::commit();
 
-            // Redirect ke halaman poin.show setelah berhasil
-            return redirect()->route('poin.show')->with('success', 'Penukaran berhasil.');
+            // Redirect ke halaman poin.show setelah berhasil dengan sisa poin
+            return redirect()->route('poin.show')->with('success', 'Penukaran berhasil.')
+                ->with('menu', $menu->namaMenu)
+                ->with('harga', number_format($menu->hargaMenu, 0, ',', '.'))
+                ->with('poin', $deductPoints)
+                ->with('namaPelanggan', $pelanggan->NamaPelanggan)
+                ->with('sisaPoin', $pelanggan->totalPoin);
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan saat penukaran poin.']);
         }
     }
+
 
     // Metode untuk mengambil poin pelanggan
     public function getPoinPelanggan($id)

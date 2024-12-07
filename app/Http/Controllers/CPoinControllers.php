@@ -46,7 +46,7 @@ class CPoinControllers extends Controller
         $status = $request->input('status'); // Status (penambahan/penukaran)
         $tanggal = $request->input('tanggal'); // Tanggal
 
-        // Mulai query poin
+
         $poin = Poin::select(
             'poin.id as id_poin',
             'pelanggan.NamaPelanggan',
