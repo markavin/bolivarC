@@ -12,7 +12,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .notification {
-            margin-left: 600px;
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-left: 0;
+            z-index: 1000;
         }
 
         .container {
@@ -36,7 +40,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding-left: 40px;
+            padding-left: 7px;
         }
 
 
@@ -388,6 +392,8 @@
 
         /* Chart Section */
         .chart-section {
+            width: 100%;
+            height: 500px;
             background-color: #f4f4f4;
             border-radius: 10px;
             padding: 20px;
@@ -403,7 +409,6 @@
 
         /* Top Selling Products */
         .top-selling {
-            display: flex;
             flex: 2;
             background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
             border-radius: 10px;
@@ -415,12 +420,13 @@
             max-width: 35%;
             flex-direction: column;
             justify-content: space-between;
+
         }
 
         .top-selling h5 {
-            margin-bottom: 5px;
             font-size: 18px;
-            text-align: center;
+            color: #3b4a3e;
+            margin-bottom: 10px;
         }
 
         .top-selling ul {
@@ -471,7 +477,6 @@
             margin-bottom: 20px;
             /* Jarak bawah untuk kontainer */
         }
-
 
         .latest-transactions,
         .latest-customers {
@@ -647,9 +652,9 @@
 
 
             .top-selling {
-                display: flex;
-                flex: 2;
-                /* Melebarkan top-selling agar mengisi lebih banyak ruang */
+                /* display: flex;
+                    flex: 2;
+                    /* Melebarkan top-selling agar mengisi lebih banyak ruang */
                 background: linear-gradient(180deg, #D1FDE8 0%, #445D48 100%);
                 /* Ubah warna latar belakang menjadi gradien */
                 border-radius: 10px;
@@ -661,6 +666,7 @@
                 /* Sesuaikan agar tabel terlihat lebih rapi */
                 flex-direction: column;
                 justify-content: space-between;
+                */
                 /* Ratakan konten */
             }
 

@@ -11,7 +11,11 @@
     <style>
         /* CSS untuk Responsif */
         .notification {
-            margin-left: 600px;
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-right: 30px;
+            z-index: 1000;
         }
 
         .container {

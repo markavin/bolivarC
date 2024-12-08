@@ -321,20 +321,17 @@
     </div>
 
     <!-- Success Modal -->
-    <!-- Success Modal -->
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-icon" style="color: #28a745;">
+    <div id="successModal" class="success-modal">
+        <div class="success-content">
+            <div class="success-icon">
                 <i class="material-icons-outlined">check_circle</i>
             </div>
-            <p class="modal-message">Redeem Point Successful!</p>
-            {{-- <p class="modal-message">
-                Sisa poin {{ $customer->NamaPelanggan }} sebesar {{ $customer->totalPoin }} Poin
-            </p> --}}
-            <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
+            <p class="modal-message" id="succesMessage">Redemption Successful</p>
+            <p class="modal-message" id="remainingPoints">(Nama Pelanggan akan tampil di sini) Remaining Points: (Sisa poin akan tampil di sini)</p>
+            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
-
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -385,6 +382,8 @@
         form.addEventListener('submit', function(event) {
             const totalPoin = parseInt(document.getElementById('total_poin').value) || 0;
             const deductPoin = parseInt(document.getElementById('deduct_poin').value) || 0;
+            const pelangganSelect = document.getElementById('id_pelanggan');
+            const pelangganNama = pelangganSelect.options[pelangganSelect.selectedIndex].text; // Nama pelanggan
 
             if (totalPoin < deductPoin) {
                 event.preventDefault();
@@ -393,9 +392,17 @@
                 document.getElementById('errorModal').style.display = 'flex';
             } else {
                 event.preventDefault();
+                const remainingPoints = totalPoin - deductPoin;
+
+                // Tampilkan sisa poin dan nama pelanggan di modal sukses
+                document.getElementById('succesMessage').textContent =
+                    `Redemption Successful!!!`;
+                document.getElementById('remainingPoints').textContent =
+                    `${pelangganNama} Remaining Points: ${remainingPoints}`;
                 document.getElementById('successModal').style.display = 'flex';
             }
         });
+
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';

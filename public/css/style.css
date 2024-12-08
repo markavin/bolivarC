@@ -14,32 +14,77 @@ body {
     display: flex;
 }
 
+/* Sidebar Styling */
 .sidebar {
+    display: flex;
     width: 250px;
-    padding: 0;
     background-color: #445D48;
     position: fixed;
-    height: 100%;
+    height: 100vh;
+    transition: transform 0.3s ease-in-out;
+    left: 0;
+    top: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
 }
 
-.sidebar img {
-    display: block;
-    margin: 0 auto;
+/* Shrunk sidebar */
+.sidebar.shrunk {
+    width: 60px;
+}
+
+/* Sidebar Header */
+.sidebar .sidebar-header {
+    display: flex;
+    flex-direction: column; /* Arrange logo and text vertically */
+    justify-content: center; /* Center logo and text vertically */
+    align-items: center; /* Center logo and text horizontally */
+    flex: 1; /* Ensure header takes up available space */
+    margin-top: 10px; /* Reduced the top margin to bring logo and text closer to menu */
+    position: relative;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    flex-shrink: 0;
+
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding-top: 20px;
+}
+
+.sidebar-header .logo {
     width: 120px;
-    margin-top: 0;
-    margin-bottom: 0;
+    transition: width 0.3s ease; /* Animation for resizing the logo */
+    margin-bottom: 0px; /* Reduce the space between the logo and the text */
 }
 
-.sidebar h2 {
-    font-weight: 200;
-    font-size: 18px;
+/* .sidebar img {
+    width: 120px;
+    margin-bottom: 10px;
+} */
+
+.sidebar-header h2 {
     color: #FFD9B4;
-    text-align: center;
+    font-size: 18px;
     font-family: 'Playfair Display', serif;
-    margin-top: -20px;
-    /* Menaikkan posisi teks Bolívar Coffee */
-    margin-bottom: 30px;
-    /* Menambah jarak antara Bolívar Coffee dan menu pertama */
+    margin: 0;
+}
+
+
+/* Sidebar Toggle Button */
+#sidebarToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    color: #FFD9B4;
 }
 
 /* Menu list styling */
@@ -52,104 +97,101 @@ body {
     font-weight: 500;
     color: #FFD9B4;
     font-family: 'Roboto', sans-serif;
+    flex-grow: 1;
 }
 
-.sidebar .menu li {
+.sidebar .menu li,
+.logout li {
     display: flex;
     align-items: center;
-    padding: 15px 15px;
-    /* Sesuaikan padding vertikal agar lebih besar */
-    margin: 5px 5px;
-    /* Jarak antara item menu */
+    padding: 15px;
+    margin: 5px 0;
     cursor: pointer;
     border-radius: 5px;
-    /* Rounding corners untuk hover area */
-    text-align: left;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
-/* Active and hover effect */
+/* Menu item hover and active effects */
 .sidebar .menu li.active,
-.sidebar .menu li:hover {
-    background-color: #CBE2B5;
-    color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Custom CSS for keeping hover color when active */
-.sidebar .menu li a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    width: 100%;
-    padding-left: 10px;
-    /* Mengatur jarak dari ikon ke teks */
-}
-
-.sidebar .menu li.active a {
-    background-color: #CBE2B5;
-    color: #ffffff;
-    border-radius: 5px;
-}
-.menu li a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.menu li:hover,
-.menu li.active {
-    background-color: #f0f0f0; /* Warna latar belakang saat hover atau aktif */
-    color: #333; /* Warna teks saat hover atau aktif */
-}
-
-.menu li:hover a,
-.menu li.active a {
-    color: #333; /* Warna teks link saat hover atau aktif */
-}
-
-.logout li {
-    width: fit-content;
-    padding: 15px 20px;
-    margin: 10px auto;
-    cursor: pointer;
-    border-radius: 5px;
-    text-align: center;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
+.sidebar .menu li:hover,
 .logout li:hover {
     background-color: #CBE2B5;
     color: #ffffff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.material-symbols-outlined {
+.sidebar.shrunk {
+    width: 80px;
+}
+
+.sidebar.shrunk .logo {
+    width: 60px; /* Ukuran logo saat sidebar dikecilkan */
+}
+
+.sidebar.shrunk h2 {
+    font-size: 10px; /* Menghilangkan teks saat sidebar kecil */
+}
+
+/* Hiding the text when sidebar is shrunk */
+.sidebar.shrunk .menu li .menu-text {
+    display: none;
+}
+
+.sidebar:not(.shrunk) .menu li .menu-text {
+    display: inline-block;
+}
+
+/* Ensure icons are centered when sidebar shrinks */
+.sidebar.shrunk .menu li {
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.sidebar.shrunk .menu li a span.menu-text {
+    display: none;
+}
+
+/* Icon styling */
+.sidebar .material-symbols-outlined {
     font-size: 24px;
-    color: #FFD9B4;
     margin-right: 10px;
 }
 
-.sidebar .menu li.active .material-symbols-outlined,
-.sidebar .menu li:hover .material-symbols-outlined {
-    color: #ffffff;
+.sidebar .menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
 }
 
+/* Logout Button Styling */
+.logout li {
+    width: fit-content;
+    padding: 15px 20px;
+    margin: 0px auto;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Main content styling */
 .main-content {
     flex: 1;
-    margin-left: 250px;
+    margin-left: 250px; /* Pastikan sesuai dengan lebar sidebar */
     padding: 20px;
     background-color: #FFD9B4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: auto;
+    /* transition: margin-left 0.3s ease-in-out; */
 }
 
-|
+.sidebar.shrunk ~ .main-content {
+    margin-left: 60px;  
+}
 
-/* Header styling */
+
+/* Header Styling */
 header {
     display: flex;
     justify-content: space-between;
@@ -162,6 +204,55 @@ header h1 {
     font-family: 'Coustard', serif;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .sidebar {
+        width: auto;   
+         }
+
+    .sidebar-header {
+        padding-top: 10px;
+    }
+
+    /* Menyesuaikan ukuran logo saat sidebar mengecil */
+    .sidebar-header .logo {
+        width: 60px; /* Logo menjadi lebih kecil ketika sidebar kecil */
+    }
+
+    .sidebar-header h2 {
+        font-size: 14px; /* Mengurangi ukuran teks untuk menyesuaikan */
+    }
+
+    .main-content {
+        margin-left: 100px;
+    }
+    .sidebar.shrunk .menu li {
+        justify-content: center; /* Pusatkan ikon secara horizontal */
+        align-items: center;    /* Pusatkan ikon secara vertikal */
+        flex-direction: column;
+    }
+
+    .sidebar .menu li .menu-text {
+        display: inline-block;
+    }
+
+    .sidebar.shrunk .menu li a span.menu-text {
+        display: inline-block;
+    }
+    .sidebar.shrunk .menu li a span.menu-text {
+        display: none;
+    }
+
+    .sidebar.shrunk .material-symbols-outlined {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    #sidebarToggle {
+        display: block;
+    }
+}
+
 /* Status dot */
 .status-dot {
     display: inline-block;
@@ -172,7 +263,7 @@ header h1 {
     margin-left: 5px;
 }
 
-/* Payment button */
+/* Payment Button */
 .payment-btn {
     background-color: #4b2e2e;
     color: #fff;
@@ -182,6 +273,7 @@ header h1 {
     cursor: pointer;
 }
 
+/* Pagination Styling */
 .custom-pagination {
     display: flex;
     justify-content: center;
@@ -193,7 +285,6 @@ header h1 {
 
 .custom-pagination .page-item {
     margin: 0 5px;
-    list-style: none;
 }
 
 .custom-pagination .page-link {
@@ -209,12 +300,10 @@ header h1 {
     transition: background 0.3s, transform 0.2s;
     cursor: pointer;
     background: transparent;
-    /* Remove the background color */
 }
 
 .custom-pagination .page-link:hover {
     background: #f0f0f0;
-    /* Light gray background on hover */
     transform: translateY(-2px);
 }
 
@@ -227,8 +316,6 @@ header h1 {
 }
 
 .custom-pagination .page-item.disabled .page-link {
-    /* color: #ccc; */
-    /* background: linear-gradient(135deg, #D1FDE8 0%, #445D48 100%); */
     border-color: #445D48;
     cursor: not-allowed;
 }
@@ -239,30 +326,28 @@ header h1 {
     fill: currentColor;
 }
 
+/* Navbar Styling */
 .navbar {
-    padding: 0.1rem 0.2rem; /* Match this padding to the desired .d-flex size */
-    display: inline-block; /* Adjust display to prevent full-width stretching */
+    padding: 0.1rem 0.2rem;
+    display: inline-block;
     font-size: 1rem;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px; /* Adjust for rounded corners */
+    border-radius: 10px;
     background: linear-gradient(180deg, #445D48 0%, #38B568 100%);
     color: #FFD9B4;
-    max-width: 150px; /* Adjust as needed to match .d-flex constraints */
-    width: auto; /* Ensure width adjusts automatically */
+    max-width: 150px;
+    width: auto;
 }
-
-
 
 .navbar .d-flex {
-    color: #fff; /* Text color adjustment */
+    color: #fff;
 }
-
-
 
 .navbar-nav .nav-link {
     padding: 0.2rem 0.5rem;
 }
 
+/* Dropdown Menu */
 .dropdown-menu {
     display: none;
 }

@@ -20,10 +20,10 @@ class CPenukaranController extends Controller
 
         // Ambil data menu dan hitung deduct_poin berdasarkan harga menu
         $menu = Menu::all()->map(function ($item) {
-            if ($item->hargaMenu > 27000) {
-                $item->deduct_poin = 20; // Harga > 27,000, pengurangan poin 20
+            if ($item->hargaMenu > 30000) {
+                $item->deduct_poin = 25; // Harga > 27,000, pengurangan poin 20
             } elseif ($item->hargaMenu > 25000) {
-                $item->deduct_poin = 15; // Harga > 25,000, pengurangan poin 15
+                $item->deduct_poin = 20; // Harga > 25,000, pengurangan poin 15
             } else {
                 $item->deduct_poin = 10; // Harga <= 25,000, pengurangan poin 10
             }
@@ -47,10 +47,10 @@ class CPenukaranController extends Controller
 
         // Hitung poin yang akan dikurang berdasarkan harga menu
         $deductPoints = 0;
-        if ($menu->hargaMenu > 27000) {
-            $deductPoints = 20;
+        if ($menu->hargaMenu > 30000) {
+            $deductPoints = 25;
         } elseif ($menu->hargaMenu > 25000) {
-            $deductPoints = 15;
+            $deductPoints = 20;
         } else {
             $deductPoints = 10;
         }
@@ -120,10 +120,10 @@ class CPenukaranController extends Controller
         }
 
         // Hitung pengurangan poin berdasarkan harga menu
-        if ($menu->hargaMenu > 27000) {
-            $deductPoints = 20;
+        if ($menu->hargaMenu > 30000) {
+            $deductPoints = 25;
         } elseif ($menu->hargaMenu > 25000) {
-            $deductPoints = 15;
+            $deductPoints = 20;
         } else {
             $deductPoints = 10;
         }
