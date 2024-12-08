@@ -12,7 +12,11 @@
         /* CSS untuk Responsif */
 
         .notification {
-            margin-left: 640px;
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-right: 60px;
+            z-index: 1000;
         }
 
 
@@ -35,6 +39,11 @@
         }
 
 
+        h1 {
+            font-size: 30px;
+            color: #333;
+            font-weight: bold;
+        }
         header {
             display: flex;
             justify-content: flex-start;
@@ -259,7 +268,15 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #c90000
+            color: #c90000;
+            text-align: center;
+            /* Memusatkan teks secara horizontal */
+            display: flex;
+            /* Tambahan untuk memastikan pemusatan */
+            justify-content: center;
+            /* Memusatkan isi secara horizontal */
+            align-items: center;
+            /* Memusatkan isi secara vertikal (jika diperlukan) */
         }
 
         .modal-buttons {
@@ -519,6 +536,22 @@
                 /* Mengubah kolom menjadi 1 pada tampilan mobile */
             }
 
+            .notification {
+                position: relative;
+                display: flex;
+                top: 25px;
+                right: 40px;
+                margin-right: 30px;
+                z-index: 1000;
+            }
+
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 40px;
+            }
+
             .menu-card {
                 width: 100%;
                 /* Memastikan kartu mengisi lebar penuh pada mobile */
@@ -637,7 +670,7 @@
     <div id="successModal" class="success-modal">
         <div class="success-content">
             <p>Delete successful!</p>
-            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button>
+            {{-- <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button> --}}
         </div>
     </div>
 

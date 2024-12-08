@@ -12,7 +12,7 @@
     <style>
         /* CSS untuk Responsif */
         .notification {
-            margin-left: 690px;
+            margin-left: 670px;
         }
 
         .report-view {
@@ -35,6 +35,7 @@
         h1 {
             font-size: 30px;
             color: #333;
+            font-weight: bold;
         }
 
         .search-bar {
@@ -72,7 +73,7 @@
         }
 
         table {
-            width: 93%;
+            width: 93.5%;
             table-layout: fixed;
             /* Lebar kolom tetap */
             border-collapse: collapse;
@@ -107,7 +108,7 @@
             color: #ffffff;
             padding: 20px 12px;
             text-align: center;
-           
+
             border-bottom: 1px solid #c9d6cf;
         }
 
@@ -547,6 +548,11 @@
                 width: 100%;
                 /* Pastikan lebar 100% */
             }
+
+            .notification {
+                margin-left: 33px;
+            }
+
 
             .search-input {
                 padding: 10px;

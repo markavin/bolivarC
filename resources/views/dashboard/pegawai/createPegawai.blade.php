@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,25 +20,25 @@
             margin-bottom: 0px;
             margin-top: 150px;
         }
-
+ 
         .form-container h1 {
             font-size: 24px;
             color: #333333;
             margin-bottom: 20px;
         }
-
+ 
         .form-group {
             margin-bottom: 20px;
             position: relative;
         }
-
+ 
         .form-group label {
             font-size: 14px;
             color: #ffffff;
             display: block;
             margin-bottom: 5px;
         }
-
+ 
         .form-group input {
             margin-top: 15px;
             width: 100%;
@@ -49,7 +49,7 @@
             background-color: #f5f5f5;
             color: #333;
         }
-
+ 
         .form-group .material-icons-outlined {
             margin-top: 15px;
             position: absolute;
@@ -59,7 +59,7 @@
             color: #445D48;
             font-size: 20px;
         }
-
+ 
         .form-actions {
             display: flex;
             justify-content: flex-end;
@@ -69,7 +69,7 @@
             width: 700px;
             margin-left: 320px;
         }
-
+ 
         .cancel-btn,
         .submit-btn {
             padding: 10px 20px;
@@ -78,19 +78,19 @@
             font-size: 16px;
             cursor: pointer;
         }
-
+ 
         .cancel-btn {
             background-color: #f5f5f5;
             color: #000000;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
+ 
         .submit-btn {
             background: linear-gradient(135deg, #D1FDE8, #445D48);
             color: #000000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
+ 
         .modal {
             display: none;
             position: fixed;
@@ -104,7 +104,7 @@
             justify-content: center;
             align-items: center;
         }
-
+ 
         .modal-content {
             background-color: #fff;
             padding: 25px;
@@ -114,18 +114,18 @@
             width: 90%;
             max-width: 400px;
         }
-
+ 
         .modal-icon {
             font-size: 80px;
             margin-bottom: 20px;
         }
-
+ 
         .modal-message {
             font-size: 18px;
             color: #333;
             margin-bottom: 20px;
         }
-
+ 
         .modal-button {
             background-color: #7e7e7e;
             color: #fff;
@@ -137,12 +137,12 @@
             opacity: 0.9;
             transition: opacity 0.3s ease;
         }
-
+ 
         .modal-button:hover {
             background-color: #445D48;
             opacity: 1;
         }
-
+ 
         header {
             margin-top: 50px;
             display: flex;
@@ -150,29 +150,29 @@
             align-items: center;
             padding-left: 40px;
         }
+ 
     </style>
 </head>
-
+ 
 <body>
     @include('layout.sidebar')
-
+ 
     <div class="main-content">
         <header>
             <h1>Employee / <span style="color: #445D48;">Create Employee</span></h1>
         </header>
-
+ 
         <div class="form-container">
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ route('pegawai.store') }}" method="POST" id="createEmployeeForm"
-                onsubmit="validateForm(event)">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+            <form action="{{ route('pegawai.store') }}" method="POST" id="createEmployeeForm" onsubmit="validateForm(event)">
                 @csrf
                 <div class="form-group">
                     <label for="namaPengguna" class="form-label">Nama Pegawai</label>
@@ -180,7 +180,7 @@
                     <input type="text" class="form-control" id="namaPengguna" name="namaPengguna"
                         placeholder="Enter a new employee name" required>
                 </div>
-
+ 
                 <div class="form-group">
                     <label for="noHP" class="form-label">Nomor HP</label>
                     <span class="material-icons-outlined">call</span>
@@ -188,16 +188,16 @@
                         placeholder="Enter a new phone number" required>
                 </div>
         </div>
-
+ 
         <div class="form-actions">
             <button type="button" class="cancel-btn"
                 onclick="window.location='{{ route('pegawai.show') }}'">Cancel</button>
             <button type="submit" form="createEmployeeForm" class="submit-btn">Create Employee</button>
         </div>
         </form>
-
+ 
     </div>
-
+ 
     <!-- Success Modal -->
     <div id="successModal" class="modal">
         <div class="modal-content">
@@ -208,7 +208,7 @@
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
         </div>
     </div>
-
+ 
     <!-- Error Modal -->
     <div id="errorModal" class="modal">
         <div class="modal-content">
@@ -219,46 +219,47 @@
             <button type="button" class="modal-button" onclick="closeErrorModal()">BACK</button>
         </div>
     </div>
-
+ 
     <script>
         const pegawaiShowUrl = "{{ route('pegawai.show') }}";
-
+ 
         async function checknoHP(noHP) {
             const response = await fetch(`{{ route('pegawai.ChecknoHP') }}?noHP=${noHP}`);
             const result = await response.json();
             return result.exists;
         }
-
+ 
         async function validateForm(event) {
             event.preventDefault();
-
+ 
             const namaPengguna = document.getElementById('namaPengguna').value.trim();
             const noHP = document.getElementById('noHP').value.trim();
             const noHPexistts = await checknoHP(noHP);
-
-            if (noHPexists) {
-                showErrorModal("The phone number already exists. Please use a different number.");
+ 
+            if (noHPexistts) {
+                showErrorModal("The phone number already exists. Please use a different one.");
             } else if (noHP.length < 10 || noHP.length > 15 || isNaN(noHP)) {
                 showErrorModal("The phone number is invalid. It must be between 10 and 15 digits.");
             } else {
                 document.getElementById('successModal').style.display = 'flex';
             }
         }
-
+ 
         function showErrorModal(message) {
             document.getElementById('errorMessage').textContent = message;
             document.getElementById('errorModal').style.display = 'flex';
         }
-
+ 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
             document.getElementById('createEmployeeForm').submit(); // Kirim form setelah sukses
         }
-
+ 
         function closeErrorModal() {
             document.getElementById('errorModal').style.display = 'none';
         }
     </script>
 </body>
-
+ 
 </html>
+ 

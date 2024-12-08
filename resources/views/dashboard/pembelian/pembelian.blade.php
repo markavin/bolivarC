@@ -13,7 +13,11 @@
 <style>
     /* CSS untuk Responsif */
     .notification {
-        margin-left: 620px;
+        position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-right: 20px;
+            z-index: 1000;
     }
 
     .container {
@@ -44,6 +48,7 @@
     h1 {
         font-size: 30px;
         color: #333;
+        font-weight: bold;
     }
 
     .purchase-view {
@@ -121,7 +126,7 @@
 
     /* Styling tabel */
     table {
-        width: 93%;
+        width: 93.5%;
         border-collapse: collapse;
         margin-top: 10px;
         background-color: #ffffff;
@@ -464,6 +469,22 @@
             /* Pastikan lebar 100% */
         }
 
+        .notification {
+                position: relative;
+                display: flex;
+                top: 25px;
+                right: 40px;
+                margin-right: 30px;
+                z-index: 1000;
+            }
+
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 40px;
+            }
+
         .search-input {
             padding: 10px;
             /* Padding yang seimbang */
@@ -560,7 +581,7 @@
 
     <div class="main-content">
         <header>
-            <h1>Bolívar Coffee - purchase List <span class="status-dot"></span></h1>
+            <h1>Bolívar Coffee - Purchase List <span class="status-dot"></span></h1>
             {{-- <button class="payment-btn">Create purchase</button> --}}
             <div class="notification">
                 @include('layout.navbar')
@@ -593,7 +614,7 @@
                 <tbody>
                     @foreach ($pembelian as $index => $Purchase)
                         <tr>
-                            <td data-label="No">{{ $pembelian->total() - ($pembelian->firstItem() - 1) - $index }}</td>
+                            <td data-label="No">{{ $pembelian->firstItem() + $index }}</td>
                             {{-- <td data-label="Purchase ID">{{ $Purchase->id_pembelian }}</td> --}}
                             <td data-label="Stock Name">{{ $Purchase->namaBahanBaku }}</td>
                             <td data-label="Purchase Date">{{ $Purchase->tanggalPembelian }}</td>
@@ -614,7 +635,7 @@
             {{ $pembelian->links('vendor.pagination.custom') }}
         </div>
     </div>
-    
+
     <!-- Profile Modal -->
     <div id="profileModal">
         <div class="modal-content">

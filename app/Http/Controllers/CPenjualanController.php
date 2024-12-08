@@ -25,8 +25,9 @@ class CPenjualanController extends Controller
             ->leftJoin('pelanggan', 'penjualan.id_pelanggan', '=', 'pelanggan.id') // Include guest sales
             ->join('detail_penjualan', 'penjualan.id_penjualan', '=', 'detail_penjualan.id_penjualan')
             ->groupBy('penjualan.id_penjualan', 'pelanggan.NamaPelanggan', 'penjualan.tanggalPenjualan', 'penjualan.totalHarga')
-            ->orderBy('penjualan.tanggalPenjualan', 'desc')
-            ->paginate(10);
+            ->orderBy('penjualan.tanggalPenjualan', 'desc')  // Sort by date and time
+            ->orderBy('penjualan.created_at', 'desc') // Optional: Sort by creation date if needed
+            ->paginate(5);
 
         return view("dashboard.penjualan.penjualan", compact('penjualan'));
     }

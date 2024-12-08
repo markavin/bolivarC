@@ -35,7 +35,7 @@ class CPoinControllers extends Controller
             ->leftJoin('menu as menu_penambahan', 'detail_penjualan.id_menu', '=', 'menu_penambahan.id')
             ->leftJoin('penjualan', 'poin.id_penjualan', '=', 'penjualan.id_penjualan')
             ->orderBy('fullDateTime', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('dashboard.penukaranpoin.poin', compact('poin'));
     }

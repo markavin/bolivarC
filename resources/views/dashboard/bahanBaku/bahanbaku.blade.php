@@ -13,7 +13,11 @@
     /* CSS untuk Responsif */
 
     .notification {
-        margin-left: 675px;
+        position: fixed;
+        top: 25px;
+        right: 40px;
+        margin-right: 30px;
+        z-index: 1000;
     }
 
     .container {
@@ -21,6 +25,7 @@
         max-width: 100vw;
         /* Membatasi lebar agar tidak melebihi viewport */
     }
+
 
     body {
         overflow-x: hidden;
@@ -34,6 +39,11 @@
         box-sizing: border-box;
     }
 
+    h1 {
+        font-size: 30px;
+        color: #333;
+        font-weight: bold;
+    }
 
     header {
         display: flex;
@@ -204,13 +214,20 @@
         width: 90%;
         max-width: 400px;
     }
-
     .modal-header {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #c90000
-    }
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #c90000;
+            text-align: center;
+            /* Memusatkan teks secara horizontal */
+            display: flex;
+            /* Tambahan untuk memastikan pemusatan */
+            justify-content: center;
+            /* Memusatkan isi secara horizontal */
+            align-items: center;
+            /* Memusatkan isi secara vertikal (jika diperlukan) */
+        }
 
     .modal-buttons {
         margin-top: 20px;
@@ -474,6 +491,22 @@
 
         }
 
+        .notification {
+            position: relative;
+            display: flex;
+            top: 25px;
+            right: 40px;
+            margin-right: 30px;
+            z-index: 1000;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
+        }
+
         .search-input {
             padding: 10px;
             border: 1px solid #c9d6cf;
@@ -588,7 +621,8 @@
                 <tbody>
                     @foreach ($bahanBaku as $index => $BahanBaku)
                         <tr>
-                            <td data-label="No">{{ $bahanBaku->total() - ($bahanBaku->firstItem() - 1) - $index }}</td>
+                            <td data-label="No">{{ $bahanBaku->firstItem() + $index }}</td>
+
                             {{-- <td data-label="stock ID">{{ $BahanBaku->id }}</td> --}}
                             <td data-label="stock Name">{{ $BahanBaku->namaBahanBaku }}</td>
                             <td data-label="Stock Quantity">{{ $BahanBaku->jumlahBahanBaku }}</td>
@@ -707,7 +741,7 @@
     <div id="successModal" class="success-modal">
         <div class="success-content">
             <p>Delete successful!</p>
-            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button>
+            {{-- <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button> --}}
         </div>
     </div>
 
@@ -757,25 +791,25 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-          
+
             document.getElementById('fieldsRequiredAlert').style.display = 'none';
             document.getElementById('passwordMismatchAlert').style.display = 'none';
             document.getElementById('currentPasswordError').style.display = 'none';
-            document.getElementById('passwordLengthError').style.display = 'none'; 
+            document.getElementById('passwordLengthError').style.display = 'none';
 
-           
+
             if (!currentPassword || !newPassword || !confirmNewPassword) {
                 document.getElementById('fieldsRequiredAlert').style.display = 'block';
                 return;
             }
 
-           
+
             if (newPassword !== confirmNewPassword) {
                 document.getElementById('passwordMismatchAlert').style.display = 'block';
                 return;
             }
 
-           
+
             if (newPassword.length < 6) {
                 document.getElementById('passwordLengthError').style.display = 'block';
                 return;
@@ -798,7 +832,7 @@
                         return;
                     }
 
-                 
+
                     document.getElementById('resetPasswordForm').submit();
                 })
                 .catch(error => {

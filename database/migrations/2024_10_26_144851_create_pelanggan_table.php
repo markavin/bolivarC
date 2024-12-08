@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id();
             $table->string('NamaPelanggan',25);
-            $table->string('NoHP', 13);
+            $table->string('NoHP', 15);
             $table->integer('totalPoin');
             $table->timestamps();
             $table->softDeletes();

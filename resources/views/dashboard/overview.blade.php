@@ -24,6 +24,12 @@
             max-width: 100vw;
         }
 
+        h1 {
+            font-size: 30px;
+            color: #333;
+            font-weight: bold;
+        }
+
         body {
             overflow-x: hidden;
             margin: 0;
@@ -593,11 +599,21 @@
             }
 
             .notification {
-                margin-left: 0;
-                /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
-                align-self: flex-start;
-                /* Tempatkan di sebelah kiri */
+                position: relative;
+                display: flex;
+                top: 25px;
+                right: 40px;
+                margin-right: 30px;
+                z-index: 1000;
             }
+
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 40px;
+            }
+
 
             .summary {
                 flex-direction: column;

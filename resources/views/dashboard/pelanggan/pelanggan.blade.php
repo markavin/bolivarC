@@ -11,12 +11,12 @@
     <style>
         /* CSS untuk Responsif */
         .notification {
-            position: fixed;
-            top: 25px;
-            right: 40px;
-            margin-right: 30px;
-            z-index: 1000;
-        }
+        position: fixed;
+        top: 25px;
+        right: 40px;
+        margin-right: 20px;
+        z-index: 1000;
+    }
 
         .container {
             overflow-x: hidden;
@@ -214,7 +214,13 @@
             margin-bottom: 20px;
             color: #c90000;
             text-align: center;
-            justify-items: center;
+            /* Memusatkan teks secara horizontal */
+            display: flex;
+            /* Tambahan untuk memastikan pemusatan */
+            justify-content: center;
+            /* Memusatkan isi secara horizontal */
+            align-items: center;
+            /* Memusatkan isi secara vertikal (jika diperlukan) */
         }
 
         .modal-buttons {
@@ -533,193 +539,109 @@
             background-color: #d3a6a1;
         }
 
-        /* Responsif untuk mobile */
         @media (max-width: 768px) {
-            #errorModal {
-                width: 90%;
-                max-width: 350px;
-            }
-
-            #errorModal .modal-header,
-            #errorModal .modal-body,
-            #errorModal .modal-footer {
-                padding: 10px;
-            }
-        }
-
-        /* Modal Success for Reset Password */
-        .success-modal {
-            display: none;
-            position: fixed;
-            z-index: 1100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
+        .search-bar {
+            display: flex;
+            flex-direction: row;
             align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 100%;
+            /* margin-left: 70px; */
+
         }
 
-        .success-content {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
+        .notification {
+            position: relative;
+            display: flex;
+            top: 25px;
+            right: 40px;
+            margin-right: 30px;
+            z-index: 1000;
         }
 
-        .success-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            color: #28a745;
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
         }
 
-        .modal-message {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .modal-button {
-            background-color: #7e7e7e;
-            color: #fff;
-            padding: 12px 30px;
-            border: none;
+        .search-input {
+            padding: 10px;
+            border: 1px solid #c9d6cf;
             border-radius: 8px;
+            width: 100%;
             font-size: 16px;
+            height: 40px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .create-btn {
+            width: auto;
+            flex-shrink: 0;
+        }
+
+        table {
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            display: block;
+            width: 100%;
+        }
+
+        th {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
+            gap: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
         }
 
-        .modal-button:hover {
-            background-color: #445D48;
-            opacity: 1;
+        td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            padding: 10px;
         }
 
-
-        /* Media Queries untuk tampilan mobile */
-        @media (max-width: 768px) {
-            .search-bar {
-                display: flex;
-                /* Pastikan display adalah flex */
-                flex-direction: row;
-                /* Ubah dari column ke row */
-                align-items: center;
-                /* Center align items vertically */
-                gap: 10px;
-                /* Tambahkan jarak antar elemen */
-                margin-top: 30px;
-                margin-bottom: 30px;
-                width: 100%;
-                /* Pastikan lebar 100% */
-            }
-
-            .notification {
-                margin-left: 0;
-                /* Atur margin kiri menjadi 0 agar tidak terlalu ke kanan */
-                align-self: flex-start;
-                /* Tempatkan di sebelah kiri */
-            }
-
-
-            .search-input {
-                padding: 10px;
-                /* Padding yang seimbang */
-                border: 1px solid #c9d6cf;
-                border-radius: 8px;
-                width: 100%;
-                /* Pastikan input mengambil ruang yang tersedia */
-                font-size: 16px;
-                height: 40px;
-                /* Tinggi kotak input */
-                box-sizing: border-box;
-                /* Pastikan padding tidak mempengaruhi lebar total */
-                text-align: left;
-                /* Atur teks untuk rata kiri */
-            }
-
-            .create-btn {
-                width: auto;
-                /* Ubah lebar menjadi auto */
-                flex-shrink: 0;
-                /* Mencegah tombol untuk menyusut */
-            }
-
-
-            table {
-                font-size: 14px;
-                /* Mengurangi ukuran font pada tabel */
-            }
-
-            th,
-            td {
-                display: block;
-                width: 100%;
-                /* Membuat setiap sel menempati lebar penuh */
-            }
-
-            th {
-                position: absolute;
-                top: -9999px;
-                /* Menghilangkan th dari tampilan */
-                left: -9999px;
-            }
-
-            .action-buttons {
-                display: flex;
-                gap: 8px;
-                justify-content: flex-end;
-                /* Mengatur tombol ke sebelah kanan */
-                align-items: center;
-                width: 100%;
-            }
-
-            .edit-btn,
-            .delete-btn {
-                display: flex;
-                align-items: center;
-                /* Center align items vertically */
-                justify-content: center;
-                /* Center align items horizontally */
-                background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
-                color: #ffffff;
-                border: none;
-                padding: 10px 12px;
-                /* Padding yang seimbang */
-                border-radius: 8px;
-                cursor: pointer;
-                gap: 4px;
-                /* Jarak antara ikon dan teks */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            }
-
-            td {
-                text-align: right;
-                /* Rata kanan untuk td */
-                padding-left: 50%;
-                /* Memberi ruang untuk label */
-                position: relative;
-                padding: 10px;
-                /* Pastikan ada padding agar tampak rapi */
-            }
-
-            /* Menjaga agar label tetap berfungsi dalam tampilan mobile */
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: calc(50% - 20px);
-                padding-right: 10px;
-                text-align: left;
-                font-weight: bold;
-            }
-
+        td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            width: calc(50% - 20px);
+            padding-right: 10px;
+            text-align: left;
+            font-weight: bold;
         }
+
+    }
     </style>
 </head>
 
@@ -761,7 +683,8 @@
                 <tbody>
                     @foreach ($pelanggan as $index => $Pelanggan)
                         <tr>
-                            <td data-label="No">{{ $pelanggan->total() - ($pelanggan->firstItem() - 1) - $index }}</td>
+                            <td data-label="No">
+                            {{ $loop->iteration + ($pelanggan->currentPage() - 1) * $pelanggan->perPage() }}</td>
                             {{-- <td data-label="Customer ID">{{ $Pelanggan->id }}</td> --}}
                             <td data-label="Customer Name">{{ $Pelanggan->NamaPelanggan }}</td>
                             <td data-label="Phone Number">{{ $Pelanggan->NoHP }}</td>
@@ -883,7 +806,7 @@
     <div id="successModal" class="success-modal">
         <div class="success-content">
             <p>Delete successful!</p>
-            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button>
+            {{-- <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button> --}}
         </div>
     </div>
 
@@ -933,25 +856,25 @@
             const newPassword = document.getElementById('newPassword').value;
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-          
+
             document.getElementById('fieldsRequiredAlert').style.display = 'none';
             document.getElementById('passwordMismatchAlert').style.display = 'none';
             document.getElementById('currentPasswordError').style.display = 'none';
-            document.getElementById('passwordLengthError').style.display = 'none'; 
+            document.getElementById('passwordLengthError').style.display = 'none';
 
-           
+
             if (!currentPassword || !newPassword || !confirmNewPassword) {
                 document.getElementById('fieldsRequiredAlert').style.display = 'block';
                 return;
             }
 
-           
+
             if (newPassword !== confirmNewPassword) {
                 document.getElementById('passwordMismatchAlert').style.display = 'block';
                 return;
             }
 
-           
+
             if (newPassword.length < 6) {
                 document.getElementById('passwordLengthError').style.display = 'block';
                 return;
@@ -974,7 +897,7 @@
                         return;
                     }
 
-                 
+
                     document.getElementById('resetPasswordForm').submit();
                 })
                 .catch(error => {

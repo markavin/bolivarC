@@ -12,7 +12,11 @@
     <style>
         /* CSS untuk Responsif */
         .notification {
-            margin-left: 665px;
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-right: 20px;
+            z-index: 1000;
         }
 
         .container {
@@ -43,6 +47,7 @@
         h1 {
             font-size: 30px;
             color: #333;
+            font-weight: bold;
         }
 
         .point-view {
@@ -427,6 +432,22 @@
                 /* Pastikan lebar 100% */
             }
 
+            .notification {
+                position: relative;
+                display: flex;
+                top: 25px;
+                right: 40px;
+                margin-right: 30px;
+                z-index: 1000;
+            }
+
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 40px;
+            }
+
             .search-input {
                 padding: 10px;
                 /* Padding yang seimbang */
@@ -464,11 +485,11 @@
             }
 
             th {
-                position: absolute;
-                top: -9999px;
-                /* Menghilangkan th dari tampilan */
-                left: -9999px;
-            }
+        position: absolute;
+        top: -9999px;
+        /* Menghilangkan th dari tampilan */
+        left: -9999px;
+    }
 
             .action-buttons {
                 display: flex;
@@ -479,6 +500,20 @@
                 width: 100%;
             }
 
+            .visibility-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+                color: #ffffff;
+                /* Warna teks dan ikon */
+                border: none;
+                padding: 10px 12px;
+                border-radius: 8px;
+                cursor: pointer;
+                gap: 4px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
 
             td {
                 text-align: right;
@@ -500,6 +535,22 @@
                 text-align: left;
                 font-weight: bold;
             }
+            th {
+        display: none; /* Sembunyikan header pada layar kecil */
+    }
+
+    td {
+        display: block; /* Tampilkan elemen td sebagai blok */
+        text-align: right; /* Rata kanan */
+    }
+
+    td::before {
+        content: attr(data-label); /* Gunakan data-label sebagai label kolom */
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
 
         }
     </style>
@@ -543,7 +594,7 @@
                 <tbody>
                     @foreach ($poin as $index => $item)
                         <tr>
-                            <td data-label="No">{{ $poin->total() - ($poin->firstItem() - 1) - $index }}</td>
+                           <td data-label="No">{{ $poin->firstItem() + $index }}</td>
                             {{-- <td>{{ $item->id_poin }}</td> --}}
                             <td>{{ $item->NamaPelanggan }}</td>
                             <td>{{ $item->nama_menu }}</td>

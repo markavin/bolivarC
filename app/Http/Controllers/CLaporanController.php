@@ -8,12 +8,12 @@ use App\Exports\LaporanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class CLaporanController extends Controller
 {
     public function fetchLaporanData($tipeLaporan, $tanggalAwal, $tanggalAkhir, $NamaPelanggan)
     {
+        // Cek tipe laporan yang dipilih
         if ($tipeLaporan == 'penukaran') {
             $laporan = DB::table('penukaran')
                 ->join('pelanggan', 'penukaran.id_pelanggan', '=', 'pelanggan.id')
@@ -29,7 +29,7 @@ class CLaporanController extends Controller
                     'poin.status'
                 )
                 ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
-                    return $query->whereBetween('penukaran.tanggal_penukaran', [$tanggalAwal, $tanggalAkhir]);
+                    return $query->whereBetween(DB::raw('DATE(penukaran.tanggal_penukaran)'), [$tanggalAwal, $tanggalAkhir]);
                 })
                 ->when($NamaPelanggan, function ($query, $NamaPelanggan) {
                     return $query->where('pelanggan.NamaPelanggan', 'LIKE', "%$NamaPelanggan%");
@@ -52,7 +52,7 @@ class CLaporanController extends Controller
                     DB::raw('SUM(detail_penjualan.quantity) as totalQuantity')
                 )
                 ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
-                    return $query->whereBetween('penjualan.tanggalPenjualan', [$tanggalAwal, $tanggalAkhir]);
+                    return $query->whereBetween(DB::raw('DATE(penjualan.tanggalPenjualan)'), [$tanggalAwal, $tanggalAkhir]);
                 })
                 ->groupBy('penjualan.id_penjualan', 'penjualan.tanggalPenjualan', 'pelanggan.NamaPelanggan', 'pelanggan.totalPoin', 'penjualan.totalHarga')
                 ->orderBy('penjualan.tanggalPenjualan', 'DESC')
@@ -71,7 +71,7 @@ class CLaporanController extends Controller
                     DB::raw('SUM(detail_pembelian.quantity) as toquantity')
                 )
                 ->when($tanggalAwal && $tanggalAkhir, function ($query) use ($tanggalAwal, $tanggalAkhir) {
-                    return $query->whereBetween('pembelian.tanggalPembelian', [$tanggalAwal, $tanggalAkhir]);
+                    return $query->whereBetween(DB::raw('DATE(pembelian.tanggalPembelian)'), [$tanggalAwal, $tanggalAkhir]);
                 })
                 ->groupBy('pembelian.id_pembelian', 'bahanBaku.namaBahanBaku', 'pembelian.tanggalPembelian', 'pembelian.totalHarga')
                 ->orderBy('pembelian.tanggalPembelian', 'DESC')
@@ -82,8 +82,6 @@ class CLaporanController extends Controller
 
         return ['laporan' => $laporan, 'totalTransaksi' => $totalTransaksi];
     }
-
-
 
     public function getLaporan(Request $request)
     {
@@ -108,7 +106,6 @@ class CLaporanController extends Controller
         ]));
     }
 
-
     public function exportExcel(Request $request)
     {
         $tipeLaporan = $request->get('tipe', 'penjualan');
@@ -130,7 +127,6 @@ class CLaporanController extends Controller
         );
     }
 
-
     public function exportPDF(Request $request)
     {
         $tipeLaporan = $request->get('tipe', 'penjualan');
@@ -145,7 +141,6 @@ class CLaporanController extends Controller
             return back()->with('error', 'No data available for the selected filters.');
         }
         
-
         if($tipeLaporan == 'penukaran'){
             $fileName = "Redemptions_report_{$tanggalAwal}_to_{$tanggalAkhir}.pdf";
         }
@@ -155,6 +150,7 @@ class CLaporanController extends Controller
         else{
             $fileName = "Purchase_report_{$tanggalAwal}_to_{$tanggalAkhir}.pdf";
         }
+        
         $totalTransaksi = $dataLaporan['totalTransaksi'];
         
         $pdf = FacadePdf::loadView('dashboard.laporan.pdf', [

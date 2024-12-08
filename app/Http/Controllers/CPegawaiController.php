@@ -124,9 +124,14 @@ class CPegawaiController extends Controller
     }
 
     public function ChecknoHP(Request $request)
-    {
-        $noHP = $request->input('noHP');
-        $exists = Pengguna::where('noHP', $noHP)->exists();
-        return response()->json(['exists' => $exists]);
+{
+    $noHP = $request->input('noHP');
+    if (!$noHP) {
+        return response()->json(['error' => 'Nomor HP tidak diterima'], 400);
     }
+
+    $exists = Pengguna::where('noHP', $noHP)->exists();
+    return response()->json(['exists' => $exists]);
+}
+
 }

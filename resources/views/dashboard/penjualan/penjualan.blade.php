@@ -13,7 +13,11 @@
 <style>
     /* CSS untuk Responsif */
     .notification {
-        margin-left: 665px;
+        position: fixed;
+        top: 25px;
+        right: 40px;
+        margin-right: 20px;
+        z-index: 1000;
     }
 
     .container {
@@ -44,6 +48,7 @@
     h1 {
         font-size: 30px;
         color: #333;
+        font-weight: bold;
     }
 
     .sales-view {
@@ -116,7 +121,7 @@
 
     /* Styling tabel */
     table {
-        width: 93%;
+        width: 93.5%;
         border-collapse: collapse;
         margin-top: 10px;
         background-color: #ffffff;
@@ -465,30 +470,113 @@
     @media (max-width: 768px) {
         .search-bar {
             display: flex;
+            /* Pastikan display adalah flex */
             flex-direction: row;
+            /* Ubah dari column ke row */
             align-items: center;
+            /* Center align items vertically */
             gap: 10px;
+            /* Tambahkan jarak antar elemen */
             margin-top: 30px;
             margin-bottom: 30px;
             width: 100%;
+            /* Pastikan lebar 100% */
         }
+
+        .notification {
+            position: relative;
+            display: flex;
+            top: 25px;
+            right: 40px;
+            margin-right: 30px;
+            z-index: 1000;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 40px;
+        }
+
+        .search-input {
+            padding: 10px;
+            /* Padding yang seimbang */
+            border: 1px solid #c9d6cf;
+            border-radius: 8px;
+            width: 100%;
+            /* Pastikan input mengambil ruang yang tersedia */
+            font-size: 16px;
+            height: 40px;
+            /* Tinggi kotak input */
+            box-sizing: border-box;
+            /* Pastikan padding tidak mempengaruhi lebar total */
+            text-align: left;
+            /* Atur teks untuk rata kiri */
+        }
+
+        .create-btn {
+            width: auto;
+            /* Ubah lebar menjadi auto */
+            flex-shrink: 0;
+            /* Mencegah tombol untuk menyusut */
+        }
+
 
         table {
             font-size: 14px;
+            /* Mengurangi ukuran font pada tabel */
         }
 
         th,
         td {
             display: block;
             width: 100%;
+            /* Membuat setiap sel menempati lebar penuh */
         }
 
         th {
             position: absolute;
             top: -9999px;
+            /* Menghilangkan th dari tampilan */
             left: -9999px;
         }
 
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            /* Mengatur tombol ke sebelah kanan */
+            align-items: center;
+            width: 100%;
+        }
+
+        .visibility-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #B0EACD 0%, #445D48 100%);
+            color: #ffffff;
+            /* Warna teks dan ikon */
+            border: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            gap: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        td {
+            text-align: right;
+            /* Rata kanan untuk td */
+            padding-left: 50%;
+            /* Memberi ruang untuk label */
+            position: relative;
+            padding: 10px;
+            /* Pastikan ada padding agar tampak rapi */
+        }
+
+        /* Menjaga agar label tetap berfungsi dalam tampilan mobile */
         td::before {
             content: attr(data-label);
             position: absolute;
@@ -498,8 +586,10 @@
             text-align: left;
             font-weight: bold;
         }
+
     }
 </style>
+
 
 <body>
     @include('layout.sidebar')
@@ -507,8 +597,10 @@
     <div class="main-content">
         <header>
             <h1>Bolívar Coffee - Sales List <span class="status-dot"></span></h1>
-            <div class="notification"></div>
-            @include('layout.navbar')
+            {{-- <button class="payment-btn">Create purchase</button> --}}
+            <div class="notification">
+                @include('layout.navbar')
+            </div>
         </header>
         <div class="sales-view">
             <div class="search-bar">
@@ -537,7 +629,7 @@
                 <tbody>
                     @foreach ($penjualan as $index => $Sales)
                         <tr>
-                            <td data-label="No">{{ $penjualan->total() - ($penjualan->firstItem() - 1) - $index }}</td>
+                            <td data-label="No">{{ $penjualan->firstItem() + $index }}</td>
                             {{-- <td data-label="Sales ID"> {{ $Sales->id_penjualan }}</td> --}}
                             <td data-label="Customer Name">
                                 {{ $Sales->NamaPelanggan == '0' || is_null($Sales->NamaPelanggan) ? 'Guest' : $Sales->NamaPelanggan }}
@@ -646,7 +738,7 @@
 
         function closeProfileModal() {
             document.getElementById('profileModal').style.display = 'none';
-            window.location.href = '{{ route('penjualan.show') }}'; 
+            window.location.href = '{{ route('penjualan.show') }}';
         }
 
         function validateAndSubmitPassword() {

@@ -178,6 +178,15 @@
             opacity: 0.9;
             transition: opacity 0.3s ease;
         }
+
+        header {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 100px;
+            margin-left: 120px
+        }
     </style>
 </head>
 
@@ -244,6 +253,7 @@
             </div>
             <p class="modal-message">Menu Updated successfully!</p>
             <button type="button" class="modal-button" onclick="closeSuccessModal()">DONE</button>
+
         </div>
     </div>
 
@@ -290,21 +300,24 @@
             event.target.value = formattedInput;
         }
         async function validateForm(event) {
-            event.preventDefault(); // Mencegah pengiriman form
+            event.preventDefault(); // Cegah pengiriman form
 
             const namaMenu = document.getElementById('namaMenu').value.trim();
-            const currentMenuId = "{{ $menu->id }}"; // Dapatkan ID menu saat ini dari server
+            const currentMenuId = "{{ $menu->id }}";
 
             const response = await fetch(
-                `{{ route('menu.Checknamamenu') }}?namaMenu=${namaMenu}&excludeId=${currentMenuId}`);
+                `{{ route('menu.Checknamamenu') }}?namaMenu=${namaMenu}&excludeId=${currentMenuId}`
+            );
             const result = await response.json();
 
             if (result.exists) {
                 showErrorModal("The menu name already exists. Please use a different name.");
             } else {
-                closeSuccessModal();
+                document.getElementById('successModal').style.display = 'flex'; // Tampilkan modal sukses
             }
         }
+
+
 
         function showErrorModal(message) {
             document.getElementById('errorMessage').textContent = message;
@@ -312,9 +325,11 @@
         }
 
         function closeSuccessModal() {
-            document.getElementById('successModal').style.display = 'none';
-            document.getElementById('editMenuForm').submit(); // Submit the form after success modal
+            const successModal = document.getElementById('successModal');
+            successModal.style.display = 'none'; // Sembunyikan modal sukses
+            window.location = "{{ route('menu.show') }}"; // Redirect ke halaman menu.show
         }
+
 
         function closeErrorModal() {
             document.getElementById('errorModal').style.display = 'none';

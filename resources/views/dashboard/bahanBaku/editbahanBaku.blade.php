@@ -147,6 +147,14 @@
             opacity: 0.9;
             transition: opacity 0.3s ease;
         }
+        
+        header {
+            margin-top: 50px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 220px;
+        }
     </style>
 </head>
 

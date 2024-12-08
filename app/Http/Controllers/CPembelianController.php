@@ -25,7 +25,7 @@ class CPembelianController extends Controller
             ->join('bahanBaku', 'detail_pembelian.id_bahanBaku', '=', 'bahanBaku.id')
             ->groupBy('pembelian.id_pembelian', 'pembelian.tanggalPembelian', 'pembelian.totalHarga')
             ->orderBy('pembelian.tanggalPembelian', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return view("dashboard/pembelian/pembelian", compact('pembelian'));
     }

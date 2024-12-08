@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         .notification {
-            margin-left: 485px;
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            margin-right: 30px;
+            z-index: 1000;
         }
 
         .container {
@@ -31,13 +35,19 @@
             box-sizing: border-box;
         }
 
+        h1 {
+            font-size: 30px;
+            color: #333;
+            font-weight: bold;
+        }
+
         .search-bar {
             position: relative;
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
-            width: calc(100% - 40px);
+            width: calc(100% - 50px);
             /* Menyesuaikan lebar untuk menghindari geser */
             margin-left: 40px;
         }
@@ -93,7 +103,7 @@
         }
 
         table {
-            width: 93.5%;
+            width: 93%;
             border-collapse: collapse;
             margin-top: 10px;
             background-color: #ffffff;
@@ -195,7 +205,15 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #c90000
+            color: #c90000;
+            text-align: center;
+            /* Memusatkan teks secara horizontal */
+            display: flex;
+            /* Tambahan untuk memastikan pemusatan */
+            justify-content: center;
+            /* Memusatkan isi secara horizontal */
+            align-items: center;
+            /* Memusatkan isi secara vertikal (jika diperlukan) */
         }
 
         .modal-buttons {
@@ -464,6 +482,22 @@
                 /* Pastikan lebar 100% */
             }
 
+            .notification {
+                position: relative;
+                display: flex;
+                top: 25px;
+                right: 40px;
+                margin-right: 30px;
+                z-index: 1000;
+            }
+
+            header {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 40px;
+            }
+
             .search-input {
                 padding: 10px;
                 /* Padding yang seimbang */
@@ -555,6 +589,7 @@
                 text-align: left;
                 font-weight: bold;
             }
+        }
     </style>
 </head>
 
@@ -562,7 +597,7 @@
     @include('layout.sidebar')
 
     <div class="main-content">
-        <header>
+        <header class="header-container">
             <h1>Bolívar Coffee - Employee List <span class="status-dot"></span></h1>
             <div class="notification">
                 @include('layout.navbar')
@@ -596,7 +631,8 @@
                     @foreach ($pengguna as $index => $pegawai)
                         <tr>
                             {{-- <td data-label="Employee Name">{{ $pegawai->id }}</td> --}}
-                            <td data-label="No">{{ $pengguna->total() - ($pengguna->firstItem() - 1) - $index }}</td>
+                            <td data-label="No">
+                                {{ $loop->iteration + ($pengguna->currentPage() - 1) * $pengguna->perPage() }}</td>
                             <td data-label="Employee Name">{{ $pegawai->namaPengguna }}</td>
                             <td data-label="Phone Number">{{ $pegawai->noHP }}</td>
                             <td data-label="Username">{{ $pegawai->username }}</td>
@@ -714,7 +750,7 @@
     <div id="successModal" class="success-modal">
         <div class="success-content">
             <p>Delete successful!</p>
-            <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button>
+            {{-- <button type="button" class="modal-button confirm-button" onclick="closeSuccessModal()">OK</button> --}}
         </div>
     </div>
 
